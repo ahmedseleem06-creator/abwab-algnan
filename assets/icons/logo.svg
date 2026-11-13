@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <!-- Background Gradient (Dark Emerald) -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#144138" />
+      <stop offset="40%" stop-color="#0c2722" />
+      <stop offset="100%" stop-color="#051411" />
+    </linearGradient>
+
+    <!-- Warm Royal Gold Gradient -->
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF2A3" />
+      <stop offset="25%" stop-color="#F5D061" />
+      <stop offset="65%" stop-color="#D4AF37" />
+      <stop offset="100%" stop-color="#997316" />
+    </linearGradient>
+
+    <!-- Soft Golden Inner Light -->
+    <radialGradient id="gateGlow" cx="50%" cy="58%" r="45%">
+      <stop offset="0%" stop-color="#FFE885" stop-opacity="0.38" />
+      <stop offset="40%" stop-color="#D4AF37" stop-opacity="0.18" />
+      <stop offset="100%" stop-color="#051411" stop-opacity="0" />
+    </radialGradient>
+
+    <!-- Soft Drop Shadow Filter -->
+    <filter id="goldShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="10" flood-color="#D4AF37" flood-opacity="0.35" />
+    </filter>
+  </defs>
+
+  <!-- App Icon Squircle Container -->
+  <rect width="512" height="512" rx="112" fill="url(#bgGrad)" />
+
+  <!-- Outer Fine Golden Rim -->
+  <rect x="14" y="14" width="484" height="484" rx="100" fill="none" stroke="url(#goldGrad)" stroke-width="2.5" stroke-opacity="0.45" />
+
+  <!-- Background Islamic Star Motif (Watermark) -->
+  <g opacity="0.12" stroke="url(#goldGrad)" stroke-width="2" fill="none" transform="translate(256, 260)">
+    <circle r="160" />
+    <polygon points="0,-160 113,-113 160,0 113,113 0,160 -113,113 -160,0 -113,-113" />
+    <polygon points="-113,-113 0,-160 113,-113 160,0 113,113 0,160 -113,113 -160,0" transform="rotate(22.5)" />
+    <circle r="90" />
+  </g>
+
+  <!-- Glowing Aura inside the Gate -->
+  <circle cx="256" cy="270" r="160" fill="url(#gateGlow)" />
+
+  <!-- Islamic Gate (أبواب الجنان) Archway -->
+  <!-- Outer Arch -->
+  <path d="M 126 405 
+           L 126 260 
+           C 126 150, 185 105, 256 70 
+           C 327 105, 386 150, 386 260 
+           L 386 405" 
+        fill="none" 
+        stroke="url(#goldGrad)" 
+        stroke-width="12" 
+        stroke-linecap="round" 
+        filter="url(#goldShadow)" />
+
+  <!-- Inner Decorative Arch -->
+  <path d="M 152 405 
+           L 152 268 
+           C 152 178, 200 138, 256 106 
+           C 312 138, 360 178, 360 268 
+           L 360 405" 
+        fill="none" 
+        stroke="url(#goldGrad)" 
+        stroke-width="4" 
+        stroke-dasharray="6 4" 
+        stroke-opacity="0.8" />
+
+  <!-- Gate Base Plinths -->
+  <rect x="110" y="400" width="32" height="15" rx="4" fill="url(#goldGrad)" />
+  <rect x="370" y="400" width="32" height="15" rx="4" fill="url(#goldGrad)" />
+  <line x1="100" y1="415" x2="412" y2="415" stroke="url(#goldGrad)" stroke-width="4" stroke-linecap="round" />
+
+  <!-- Gate Keystone / Peak Crescent Ornament -->
+  <circle cx="256" cy="62" r="9" fill="url(#goldGrad)" />
+  <polygon points="256,40 259,50 269,50 261,56 264,66 256,60 248,66 251,56 243,50 253,50" fill="url(#goldGrad)" />
+
+  <!-- Central Glowing Crescent Moon (هلال رمضان) inside the Gate -->
+  <g transform="translate(256, 250) scale(1.15)">
+    <!-- Crescent -->
+    <path d="M 12 -42 
+             C -28 -38, -48 -4, -40 32 
+             C -32 68, 6 82, 38 66 
+             C 12 70, -16 56, -20 26 
+             C -24 -4, -4 -32, 12 -42 Z" 
+          fill="url(#goldGrad)" 
+          filter="url(#goldShadow)" />
+    
+    <!-- Central Radiant 8-Point Star -->
+    <polygon points="18,-18 21,-7 32,-7 23,0 26,11 18,4 10,11 13,0 4,-7 15,-7" 
+             fill="#FFF" 
+             filter="url(#goldShadow)" />
+    <circle cx="18" cy="-2" r="3.5" fill="#FFEAA7" />
+  </g>
+
+  <!-- Hanging Lantern (فانوس الجنان) inside the Arch -->
+  <g transform="translate(256, 120)">
+    <line x1="0" y1="0" x2="0" y2="35" stroke="url(#goldGrad)" stroke-width="2" stroke-dasharray="2 2" />
+    <polygon points="-6,35 6,35 9,45 -9,45" fill="url(#goldGrad)" />
+    <polygon points="-9,45 0,55 9,45" fill="#FFEAA7" opacity="0.9" />
+    <circle cx="0" cy="46" r="3" fill="#FFF" />
+  </g>
+</svg>
