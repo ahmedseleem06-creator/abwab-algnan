@@ -1,18 +1,18 @@
 /* Stylesheet for Abwab Al-Jinan (أبواب الجنان) Ramadan App */
 :root {
-  --bg-primary: #06131d;
-  --bg-card: #0c202f;
-  --bg-card-teal: #0e2a3c;
-  --bg-card-gradient: linear-gradient(180deg, #103248 0%, #0a1f2e 100%);
+  --bg-primary: #041411;
+  --bg-secondary: #07241e;
+  --bg-card: #0a2d26;
+  --bg-card-dark: #051a15;
   --accent-gold: #d4af37;
   --accent-gold-light: #f5d061;
   --accent-gold-glow: rgba(212, 175, 55, 0.4);
-  --accent-cyan: #38bdf8;
-  --accent-cyan-glow: rgba(56, 189, 248, 0.35);
+  --accent-emerald: #10b981;
+  --accent-emerald-glow: rgba(16, 185, 129, 0.35);
   --text-main: #f8fafc;
   --text-muted: #94a3b8;
-  --border-gold: rgba(212, 175, 55, 0.4);
-  --border-cyan: rgba(56, 189, 248, 0.45);
+  --border-gold: rgba(212, 175, 55, 0.35);
+  --border-emerald: rgba(16, 185, 129, 0.3);
 }
 
 * {
@@ -32,18 +32,23 @@ body {
   align-items: flex-start;
   overflow-x: hidden;
   direction: rtl;
+  user-select: none;
 }
 
-/* Atmospheric Night Bokeh & Islamic Mandala background */
-.bg-night-atmosphere {
-  background-color: #05101a;
+.font-quran {
+  font-family: 'Amiri', 'Traditional Arabic', serif;
+}
+
+/* Emerald Green + Royal Gold Islamic Atmosphere */
+.bg-emerald-islamic {
+  background-color: #041411;
   background-image: 
-    radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.15) 0%, transparent 20%),
-    radial-gradient(circle at 85% 15%, rgba(56, 189, 248, 0.12) 0%, transparent 25%),
-    radial-gradient(circle at 90% 70%, rgba(212, 175, 55, 0.1) 0%, transparent 22%),
-    radial-gradient(circle at 15% 85%, rgba(56, 189, 248, 0.1) 0%, transparent 22%),
-    radial-gradient(rgba(212, 175, 55, 0.08) 1px, transparent 1px);
-  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 20px 20px;
+    radial-gradient(circle at 15% 12%, rgba(212, 175, 55, 0.22) 0%, transparent 35%),
+    radial-gradient(circle at 85% 18%, rgba(16, 185, 129, 0.18) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(6, 44, 38, 0.5) 0%, transparent 65%),
+    radial-gradient(circle at 85% 85%, rgba(212, 175, 55, 0.16) 0%, transparent 35%),
+    radial-gradient(circle at 15% 85%, rgba(16, 185, 129, 0.15) 0%, transparent 35%),
+    url("data:image/svg+xml,%3Csvg width='72' height='72' viewBox='0 0 72 72' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23d4af37' stroke-width='0.65' stroke-opacity='0.16'%3E%3Crect x='18' y='18' width='36' height='36'/%3E%3Crect x='18' y='18' width='36' height='36' transform='rotate(45 36 36)'/%3E%3Cpolygon points='36,6 42,18 57,12 51,27 66,36 51,45 57,60 42,54 36,66 30,54 15,60 21,45 6,36 21,27 15,12 30,18'/%3E%3Ccircle cx='36' cy='36' r='9'/%3E%3Ccircle cx='36' cy='36' r='4' fill='%23d4af37' fill-opacity='0.12'/%3E%3C/g%3E%3C/svg%3E");
 }
 
 /* App Container (Phone-like max width on desktop, full width on mobile) */
@@ -51,44 +56,53 @@ body {
   width: 100%;
   max-width: 440px;
   min-height: 100vh;
-  background: #081724;
+  background: #041411;
   position: relative;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 0 60px rgba(0, 0, 0, 0.85), 0 0 25px rgba(212, 175, 55, 0.2);
-  border-left: 1px solid rgba(212, 175, 55, 0.2);
-  border-right: 1px solid rgba(212, 175, 55, 0.2);
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.9), 0 0 25px rgba(212, 175, 55, 0.2);
+  border-left: 1px solid rgba(212, 175, 55, 0.25);
+  border-right: 1px solid rgba(212, 175, 55, 0.25);
 }
 
-/* Card Glows */
-.glow-cyan-card {
-  box-shadow: 0 0 22px var(--accent-cyan-glow);
-  border: 1px solid var(--border-cyan);
+/* Card Styles */
+.emerald-card {
+  background: linear-gradient(145deg, rgba(10, 44, 38, 0.85) 0%, rgba(5, 24, 20, 0.95) 100%);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(245, 208, 97, 0.2);
 }
 
-.glow-gold-card {
-  box-shadow: 0 0 24px var(--accent-gold-glow);
-  border: 1px solid var(--border-gold);
+.emerald-card-active {
+  border: 1px solid rgba(245, 208, 97, 0.7);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.25), inset 0 1px 1px rgba(245, 208, 97, 0.4);
+}
+
+.gold-gradient-text {
+  background: linear-gradient(135deg, #ffe082 0%, #d4af37 50%, #f5d061 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gold-button {
+  background: linear-gradient(135deg, #f5d061 0%, #d4af37 60%, #b89127 100%);
+  color: #041411;
+  font-weight: 700;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.35);
+  transition: all 0.2s ease;
+}
+
+.gold-button:active {
+  transform: scale(0.97);
 }
 
 .crescent-glow {
-  filter: drop-shadow(0 0 16px rgba(245, 208, 97, 0.8));
+  filter: drop-shadow(0 0 16px rgba(245, 208, 97, 0.85));
   animation: floatCrescent 4s ease-in-out infinite;
 }
 
 @keyframes floatCrescent {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-4px) rotate(1.5deg); }
-}
-
-@keyframes swayLantern {
-  0%, 100% { transform: rotate(-3deg); }
-  50% { transform: rotate(3deg); }
-}
-
-.animate-lantern {
-  transform-origin: top center;
-  animation: swayLantern 3.5s ease-in-out infinite;
+  0%, 100% { transform: translateY(0) rotate(10deg); }
+  50% { transform: translateY(-3px) rotate(11deg); }
 }
 
 /* Tab Content Visibility */
@@ -102,7 +116,7 @@ body {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
+  from { opacity: 0; transform: translateY(5px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
@@ -113,39 +127,4 @@ body {
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
-}
-
-/* Custom interactive buttons */
-.btn-gold {
-  background: linear-gradient(135deg, #d4af37 0%, #b89127 100%);
-  color: #061815;
-  font-weight: 700;
-  transition: all 0.2s ease;
-}
-
-.btn-gold:active {
-  transform: scale(0.97);
-}
-
-/* Royal Islamic Atmosphere & Arabesque Ornamentation (Matching Reference bbb9fd4d) */
-.bg-royal-islamic {
-  background-color: #020912;
-  background-image: 
-    radial-gradient(circle at 15% 12%, rgba(214, 176, 107, 0.24) 0%, transparent 35%),
-    radial-gradient(circle at 85% 18%, rgba(34, 211, 238, 0.16) 0%, transparent 40%),
-    radial-gradient(circle at 50% 55%, rgba(12, 45, 62, 0.45) 0%, transparent 65%),
-    radial-gradient(circle at 85% 85%, rgba(214, 176, 107, 0.16) 0%, transparent 38%),
-    url("data:image/svg+xml,%3Csvg width='72' height='72' viewBox='0 0 72 72' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23d4af37' stroke-width='0.65' stroke-opacity='0.16'%3E%3Crect x='18' y='18' width='36' height='36'/%3E%3Crect x='18' y='18' width='36' height='36' transform='rotate(45 36 36)'/%3E%3Cpolygon points='36,6 42,18 57,12 51,27 66,36 51,45 57,60 42,54 36,66 30,54 15,60 21,45 6,36 21,27 15,12 30,18'/%3E%3Ccircle cx='36' cy='36' r='9'/%3E%3Ccircle cx='36' cy='36' r='4' fill='%23d4af37' fill-opacity='0.12'/%3E%3C/g%3E%3C/svg%3E");
-}
-
-.islamic-mandala-corner {
-  pointer-events-none;
-  user-select: none;
-  opacity: 0.35;
-  filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.4));
-}
-
-.royal-dome-btn {
-  background: radial-gradient(circle at 50% 35%, #ffe699 0%, #d4af37 60%, #8a6715 100%);
-  box-shadow: 0 0 25px rgba(245, 208, 97, 0.6), inset 0 2px 4px rgba(255, 255, 255, 0.7);
 }

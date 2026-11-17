@@ -1,0 +1,95 @@
+name: Build Abwab Al-Jinan APK
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build Android APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.x'
+          channel: 'stable'
+          cache: true
+
+      - name: Ensure Android platform scaffolding
+        run: |
+          if [ ! -d "android" ]; then
+            mkdir -p /tmp/app_backup
+            cp -r lib pubspec.yaml /tmp/app_backup/
+            if [ -d "assets" ]; then cp -r assets /tmp/app_backup/; fi
+            flutter create . --project-name abwab_aljinan --platforms=android --org com.abwab.aljinan
+            rm -rf lib pubspec.yaml
+            cp -r /tmp/app_backup/lib .
+            cp /tmp/app_backup/pubspec.yaml .
+            if [ -d "/tmp/app_backup/assets" ]; then cp -r /tmp/app_backup/assets .; fi
+          fi
+
+      - name: Configure Android Permissions & App Name
+        run: |
+          MANIFEST="android/app/src/main/AndroidManifest.xml"
+          if [ -f "$MANIFEST" ]; then
+            if ! grep -q "android.permission.INTERNET" "$MANIFEST"; then
+              sed -i '/<manifest/a \    <uses-permission android:name="android.permission.INTERNET"\/>\n    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"\/>' "$MANIFEST"
+              sed -i '/<application/a \        android:usesCleartextTraffic="true"' "$MANIFEST"
+            fi
+            sed -i 's/android:label="abwab_aljinan"/android:label="أبواب الجنان"/' "$MANIFEST"
+          fi
+
+      - name: Setup Dependencies and App Icon
+        run: |
+          flutter pub get
+          if [ -f "assets/icons/icon-512.png" ]; then
+            flutter pub run flutter_launcher_icons || true
+          fi
+
+      - name: Build Universal Release APK
+        run: |
+          rm -f android/local.properties 2>/dev/null || true
+          flutter build apk --release --no-tree-shake-icons
+
+      - name: Prepare APK File for Download
+        run: |
+          mkdir -p release_output
+          cp build/app/outputs/flutter-apk/app-release.apk release_output/Abwab-AlJinan-Release.apk
+
+      - name: Upload APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Abwab-AlJinan-Official-APK
+          path: release_output/Abwab-AlJinan-Release.apk
+          if-no-files-found: error
+
+      - name: Create or Update GitHub Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/heads/main')
+        continue-on-error: true
+        with:
+          tag_name: v1.0.0
+          name: "أبواب الجنان - تطبيق أندرويد APK v1.0.0"
+          body: |
+            🌙 **تطبيق أبواب الجنان - النسخة الرسمية APK للهاتف**
+            - تطبيق أندرويد مستقل بالكامل (Standalone Native App) بدون فتح متصفح.
+            - يشمل كافة ميزات شهر رمضان، متتبع العادات، المصحف الشريف، المسبحة، ومواقيت الصلاة.
+            - حمل ملف `Abwab-AlJinan-Release.apk` أدناه وثبته مباشرة على هاتفك.
+          files: release_output/Abwab-AlJinan-Release.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

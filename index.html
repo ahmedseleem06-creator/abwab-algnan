@@ -6,872 +6,534 @@
   <title>أبواب الجنان - رفيق الاستعداد لرمضان</title>
   
   <!-- Web App Manifest for PWA -->
-  <link rel="manifest" href="manifest.json">
-  <link rel="icon" type="image/svg+xml" href="assets/icons/logo.svg">
-  <meta name="theme-color" content="#06131d">
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#041411">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="icon" type="image/png" href="./assets/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="./assets/icons/icon-512.png">
 
-  <!-- Tailwind CSS & Styles -->
+  <!-- Tailwind CSS & FontAwesome -->
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
-  <link rel="stylesheet" href="styles.css">
-  
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cairo:wght@400;600;700;800;900&display=swap');
-    body { font-family: 'Cairo', 'Segoe UI', system-ui, sans-serif; }
-    .font-quran { font-family: 'Amiri', 'Traditional Arabic', serif; }
-  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="./styles.css">
 </head>
-<body class="bg-night-atmosphere min-h-screen flex justify-center items-start selection:bg-amber-400 selection:text-emerald-950">
+<body class="bg-[#030d0b] text-slate-100 flex justify-center min-h-screen">
 
-  <!-- Main Mobile Container (Matching the Reference Mockup) -->
-  <main class="app-container flex flex-col justify-between overflow-hidden relative">
-    <!-- Royal Islamic Arabesque Mandala Watermarks (Exact 8-pointed Khatam Star matching bbb9fd4d) -->
-    <div class="absolute -top-12 -left-12 w-48 h-48 pointer-events-none select-none z-0 islamic-mandala-corner">
-      <svg viewBox="0 0 100 100" fill="none" class="w-full h-full text-amber-300">
-        <g stroke="currentColor" stroke-linejoin="round" fill="none">
-          <polygon points="50,4 63,18 82,18 88,37 100,50 88,63 82,82 63,82 50,96 37,82 18,82 12,63 0,50 12,37 18,18 37,18" stroke-width="0.8" opacity="0.5" />
-          <rect x="22" y="22" width="56" height="56" stroke-width="1.6" />
-          <rect x="22" y="22" width="56" height="56" transform="rotate(45 50 50)" stroke-width="1.6" />
-          <polygon points="50,8 60,22 78,14 74,32 92,50 74,68 78,86 60,78 50,92 40,78 22,86 26,68 8,50 26,32 22,14 40,22" stroke-width="1.8" />
-          <polygon points="50,30 64,36 70,50 64,64 50,70 36,64 30,50 36,36" stroke-width="1.2" />
-          <circle cx="50" cy="50" r="7" stroke-width="1.3" />
-          <circle cx="50" cy="50" r="3" fill="currentColor" />
-          <line x1="22" y1="22" x2="78" y2="78" stroke-width="0.7" opacity="0.6" />
-          <line x1="78" y1="22" x2="22" y2="78" stroke-width="0.7" opacity="0.6" />
-        </g>
-      </svg>
-    </div>
+  <div class="app-container bg-emerald-islamic">
 
-    <div class="absolute -top-10 -right-10 w-44 h-44 pointer-events-none select-none z-0 islamic-mandala-corner">
-      <svg viewBox="0 0 100 100" fill="none" class="w-full h-full text-amber-300">
-        <g stroke="currentColor" stroke-linejoin="round" fill="none">
-          <rect x="22" y="22" width="56" height="56" stroke-width="1.6" />
-          <rect x="22" y="22" width="56" height="56" transform="rotate(45 50 50)" stroke-width="1.6" />
-          <polygon points="50,8 60,22 78,14 74,32 92,50 74,68 78,86 60,78 50,92 40,78 22,86 26,68 8,50 26,32 22,14 40,22" stroke-width="1.8" />
-          <circle cx="50" cy="50" r="7" stroke-width="1.3" />
-        </g>
-      </svg>
-    </div>
-
-    <div class="absolute bottom-20 -left-12 w-40 h-40 pointer-events-none select-none z-0 islamic-mandala-corner">
-      <svg viewBox="0 0 100 100" fill="none" class="w-full h-full text-amber-300">
-        <g stroke="currentColor" stroke-linejoin="round" fill="none">
-          <polygon points="50,8 60,22 78,14 74,32 92,50 74,68 78,86 60,78 50,92 40,78 22,86 26,68 8,50 26,32 22,14 40,22" stroke-width="1.8" />
-          <rect x="22" y="22" width="56" height="56" transform="rotate(45 50 50)" stroke-width="1.4" />
-          <circle cx="50" cy="50" r="6" stroke-width="1.2" />
-        </g>
-      </svg>
-    </div>
-    
-    <header class="p-4 pt-5 pb-2 flex items-center justify-between border-b border-cyan-900/30 bg-[#071624]/85 backdrop-blur-md sticky top-0 z-40">
-      <div class="flex items-center gap-3">
-        <!-- App Logo Squircle Icon -->
-        <div onclick="editUserName()" class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-amber-500 via-amber-300 to-amber-600 p-0.5 shadow-lg shadow-amber-500/25 cursor-pointer active:scale-95 transition shrink-0">
-          <img src="assets/icons/logo.svg" alt="أبواب الجنان" class="w-full h-full rounded-[14px] object-cover bg-[#091b2b]">
+    <!-- Top Sticky Header (Live Hijri & Gregorian Dates + City) -->
+    <header class="sticky top-0 z-30 bg-[#041411]/95 backdrop-blur-md px-4 py-3 border-b border-amber-500/20 flex items-center justify-between">
+      <div class="flex items-center gap-2.5">
+        <div class="w-9 h-9 rounded-2xl bg-gradient-to-tr from-amber-500/30 to-amber-200/20 border border-amber-400/40 flex items-center justify-center text-amber-300 text-base shadow-sm">
+          🌙
         </div>
         <div>
-          <div class="flex items-center gap-1.5">
-            <h1 class="text-lg font-black text-amber-300 tracking-wide">أبواب الجنان</h1>
-            <span class="text-[10px] bg-cyan-950 text-cyan-400 border border-cyan-700/50 px-2 py-0.5 rounded-full font-mono">1446 هـ</span>
-          </div>
-          <p id="user-greeting-name" onclick="editUserName()" class="text-xs text-slate-300 cursor-pointer hover:underline">أهلاً بك يا أحمد 🌙</p>
+          <div class="text-xs font-bold text-amber-300" id="liveHijriHeader">جاري حساب التاريخ الهجري...</div>
+          <div class="text-[10px] text-emerald-300/80" id="liveGregorianHeader">...</div>
         </div>
       </div>
 
-      <div class="flex items-center gap-2">
-        <button onclick="switchTab('quran')" title="المصحف الشريف" class="w-9 h-9 rounded-xl bg-cyan-950/80 border border-cyan-500/30 flex items-center justify-center text-amber-300 hover:bg-cyan-900 transition active:scale-95">
-          📖
-        </button>
-        <button onclick="editUserName()" title="تعديل الاسم" class="w-9 h-9 rounded-xl bg-cyan-950/80 border border-cyan-500/30 flex items-center justify-center text-amber-300 hover:bg-cyan-900 transition active:scale-95">
-          ✏️
-        </button>
+      <!-- City Selector -->
+      <div class="flex items-center gap-1.5 bg-[#082a22] border border-amber-500/30 rounded-full px-2.5 py-1 text-[11px] text-amber-200 shadow-inner">
+        <i class="fa-solid fa-location-dot text-[9px] text-amber-400"></i>
+        <select id="citySelect" onchange="changeCity(this.value)" class="bg-transparent text-amber-200 focus:outline-none cursor-pointer text-[11px]">
+          <option value="Cairo" class="bg-[#041411] text-amber-200">القاهرة</option>
+          <option value="Alexandria" class="bg-[#041411] text-amber-200">الإسكندرية</option>
+          <option value="Makkah" class="bg-[#041411] text-amber-200">مكة المكرمة</option>
+          <option value="Madinah" class="bg-[#041411] text-amber-200">المدينة المنورة</option>
+          <option value="Riyadh" class="bg-[#041411] text-amber-200">الرياض</option>
+          <option value="Dubai" class="bg-[#041411] text-amber-200">دبي</option>
+          <option value="Jerusalem" class="bg-[#041411] text-amber-200">القدس الشريف</option>
+        </select>
       </div>
     </header>
 
-    <!-- Main Scrollable App Content Area -->
-    <section class="flex-1 px-4 py-3.5 pb-28 space-y-4 overflow-y-auto no-scrollbar z-10">
+    <!-- Main Dynamic Content Container -->
+    <main class="flex-1 p-3.5 space-y-4 pb-24 overflow-y-auto no-scrollbar">
 
-      <!-- ============================================== -->
-      <!-- TAB 1: الرئيسية - الواجهة المطابقة للصورة المرفقة -->
-      <!-- ============================================== -->
-      <div id="tab-home" class="tab-content active space-y-4">
+      <!-- ========================================== -->
+      <!-- TAB 1: الرئيسية (Home Dashboard)           -->
+      <!-- ========================================== -->
+      <section id="tab-home" class="tab-content active space-y-4">
         
-        <!-- 1. Hero Banner Card (Exact tilted crescent & background matching user reference 4a0f9c5c) -->
-        <div class="relative overflow-hidden rounded-[28px] bg-[#071c28] border-2 border-amber-400/50 shadow-2xl glow-gold-card min-h-[150px]">
-          
-          <!-- Background SVG: Golden panel on left, circular teal cutout in center, gold wrapping underneath -->
-          <div class="absolute inset-0 pointer-events-none z-0">
-            <svg class="w-full h-full" preserveAspectRatio="none" viewBox="0 0 380 150" fill="none">
-              <defs>
-                <linearGradient id="refGoldSatin" x1="0%" y1="0%" x2="40%" y2="100%">
-                  <stop offset="0%" stop-color="#e2c27b" />
-                  <stop offset="25%" stop-color="#c59e59" />
-                  <stop offset="65%" stop-color="#ab8345" />
-                  <stop offset="100%" stop-color="#966a2b" />
-                </linearGradient>
-                <radialGradient id="refTealDisc" cx="65%" cy="40%" r="65%">
-                  <stop offset="0%" stop-color="#1e5c67" />
-                  <stop offset="50%" stop-color="#0e3a45" />
-                  <stop offset="100%" stop-color="#061c24" />
-                </radialGradient>
-              </defs>
-              
-              <!-- Teal background across card -->
-              <rect width="380" height="150" fill="url(#refTealDisc)" />
-              
-              <!-- Golden area on left curving around and under matching image 4a0f9c5c -->
-              <path d="M 0,0 L 115,0 C 75,35 75,100 135,150 L 0,150 Z" fill="url(#refGoldSatin)" />
+        <!-- 1. The Approved Golden Crescent Hero Banner with Real Live Countdown -->
+        <div class="w-full relative rounded-3xl overflow-hidden border border-amber-500/40 shadow-2xl p-4 bg-gradient-to-r from-[#041a15] via-[#092c24] to-[#041612]">
+          <!-- Corner 8-point stars -->
+          <div class="absolute -top-3 -right-3 w-16 h-16 pointer-events-none opacity-20">
+            <svg viewBox="0 0 72 72" class="w-full h-full fill-none stroke-[#d4af37] stroke-[1.2]">
+              <rect x="18" y="18" width="36" height="36"/>
+              <rect x="18" y="18" width="36" height="36" transform="rotate(45 36 36)"/>
             </svg>
           </div>
 
-          <!-- Hanging Golden Stars / Lanterns overlay on top-right -->
-          <div class="absolute top-1 right-10 flex items-start gap-3 pointer-events-none opacity-85 z-10">
-            <div class="w-2.5 h-6 animate-lantern">
-              <svg viewBox="0 0 10 30" fill="none" class="w-full h-full text-amber-300">
-                <line x1="5" y1="0" x2="5" y2="18" stroke="currentColor" stroke-width="1" stroke-dasharray="1 1" />
-                <polygon points="5,18 9,27 1,27" fill="#F5D061" />
-              </svg>
-            </div>
-            <div class="w-3 h-9 animate-lantern" style="animation-delay: 0.8s">
-              <svg viewBox="0 0 10 30" fill="none" class="w-full h-full text-amber-400">
-                <line x1="5" y1="0" x2="5" y2="20" stroke="currentColor" stroke-width="1" stroke-dasharray="1 1" />
-                <circle cx="5" cy="24" r="3" fill="#D4AF37" />
-              </svg>
-            </div>
-          </div>
-
-          <!-- Content Row: Tilted Crescent on LEFT, Headline & Countdown on RIGHT -->
-          <div class="flex items-center justify-between relative z-10 min-h-[150px] px-3" style="direction: ltr;">
+          <div class="flex items-center justify-between gap-2 relative z-10">
             
-            <!-- LEFT SIDE: Tilted Crescent (ميل خفيف جداً، منقط من جوه، قرنه خارج للكحلي) -->
-            <div class="relative w-36 h-36 flex items-center justify-center shrink-0">
-              <svg viewBox="0 0 130 145" fill="none" class="w-full h-full overflow-visible">
+            <!-- Left side: Golden Crescent Art with Light Flare (Unclipped) -->
+            <div class="relative w-32 h-32 flex-shrink-0 flex items-center justify-center">
+              <div class="absolute w-28 h-28 rounded-full bg-amber-400/20 blur-xl"></div>
+              
+              <!-- Crescent SVG tilted 10deg with glitter stipples -->
+              <svg viewBox="0 0 160 160" class="w-32 h-32 crescent-glow overflow-visible" style="transform: rotate(10deg);">
                 <defs>
-                  <!-- Dense Sparkling Stardust Glitter Pattern inside crescent -->
-                  <pattern id="tiltedGlitter" width="14" height="14" patternUnits="userSpaceOnUse">
-                    <rect width="14" height="14" fill="#f5d485" opacity="0.14" />
-                    <circle cx="2" cy="2" r="0.75" fill="#FFFFFF" opacity="0.95" />
-                    <circle cx="5" cy="1" r="0.5" fill="#FFEAA7" opacity="0.85" />
-                    <circle cx="8" cy="3" r="0.85" fill="#FFFFFF" opacity="0.95" />
-                    <circle cx="12" cy="2" r="0.6" fill="#F5D061" opacity="0.85" />
-                    <circle cx="3" cy="6" r="0.5" fill="#FFE082" opacity="0.8" />
-                    <circle cx="7" cy="7" r="0.9" fill="#FFFFFF" opacity="1" />
-                    <circle cx="11" cy="5" r="0.65" fill="#FFF9C4" opacity="0.85" />
-                    <circle cx="1" cy="10" r="0.7" fill="#FFF8E1" opacity="0.85" />
-                    <circle cx="5" cy="11" r="0.95" fill="#FFFFFF" opacity="1" />
-                    <circle cx="9" cy="10" r="0.6" fill="#FFEAA7" opacity="0.85" />
-                    <circle cx="13" cy="11" r="0.85" fill="#FFFFFF" opacity="0.95" />
-                    <circle cx="4" cy="13" r="0.6" fill="#F5D061" opacity="0.8" />
-                    <circle cx="8" cy="13" r="0.75" fill="#FFFFFF" opacity="0.95" />
-                  </pattern>
-
-                  <!-- Glowing White-Gold Rim Gradient -->
-                  <linearGradient id="tiltedGoldRim" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#FFFFFF" />
-                    <stop offset="25%" stop-color="#FFF8D6" />
-                    <stop offset="60%" stop-color="#FCE182" />
-                    <stop offset="90%" stop-color="#E5B552" />
-                    <stop offset="100%" stop-color="#C59E59" />
+                  <linearGradient id="goldGradientHero" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#fff4b8"/>
+                    <stop offset="35%" stop-color="#f5d061"/>
+                    <stop offset="70%" stop-color="#d4af37"/>
+                    <stop offset="100%" stop-color="#997316"/>
                   </linearGradient>
 
-                  <!-- Soft Golden Radiance at Bottom Curve -->
-                  <radialGradient id="tiltedBottomRadiance" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.95" />
-                    <stop offset="35%" stop-color="#FBE180" stop-opacity="0.85" />
-                    <stop offset="70%" stop-color="#C59E59" stop-opacity="0.35" />
-                    <stop offset="100%" stop-color="#000000" stop-opacity="0" />
-                  </radialGradient>
+                  <pattern id="stardustHero" width="10" height="10" patternUnits="userSpaceOnUse">
+                    <circle cx="2" cy="2" r="0.75" fill="#ffffff" opacity="0.9"/>
+                    <circle cx="7" cy="3" r="0.6" fill="#ffe082" opacity="0.8"/>
+                    <circle cx="4" cy="7" r="0.8" fill="#ffffff" opacity="0.85"/>
+                    <circle cx="8" cy="8" r="0.5" fill="#ffd54f" opacity="0.7"/>
+                  </pattern>
                 </defs>
 
-                <!-- Tilted Crescent: Exact forward tilt matching image 4a0f9c5c -->
-                <!-- Top horn extends to (86, 15) crossing into teal, bottom horn points up-right to (114, 108) -->
-                <path d="M 86 15 
-                         C 48 18, 18 52, 24 86 
-                         C 28 116, 64 136, 114 108 
-                         C 82 114, 54 96, 50 74 
-                         C 46 50, 62 28, 86 15 Z" 
-                      fill="url(#tiltedGlitter)" 
-                      stroke="url(#tiltedGoldRim)" 
-                      stroke-width="2.3"
-                      filter="drop-shadow(0 0 8px rgba(251, 225, 128, 0.85))" />
+                <!-- Outer Gold Crescent -->
+                <path d="M 125,25 A 58,58 0 1 0 120,135 A 46,46 0 1 1 125,25 Z" 
+                      fill="url(#goldGradientHero)" 
+                      stroke="#fff2b2" stroke-width="1.5" />
+                
+                <!-- Inner Stardust Infill -->
+                <path d="M 125,25 A 58,58 0 1 0 120,135 A 46,46 0 1 1 125,25 Z" 
+                      fill="url(#stardustHero)" />
 
-                <!-- Soft Spotlight Glow beneath lower curve (no crosshairs) -->
-                <circle cx="72" cy="115" r="18" fill="url(#tiltedBottomRadiance)" style="mix-blend-mode: screen;" />
+                <!-- Radiant Flare at lower rim -->
+                <g transform="translate(100, 110)">
+                  <circle cx="0" cy="0" r="14" fill="#ffecb3" opacity="0.45" filter="blur(2px)"/>
+                  <circle cx="0" cy="0" r="3.5" fill="#ffffff"/>
+                  <line x1="-18" y1="0" x2="18" y2="0" stroke="#ffffff" stroke-width="1.8" opacity="0.9"/>
+                  <line x1="0" y1="-18" x2="0" y2="18" stroke="#ffffff" stroke-width="1.8" opacity="0.9"/>
+                </g>
               </svg>
             </div>
 
-            <!-- RIGHT SIDE: Headline & Dynamic Countdown (RTL) -->
-            <div class="text-right flex-1 pr-3 pl-1 space-y-1" style="direction: rtl;">
-              <h2 class="text-lg font-black text-amber-200 tracking-wide drop-shadow-md">الاستعداد لرمضان</h2>
-              <div class="flex items-baseline gap-1.5 justify-start">
-                <span class="text-sm font-semibold text-slate-200">باقي</span>
-                <span id="banner-days-left" class="text-3xl font-black text-amber-300 font-mono">28</span>
-                <span class="text-sm font-semibold text-slate-200">يوماً</span>
+            <!-- Right side: Real Days Countdown & Live Clock -->
+            <div class="text-right flex-1 pr-1">
+              <span class="inline-block px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-bold border border-amber-400/30 mb-1">
+                🌙 الاستعداد لرمضان 1448 هـ
+              </span>
+              <h2 class="text-sm font-bold text-white mb-1">متبقي على الشهر الفضيل</h2>
+              
+              <div class="flex items-baseline justify-end gap-1 mb-2">
+                <span class="text-3xl font-extrabold gold-gradient-text" id="countdownDays">--</span>
+                <span class="text-xs font-bold text-amber-300">يوماً</span>
               </div>
-              <p class="text-[11px] text-cyan-200/90 font-mono tracking-wider pt-0.5">
-                <span id="cd-hours">14</span> س : <span id="cd-mins">35</span> د : <span id="cd-secs">48</span> ث
-              </p>
+
+              <!-- Live Hours : Mins : Secs -->
+              <div class="inline-flex items-center gap-1.5 bg-[#03110e]/90 px-2.5 py-1 rounded-xl border border-amber-500/30 text-[10px] text-emerald-200">
+                <span class="font-mono font-bold text-amber-300" id="countdownHours">00</span><span class="text-slate-500">س</span>:
+                <span class="font-mono font-bold text-amber-300" id="countdownMins">00</span><span class="text-slate-500">د</span>:
+                <span class="font-mono font-bold text-amber-300" id="countdownSecs">00</span><span class="text-slate-500">ث</span>
+              </div>
             </div>
 
           </div>
         </div>
 
-        <!-- 2. Dashboard Section: تتبع العادات (Exact Replica: Concentric Double Rings) -->
-        <div class="rounded-[28px] bg-[#0a2030]/90 p-4 border border-cyan-400/50 shadow-xl glow-cyan-card space-y-3">
-          
-          <!-- Card Header with Icon -->
-          <div class="flex items-center justify-between pb-1 border-b border-cyan-800/40">
-            <span class="text-[10px] text-cyan-300/70 font-medium">تتبع العادات</span>
-            <div class="flex items-center gap-1.5">
-              <h3 class="text-xs font-bold text-slate-100">تتبع العادات</h3>
-              <span class="text-amber-400 text-sm">🤲</span>
+        <!-- 2. Next Prayer Quick Banner -->
+        <div onclick="switchTab('prayers')" class="emerald-card rounded-2xl p-3 flex items-center justify-between border-r-4 border-r-amber-400 cursor-pointer hover:border-amber-400 transition-all">
+          <div class="flex items-center gap-2.5">
+            <div class="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-300 text-lg">
+              <i class="fa-solid fa-mosque"></i>
+            </div>
+            <div>
+              <div class="text-[10px] text-emerald-300 font-semibold flex items-center gap-1">
+                <span>الصلاة القادمة:</span>
+                <span class="text-amber-300 font-bold" id="nextPrayerName">صلاة العصر</span>
+              </div>
+              <div class="text-sm font-bold text-white" id="nextPrayerTime">02:44 م</div>
             </div>
           </div>
 
-          <!-- 3 Concentric Double-Ring Habit Widgets (قراءة القرآن، أذكار، الصلوات) -->
-          <div class="grid grid-cols-3 gap-2 text-center pt-1">
+          <div class="text-left bg-[#051c17] px-3 py-1.5 rounded-xl border border-emerald-500/30">
+            <span class="text-[9px] text-slate-400 block">متبقي على الأذان</span>
+            <span class="text-xs font-mono font-bold text-amber-300" id="prayerCountdown">--:--:--</span>
+          </div>
+        </div>
+
+        <!-- 3. Smart Achievement Hub (بديل الدوائر) -->
+        <div class="emerald-card rounded-3xl p-4 space-y-3">
+          <div class="flex items-center justify-between border-b border-amber-500/20 pb-2.5">
+            <div class="flex items-center gap-2">
+              <span class="text-amber-400 text-sm">🎯</span>
+              <h3 class="text-sm font-bold text-white">لوحة إنجاز اليوم</h3>
+            </div>
+            <div class="flex items-center gap-1.5 text-xs text-amber-300 font-bold">
+              <span id="overallPercentText">75%</span>
+              <span class="text-[10px] text-slate-400 font-normal">(مكتمل)</span>
+            </div>
+          </div>
+
+          <!-- Overall Progress Bar -->
+          <div>
+            <div class="w-full bg-[#051a15] h-2.5 rounded-full overflow-hidden border border-emerald-500/30 p-0.5">
+              <div id="overallProgressBar" class="h-full bg-gradient-to-r from-emerald-500 via-amber-400 to-amber-300 rounded-full transition-all duration-500" style="width: 75%;"></div>
+            </div>
+            <div class="flex items-center justify-between text-[10px] text-slate-400 mt-1">
+              <span id="streakBadge">🔥 5 أيام متتالية من الالتزام</span>
+              <span id="completedTasksCounter">3 من 4 مهام مكتملة</span>
+            </div>
+          </div>
+
+          <!-- 4 Actionable Achievement Cards -->
+          <div class="grid grid-cols-2 gap-2.5 pt-1">
             
-            <!-- Habit 1: قراءة القرآن (Exact matching Crop 2) -->
-            <div onclick="toggleHabitQuick('quran')" class="flex flex-col items-center gap-1 cursor-pointer group active:scale-95 transition">
-              <span class="text-[11px] font-bold text-slate-200 group-hover:text-amber-300 transition">قراءة القرآن</span>
-              
-              <!-- Concentric Double Rings -->
-              <div class="relative w-16 h-16 flex items-center justify-center">
-                <svg class="w-full h-full -rotate-90" viewBox="0 0 46 46">
-                  <defs>
-                    <linearGradient id="mainGoldRing" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stop-color="#FFEAA7" />
-                      <stop offset="100%" stop-color="#F5D061" />
-                    </linearGradient>
-                    <linearGradient id="mainCyanRing" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stop-color="#22D3EE" />
-                      <stop offset="100%" stop-color="#06B6D4" />
-                    </linearGradient>
-                  </defs>
-
-                  <!-- Outer Ring (Yellow Arc + Dark Teal Track) -->
-                  <circle cx="23" cy="23" r="19" fill="none" stroke="#0e2a38" stroke-width="3" />
-                  <circle id="ring-outer-quran" cx="23" cy="23" r="19" fill="none" stroke="url(#mainGoldRing)" stroke-width="3" stroke-linecap="round" stroke-dasharray="68, 120" class="transition-all duration-300" />
-
-                  <!-- Inner Ring (Cyan Arc + Dark Teal Track) -->
-                  <circle cx="23" cy="23" r="13.5" fill="none" stroke="#081e28" stroke-width="3" />
-                  <circle id="ring-inner-quran" cx="23" cy="23" r="13.5" fill="none" stroke="url(#mainCyanRing)" stroke-width="3" stroke-linecap="round" stroke-dasharray="55, 90" class="transition-all duration-300" />
-                </svg>
-
-                <!-- Central Cyan Checkmark -->
-                <div id="check-quran" class="absolute inset-0 flex items-center justify-center">
-                  <svg class="w-4 h-4 text-cyan-300 drop-shadow-[0_0_6px_rgba(34,211,238,0.85)]" fill="none" stroke="currentColor" stroke-width="3.5" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-              </div>
-              <span id="streak-quran-text" class="text-[10px] text-cyan-200/80 font-mono">28 يوماً</span>
-            </div>
-
-            <!-- Habit 2: أذكار -->
-            <div onclick="toggleHabitQuick('athkar')" class="flex flex-col items-center gap-1 cursor-pointer group active:scale-95 transition">
-              <span class="text-[11px] font-bold text-slate-200 group-hover:text-amber-300 transition">أذكار</span>
-              
-              <div class="relative w-16 h-16 flex items-center justify-center">
-                <svg class="w-full h-full -rotate-90" viewBox="0 0 46 46">
-                  <!-- Outer Ring -->
-                  <circle cx="23" cy="23" r="19" fill="none" stroke="#0e2a38" stroke-width="3" />
-                  <circle id="ring-outer-athkar" cx="23" cy="23" r="19" fill="none" stroke="url(#mainGoldRing)" stroke-width="3" stroke-linecap="round" stroke-dasharray="50, 120" class="transition-all duration-300" />
-
-                  <!-- Inner Ring -->
-                  <circle cx="23" cy="23" r="13.5" fill="none" stroke="#081e28" stroke-width="3" />
-                  <circle id="ring-inner-athkar" cx="23" cy="23" r="13.5" fill="none" stroke="url(#mainCyanRing)" stroke-width="3" stroke-linecap="round" stroke-dasharray="55, 90" class="transition-all duration-300" />
-                </svg>
-
-                <div id="check-athkar" class="absolute inset-0 flex items-center justify-center">
-                  <svg class="w-4 h-4 text-cyan-300 drop-shadow-[0_0_6px_rgba(34,211,238,0.85)]" fill="none" stroke="currentColor" stroke-width="3.5" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-              </div>
-              <span id="streak-athkar-text" class="text-[10px] text-cyan-200/80 font-mono">28 يوماً</span>
-            </div>
-
-            <!-- Habit 3: الصلوات -->
-            <div onclick="toggleHabitQuick('prayers')" class="flex flex-col items-center gap-1 cursor-pointer group active:scale-95 transition">
-              <span class="text-[11px] font-bold text-slate-200 group-hover:text-amber-300 transition">الصلوات</span>
-              
-              <div class="relative w-16 h-16 flex items-center justify-center">
-                <svg class="w-full h-full -rotate-90" viewBox="0 0 46 46">
-                  <!-- Outer Ring -->
-                  <circle cx="23" cy="23" r="19" fill="none" stroke="#0e2a38" stroke-width="3" />
-                  <circle id="ring-outer-prayers" cx="23" cy="23" r="19" fill="none" stroke="url(#mainGoldRing)" stroke-width="3" stroke-linecap="round" stroke-dasharray="60, 120" class="transition-all duration-300" />
-
-                  <!-- Inner Ring -->
-                  <circle cx="23" cy="23" r="13.5" fill="none" stroke="#081e28" stroke-width="3" />
-                  <circle id="ring-inner-prayers" cx="23" cy="23" r="13.5" fill="none" stroke="url(#mainCyanRing)" stroke-width="3" stroke-linecap="round" stroke-dasharray="55, 90" class="transition-all duration-300" />
-                </svg>
-
-                <div id="check-prayers" class="absolute inset-0 flex items-center justify-center">
-                  <svg class="w-4 h-4 text-cyan-300 drop-shadow-[0_0_6px_rgba(34,211,238,0.85)]" fill="none" stroke="currentColor" stroke-width="3.5" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                  </svg>
-                </div>
-              </div>
-              <span id="streak-prayers-text" class="text-[10px] text-cyan-200/80 font-mono">28 يوماً</span>
-            </div>
-
-          </div>
-        </div>
-
-        <!-- 3. Dashboard Section: مخطط الوجبات (Exact Replica of Reference Mockup) -->
-        <div class="rounded-[28px] bg-[#0c2233]/90 p-4 border border-amber-400/40 shadow-xl space-y-3">
-          
-          <!-- Card Header with Calendar Icon & Lantern -->
-          <div class="flex items-center justify-between pb-1 border-b border-amber-500/20">
-            <span class="text-amber-400 text-sm">🏮</span>
-            <div class="flex items-center gap-1.5">
-              <h3 class="text-xs font-bold text-amber-200">مخطط الوجبات</h3>
-              <span class="text-amber-300 text-sm">🗓️</span>
-            </div>
-          </div>
-
-          <!-- Two Side-by-Side Cards (السحور / الإفطار) -->
-          <div class="grid grid-cols-2 gap-2.5">
-            
-            <!-- Right Card: السحور -->
-            <div onclick="switchTab('meals')" class="p-3.5 rounded-2xl bg-gradient-to-b from-[#11354a] to-[#0d2738] border border-cyan-500/30 hover:border-amber-400/60 transition cursor-pointer text-right space-y-1.5 shadow-md group">
+            <!-- Card 1: Fasting Today -->
+            <div onclick="toggleAchievement('fasting')" id="card-fasting" class="cursor-pointer p-3 rounded-2xl bg-[#07241e] border border-amber-500/40 hover:border-amber-400 transition-all flex flex-col justify-between">
               <div class="flex items-center justify-between">
-                <span class="text-xl">🥣</span>
-                <span class="text-xs font-bold text-slate-100 group-hover:text-amber-300 transition">السحور</span>
+                <span class="text-lg">🥣</span>
+                <div id="check-fasting" class="w-5 h-5 rounded-full bg-amber-400 text-emerald-950 flex items-center justify-center text-[10px] font-bold shadow-sm">
+                  ✓
+                </div>
               </div>
-              <p class="text-[10px] text-slate-300 leading-tight">الإفطار، السحور، الوجبات المعانية</p>
-              <div class="flex items-center justify-between pt-1">
-                <span class="text-lg">🧃</span>
-                <span class="text-[10px] text-cyan-300">طاقة وترطيب</span>
+              <div class="mt-2 text-right">
+                <div class="text-xs font-bold text-white">صيام اليوم</div>
+                <div class="text-[9px] text-emerald-300" id="fastingStatusText">تم تسجيل الصيام ✓</div>
               </div>
             </div>
 
-            <!-- Left Card: الإفطار -->
-            <div onclick="switchTab('meals')" class="p-3.5 rounded-2xl bg-gradient-to-b from-[#11354a] to-[#0d2738] border border-amber-400/30 hover:border-amber-400/60 transition cursor-pointer text-right space-y-1.5 shadow-md group">
+            <!-- Card 2: 5 Prayers -->
+            <div onclick="switchTab('prayers')" class="cursor-pointer p-3 rounded-2xl bg-[#07241e] border border-emerald-500/40 hover:border-amber-400 transition-all flex flex-col justify-between">
               <div class="flex items-center justify-between">
-                <span class="text-xl">🌙</span>
-                <span class="text-xs font-bold text-amber-300">الإفطار</span>
+                <span class="text-lg">🕌</span>
+                <div class="w-5 h-5 rounded-full bg-amber-400 text-emerald-950 flex items-center justify-center text-[10px] font-bold">
+                  <span id="prayersCountBadge">4/5</span>
+                </div>
               </div>
-              <p class="text-[10px] text-slate-300 leading-tight">معلميات المطبخ، الإفطار الصحي</p>
-              <div class="flex items-center justify-between pt-1">
-                <span class="text-lg">🍲</span>
-                <span class="text-[10px] text-amber-300">توازن وخفة</span>
+              <div class="mt-2 text-right">
+                <div class="text-xs font-bold text-white">الصلوات المفروضة</div>
+                <div class="text-[9px] text-emerald-300" id="prayersSubText">متبقي العشاء</div>
               </div>
             </div>
 
+            <!-- Card 3: Quran Daily Wird -->
+            <div onclick="switchTab('quran')" class="cursor-pointer p-3 rounded-2xl bg-[#07241e] border border-amber-500/40 hover:border-amber-400 transition-all flex flex-col justify-between">
+              <div class="flex items-center justify-between">
+                <span class="text-lg">📖</span>
+                <div id="check-quran" class="w-5 h-5 rounded-full bg-amber-400 text-emerald-950 flex items-center justify-center text-[10px] font-bold">
+                  ✓
+                </div>
+              </div>
+              <div class="mt-2 text-right">
+                <div class="text-xs font-bold text-white">ورد القرآن</div>
+                <div class="text-[9px] text-emerald-300" id="quranWirdSummary">الجزء 12 (صفحة 242)</div>
+              </div>
+            </div>
+
+            <!-- Card 4: Daily Azkar & Tasbeeh -->
+            <div onclick="switchTab('tasbeeh')" class="cursor-pointer p-3 rounded-2xl bg-[#07241e] border border-emerald-500/40 hover:border-amber-400 transition-all flex flex-col justify-between">
+              <div class="flex items-center justify-between">
+                <span class="text-lg">📿</span>
+                <div id="check-azkar" class="w-5 h-5 rounded-full bg-slate-700 text-slate-300 flex items-center justify-center text-[10px] font-bold">
+                  150
+                </div>
+              </div>
+              <div class="mt-2 text-right">
+                <div class="text-xs font-bold text-white">الأذكار والتسبيح</div>
+                <div class="text-[9px] text-slate-400" id="azkarSummary">150 / 300 تسبيحة</div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- 5 Prayers Quick Toggles Row -->
+          <div class="bg-[#051a15] p-2.5 rounded-2xl border border-emerald-500/30">
+            <div class="flex items-center justify-between text-[11px] mb-2 px-1">
+              <span class="text-slate-300 font-semibold">تأكيد أداء صلوات اليوم:</span>
+              <span class="text-amber-300 text-[10px]">اضغط على الصلاة لتحديدها</span>
+            </div>
+            <div class="grid grid-cols-5 gap-1.5 text-center text-[10px]">
+              <button onclick="togglePrayer(0)" id="prayer-btn-0" class="py-1.5 rounded-xl bg-amber-400 text-emerald-950 font-bold transition">فجر ✓</button>
+              <button onclick="togglePrayer(1)" id="prayer-btn-1" class="py-1.5 rounded-xl bg-amber-400 text-emerald-950 font-bold transition">ظهر ✓</button>
+              <button onclick="togglePrayer(2)" id="prayer-btn-2" class="py-1.5 rounded-xl bg-amber-400 text-emerald-950 font-bold transition">عصر ✓</button>
+              <button onclick="togglePrayer(3)" id="prayer-btn-3" class="py-1.5 rounded-xl bg-amber-400 text-emerald-950 font-bold transition">مغرب ✓</button>
+              <button onclick="togglePrayer(4)" id="prayer-btn-4" class="py-1.5 rounded-xl bg-[#0a2f27] text-slate-300 hover:border-amber-400 border border-emerald-500/30 transition">عشاء</button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- 4. Simplified Daily Quran Wird (متابع الورد المبسط) -->
+        <div class="emerald-card rounded-3xl p-4 space-y-3">
+          <div class="flex items-center justify-between border-b border-amber-500/20 pb-2">
+            <div class="flex items-center gap-2">
+              <span class="text-amber-300">📖</span>
+              <h3 class="text-sm font-bold text-white">ورد القرآن لليوم</h3>
+            </div>
+            <span class="text-[10px] text-amber-300 bg-amber-500/20 px-2.5 py-0.5 rounded-full border border-amber-400/30">
+              الختمة الشهرية
+            </span>
+          </div>
+
+          <div class="bg-[#051c17] p-3 rounded-2xl border border-emerald-500/30 flex items-center justify-between">
+            <div class="space-y-0.5 text-right">
+              <div class="text-xs font-bold text-amber-200" id="wirdJuzTitle">الجزء الثاني عشر (12)</div>
+              <div class="text-[10px] text-slate-300 font-quran" id="wirdSurahsDetail">سورة هود (آية 6) إلى سورة يوسف (آية 52)</div>
+              <div class="text-[9px] text-emerald-300" id="wirdPagesDetail">من الصفحة 222 إلى الصفحة 241 (20 صفحة)</div>
+            </div>
+
+            <button onclick="switchTab('quran')" class="gold-button px-3 py-2 rounded-xl text-xs flex items-center gap-1.5 shadow-md">
+              <span>اقرأ الآن</span>
+              <i class="fa-solid fa-book-open text-[10px]"></i>
+            </button>
+          </div>
+
+          <div class="pt-1">
+            <button onclick="toggleAchievement('quran')" id="btnCompleteWird" class="w-full py-2.5 rounded-xl bg-amber-500/20 text-amber-300 text-xs font-bold border border-amber-400/40 transition flex items-center justify-center gap-2">
+              <span id="wirdBtnCheck">✓</span>
+              <span id="wirdBtnText">أتممت قراءة ورد اليوم بنجاح</span>
+            </button>
           </div>
         </div>
 
-        <!-- 4. Quick Action Navigation Bars (As in the bottom of Reference Mockup) -->
-        <div class="grid grid-cols-2 gap-2.5">
-          <!-- Quick Bar 1: الصلوات -->
-          <div onclick="switchTab('tracker')" class="p-3 rounded-2xl bg-gradient-to-r from-[#0d283c] to-[#0c2233] border border-cyan-500/35 hover:border-cyan-400 transition cursor-pointer flex items-center justify-between shadow-md">
-            <span class="text-cyan-400 font-bold text-xs">‹</span>
-            <div class="text-right">
-              <span class="block text-xs font-bold text-slate-100">الصلوات</span>
-              <span class="text-[9px] text-cyan-300/70">على العادات</span>
-            </div>
-            <span class="text-lg text-amber-300">📖</span>
-          </div>
-
-          <!-- Quick Bar 2: أذكار -->
-          <div onclick="switchTab('dhikr')" class="p-3 rounded-2xl bg-gradient-to-r from-[#0d283c] to-[#0c2233] border border-cyan-500/35 hover:border-cyan-400 transition cursor-pointer flex items-center justify-between shadow-md">
-            <span class="text-cyan-400 font-bold text-xs">‹</span>
-            <div class="text-right">
-              <span class="block text-xs font-bold text-slate-100">أذكار</span>
-              <span class="text-[9px] text-cyan-300/70">تأتي القراءة</span>
-            </div>
-            <span class="text-lg text-amber-300">📿</span>
-          </div>
-        </div>
-
-        <!-- 5. Pre-Ramadan Fasting Goal & 30-Day Streak Challenge Card -->
-        <div class="bg-gradient-to-b from-[#0f2e42] to-[#0a2030] rounded-3xl p-4 border border-amber-400/40 shadow-xl space-y-3 glow-gold-card">
+        <!-- 5. 30-Day Fasting Challenge (تحدي صيام النوافل) -->
+        <div class="emerald-card rounded-3xl p-4 space-y-3">
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2">
-              <span class="text-xl">🔥</span>
-              <div>
-                <h3 id="home-challenge-title" class="text-xs font-bold text-amber-200">تحدي صيام 30 يوماً قبل رمضان</h3>
-                <span id="home-challenge-streak" class="text-[10px] text-amber-400 font-semibold">🔥 7 أيام متتالية</span>
-              </div>
+              <span class="text-amber-400">🏆</span>
+              <h3 class="text-sm font-bold text-white">تحدي الاستعداد (صيام النوافل)</h3>
             </div>
-            <span id="home-challenge-pct" class="text-xs font-black text-amber-300 font-mono bg-cyan-950/80 px-2 py-0.5 rounded-xl border border-amber-400/30">23%</span>
+            <span class="text-[10px] text-emerald-300" id="fastingDaysCountText">صمت 8 من 30 يوماً</span>
           </div>
 
-          <div class="w-full h-2.5 bg-cyan-950 rounded-full overflow-hidden border border-cyan-800">
-            <div id="home-challenge-bar" class="h-full bg-gradient-to-r from-cyan-400 via-amber-400 to-amber-300 rounded-full transition-all duration-500" style="width: 23%"></div>
-          </div>
-
-          <div class="flex items-center justify-between text-[11px] text-slate-300">
-            <span>أنجزت: <b id="home-challenge-count" class="text-amber-300 font-mono">7 من 30 يوماً</b></span>
-            <div class="flex gap-2">
-              <button onclick="quickLogChallengeDay()" class="px-3 py-1 rounded-xl bg-amber-400 text-slate-950 font-bold text-xs shadow-md active:scale-95 transition">
-                ✓ صمت اليوم
-              </button>
-              <button onclick="switchTab('tracker')" class="px-2.5 py-1 rounded-xl bg-cyan-950 text-cyan-300 border border-cyan-700/50 text-xs">
-                الشبكة ❯
-              </button>
-            </div>
+          <!-- Mini streak dots row -->
+          <div class="grid grid-cols-10 gap-1 text-center py-1" id="fastingDaysGrid">
+            <!-- Rendered dynamically by app.js -->
           </div>
         </div>
 
-      </div>
+      </section>
 
-      <!-- ============================================== -->
-      <!-- TAB 2: المصحف الشريف والورد اليومي             -->
-      <!-- ============================================== -->
-      <div id="tab-quran" class="tab-content space-y-4">
+      <!-- ========================================== -->
+      <!-- TAB 2: مواقيت الصلاة (Prayer Times Screen) -->
+      <!-- ========================================== -->
+      <section id="tab-prayers" class="tab-content space-y-4">
         
-        <!-- Wird Header Tracker Card -->
-        <div class="bg-gradient-to-b from-[#0f2e42] to-[#0a2030] rounded-3xl p-5 border border-amber-400/35 shadow-xl space-y-3">
-          <div class="flex items-center justify-between">
-            <div>
-              <h2 class="text-sm font-bold text-amber-200">مُتابع الورد القرآني اليومي</h2>
-              <p class="text-[11px] text-cyan-300/80">
-                هدفك: <span id="wird-pages-target" class="font-bold text-amber-300">20</span> صفحة يومياً
-              </p>
-            </div>
-            <div class="text-left">
-              <span id="wird-percent-text" class="text-lg font-black text-amber-300 font-mono">40%</span>
-              <span class="text-[10px] text-cyan-400 block">إنجاز الورد</span>
-            </div>
-          </div>
-
-          <div class="space-y-1">
-            <div class="w-full h-3 bg-cyan-950 rounded-full overflow-hidden border border-cyan-800 p-0.5">
-              <div id="wird-progress-bar" class="h-full bg-gradient-to-r from-cyan-400 via-amber-400 to-amber-300 rounded-full transition-all duration-500" style="width: 40%"></div>
-            </div>
-            <div class="flex justify-between text-[10px] text-slate-300 pt-0.5">
-              <span>قرأت: <b id="wird-pages-count" class="text-amber-300 font-mono">8</b> صفحات</span>
-              <span>المتبقي: جزء التدريب اليومي</span>
-            </div>
-          </div>
-
-          <div class="grid grid-cols-3 gap-2 pt-1 text-xs">
-            <button onclick="logWirdPages(1)" class="py-2 px-1 rounded-xl bg-cyan-950 hover:bg-cyan-900 border border-cyan-700/60 text-slate-100 font-semibold transition active:scale-95">
-              +1 صفحة
-            </button>
-            <button onclick="logWirdPages(4)" class="py-2 px-1 rounded-xl bg-amber-500/25 hover:bg-amber-500/35 border border-amber-400/40 text-amber-300 font-bold transition active:scale-95">
-              +4 ص (ورد صلاة)
-            </button>
-            <button onclick="resetWirdToday()" class="py-2 px-1 rounded-xl bg-cyan-950 hover:bg-cyan-900 border border-cyan-700/60 text-slate-400 hover:text-red-400 transition">
-              🔄 تصفير الورد
-            </button>
-          </div>
-
-          <div onclick="goToBookmark()" class="bg-cyan-950/80 p-2.5 rounded-2xl border border-amber-400/25 flex items-center justify-between cursor-pointer hover:border-amber-400 transition">
-            <div class="flex items-center gap-2 text-xs">
-              <span class="text-amber-300">🔖 فاصل القراءة:</span>
-              <span id="quran-bookmark-info" class="text-slate-200 font-bold">سورة الفاتحة (الآية 1)</span>
-            </div>
-            <span class="text-[10px] text-amber-400 font-semibold">متابعة ❯</span>
+        <div class="emerald-card rounded-3xl p-4 text-center space-y-3">
+          <span class="text-xs text-amber-300 font-semibold block">مواقيت اليوم بدقة بحسب الحسابات الفلكية</span>
+          <h3 class="text-lg font-bold text-white" id="prayerCityTitle">القاهرة ومحيطها</h3>
+          
+          <div class="space-y-2 text-right" id="prayerTimesTable">
+            <!-- Dynamic Prayer Times rows rendered by app.js -->
           </div>
         </div>
 
-        <!-- Sub-tabs: Index vs Reader -->
-        <div class="flex items-center p-1 bg-cyan-950/80 rounded-2xl border border-cyan-800/60">
-          <button id="btn-subtab-index" onclick="switchQuranSubTab('index')" class="flex-1 py-2 text-xs font-bold rounded-xl bg-amber-400 text-slate-950 shadow-md transition">
-            📑 فهرس السور (114)
-          </button>
-          <button id="btn-subtab-reader" onclick="switchQuranSubTab('reader')" class="flex-1 py-2 text-xs font-semibold rounded-xl text-slate-300 hover:text-amber-300 transition">
-            📖 المصحف الشريف
-          </button>
+        <!-- Sunnah & Duas Card -->
+        <div class="emerald-card rounded-3xl p-4 space-y-2.5 text-right">
+          <div class="flex items-center gap-2 text-amber-300 text-xs font-bold">
+            <i class="fa-solid fa-star-and-crescent"></i>
+            <span>السنن الرواتب اليومية (12 ركعة):</span>
+          </div>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            «مَنْ صَلَّى فِي يَوْمٍ وَلَيْلَةٍ ثِنْتَيْ عَشْرَةَ رَكْعَةً بُنِيَ لَهُ بَيْتٌ فِي الْجَنَّةِ»:  
+            رَكْعَتَيْنِ قَبْلَ الْفَجْرِ، وَأَرْبَعًا قَبْلَ الظُّهْرِ، وَرَكْعَتَيْنِ بَعْدَهَا، وَرَكْعَتَيْنِ بَعْدَ الْمَغْرِبِ، وَرَكْعَتَيْنِ بَعْدَ الْعِشَاءِ.
+          </p>
         </div>
 
-        <div id="quran-index-view" class="space-y-3">
-          <div class="relative">
-            <input type="text" oninput="searchSurahs(this)" placeholder="ابحث باسم السورة (مثال: الكهف، يس، الملك...)" class="w-full bg-[#0c2436] border border-cyan-700/60 rounded-2xl py-2.5 px-4 pr-10 text-xs text-slate-100 placeholder-slate-400 focus:outline-none focus:border-amber-400">
-            <span class="absolute right-3.5 top-2.5 text-cyan-400 text-sm">🔍</span>
-          </div>
-          <div id="surah-index-list" class="space-y-2 max-h-[460px] overflow-y-auto no-scrollbar pr-0.5"></div>
-        </div>
+      </section>
 
-        <div id="quran-reader-view" class="hidden space-y-3">
-          <div class="bg-[#0c2436] p-3 rounded-2xl border border-cyan-700/50 flex items-center justify-between">
-            <div>
-              <h3 id="reader-surah-title" class="text-sm font-bold text-amber-300">سورة الفاتحة</h3>
-              <span id="reader-surah-info" class="text-[10px] text-cyan-300/70">مكية • 7 آيات • الجزء 1</span>
-            </div>
-
-            <div class="flex items-center gap-1.5 bg-cyan-950 px-2 py-1 rounded-xl border border-cyan-800">
-              <button onclick="changeQuranFontSize(-2)" class="text-xs text-slate-300 font-bold px-1.5 hover:text-amber-300">A-</button>
-              <span class="text-[10px] text-amber-400 font-mono">الخط</span>
-              <button onclick="changeQuranFontSize(2)" class="text-xs text-slate-300 font-bold px-1.5 hover:text-amber-300">A+</button>
-            </div>
-
-            <div class="flex items-center gap-1">
-              <button onclick="prevSurah()" title="السورة السابقة" class="w-7 h-7 rounded-lg bg-cyan-950 border border-cyan-800 flex items-center justify-center text-xs text-amber-300 hover:bg-cyan-900">❮</button>
-              <button onclick="nextSurah()" title="السورة التالية" class="w-7 h-7 rounded-lg bg-cyan-950 border border-cyan-800 flex items-center justify-center text-xs text-amber-300 hover:bg-cyan-900">❯</button>
-            </div>
-          </div>
-
-          <div class="bg-[#081e2d] rounded-3xl p-5 border-2 border-amber-400/30 shadow-2xl min-h-[400px]">
-            <div id="reader-verses-container"></div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- ============================================== -->
-      <!-- TAB 3: خطة التدرج وتحدي الصيام                 -->
-      <!-- ============================================== -->
-      <div id="tab-tracker" class="tab-content space-y-4">
+      <!-- ========================================== -->
+      <!-- TAB 3: المصحف الشريف والختمات              -->
+      <!-- ========================================== -->
+      <section id="tab-quran" class="tab-content space-y-4">
         
-        <div>
-          <h2 class="text-base font-bold text-amber-300">خطة التدرج وتحدي الاستعداد</h2>
-          <p class="text-xs text-slate-300">تهيئة النفس والجسد وبناء عادات الصيام والقيام</p>
-        </div>
-
-        <!-- Pre-Ramadan Fasting Hub & 30-Day Grid -->
-        <div class="bg-gradient-to-b from-[#0f2e42] to-[#0a2030] rounded-3xl p-5 border border-amber-400/35 shadow-xl space-y-4 glow-gold-card">
-          <div class="flex items-center justify-between">
-            <div>
-              <div class="flex items-center gap-1.5">
-                <span class="text-lg">🎯</span>
-                <h3 id="tracker-challenge-title" class="text-sm font-bold text-amber-200">تحدي صيام 30 يوماً قبل رمضان</h3>
-              </div>
-              <p class="text-[11px] text-slate-300 mt-0.5">اضغط على اليوم لتوثيق صيامك وبناء سلسلة العادات</p>
+        <!-- Khatmah Designer Card (Preserved completely as requested!) -->
+        <div class="emerald-card rounded-3xl p-4 space-y-3">
+          <div class="flex items-center justify-between border-b border-amber-500/20 pb-2">
+            <div class="flex items-center gap-2">
+              <span class="text-amber-400">🎯</span>
+              <h3 class="text-sm font-bold text-white">مصمم الختمات الذكي</h3>
             </div>
-            <button onclick="editChallengeGoal()" title="تعديل الهدف أو عدد الأيام" class="p-2 rounded-xl bg-cyan-950 border border-amber-400/30 text-amber-300 hover:bg-cyan-900 transition active:scale-95 text-xs font-semibold flex items-center gap-1">
-              <span>✏️</span>
-              <span>تعديل</span>
-            </button>
+            <span class="text-[10px] text-amber-300" id="currentKhatmahGoalLabel">ختمة في 30 يوماً</span>
           </div>
 
-          <!-- Stats 3-Grid -->
+          <!-- Goal selector buttons -->
           <div class="grid grid-cols-3 gap-2 text-center text-xs">
-            <div class="bg-cyan-950/80 p-2.5 rounded-2xl border border-cyan-800">
-              <span id="tracker-challenge-count" class="block text-xl font-black text-amber-300 font-mono">7</span>
-              <span class="text-[10px] text-slate-300">أيام صمتها</span>
-            </div>
-            <div class="bg-cyan-950/80 p-2.5 rounded-2xl border border-cyan-800">
-              <span id="tracker-challenge-remaining" class="block text-xl font-black text-cyan-400 font-mono">23</span>
-              <span class="text-[10px] text-slate-300">أيام متبقية</span>
-            </div>
-            <div class="bg-cyan-950/80 p-2.5 rounded-2xl border border-cyan-800">
-              <span class="block text-xl font-black text-amber-400 font-mono">🔥 <span id="tracker-challenge-streak">7</span></span>
-              <span class="text-[10px] text-slate-300">أيام متتالية</span>
-            </div>
+            <button onclick="setKhatmahGoal(1)" id="goal-btn-1" class="p-2 rounded-xl bg-amber-400 text-emerald-950 font-bold transition">
+              ختمة واحدة (30 يوم)
+            </button>
+            <button onclick="setKhatmahGoal(2)" id="goal-btn-2" class="p-2 rounded-xl bg-[#061e19] text-slate-300 border border-emerald-500/30 hover:border-amber-400 transition">
+              ختمتان (15 يوم)
+            </button>
+            <button onclick="setKhatmahGoal(3)" id="goal-btn-3" class="p-2 rounded-xl bg-[#061e19] text-slate-300 border border-emerald-500/30 hover:border-amber-400 transition">
+              3 ختمات (10 أيام)
+            </button>
           </div>
 
-          <!-- Motivational Badges -->
-          <div class="grid grid-cols-3 gap-2 text-xs">
-            <div id="badge-5-days" class="p-2 rounded-xl bg-amber-500/20 border border-amber-400 text-center">
-              <span class="text-base block">🥉</span>
-              <span class="text-[10px] font-bold text-amber-300">أول 5 أيام</span>
+          <div class="grid grid-cols-3 gap-2 text-center text-xs pt-1">
+            <div class="p-2 rounded-xl bg-[#051c17] border border-amber-500/20">
+              <span class="text-[9px] text-slate-400 block">الورد اليومي</span>
+              <b class="text-emerald-300" id="khatmahDailyPages">20 صفحة (جزء)</b>
             </div>
-            <div id="badge-15-days" class="p-2 rounded-xl bg-cyan-950/60 border border-cyan-800/40 text-center opacity-50">
-              <span class="text-base block">🥈</span>
-              <span class="text-[10px] font-bold text-slate-300">نصف التحدي (15)</span>
+            <div class="p-2 rounded-xl bg-[#051c17] border border-amber-500/20">
+              <span class="text-[9px] text-slate-400 block">بعد كل صلاة</span>
+              <b class="text-amber-300" id="khatmahPagesPerSalah">4 صفحات</b>
             </div>
-            <div id="badge-30-days" class="p-2 rounded-xl bg-cyan-950/60 border border-cyan-800/40 text-center opacity-50">
-              <span class="text-base block">🥇</span>
-              <span class="text-[10px] font-bold text-slate-300">بطل التحدي (30)</span>
+            <div class="p-2 rounded-xl bg-[#051c17] border border-amber-500/20">
+              <span class="text-[9px] text-slate-400 block">الوقت التقديري</span>
+              <b class="text-amber-200" id="khatmahEstTime">25 دقيقة/يوم</b>
             </div>
-          </div>
-
-          <!-- 30-Day Clickable Grid -->
-          <div class="space-y-2 pt-1">
-            <div class="flex items-center justify-between text-xs">
-              <span class="text-slate-300 font-semibold">خريطة أيام الصيام (اضغط لتعليم اليوم):</span>
-              <button onclick="resetChallengeDays()" class="text-[10px] text-slate-400 hover:text-red-400">إعادة ضبط 🔄</button>
-            </div>
-            <div id="challenge-days-grid" class="grid grid-cols-5 gap-2 max-h-[300px] overflow-y-auto no-scrollbar p-1"></div>
           </div>
         </div>
 
-        <!-- Makeup Fasting Days -->
-        <div class="bg-[#0c2436] rounded-2xl p-4 border border-cyan-700/50 shadow-md flex items-center justify-between">
-          <div>
-            <h3 class="text-xs font-bold text-amber-200">قضاء أيام من رمضان السابق</h3>
-            <p class="text-[11px] text-slate-300 mt-0.5">سجل ما تبقى عليك وصمه قبل دخول الشهر:</p>
+        <!-- Bookmark Quick Access -->
+        <div onclick="goToBookmark()" class="emerald-card rounded-2xl p-3 flex items-center justify-between cursor-pointer hover:border-amber-400 transition">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-300 flex items-center justify-center text-sm">
+              <i class="fa-solid fa-bookmark"></i>
+            </div>
+            <div class="text-right">
+              <span class="text-[10px] text-slate-400 block">العلامة المرجعية الأخيرة</span>
+              <span class="text-xs font-bold text-amber-300" id="bookmarkText">سورة البقرة - آية 1</span>
+            </div>
           </div>
-          <div class="flex items-center gap-2 bg-cyan-950 px-3 py-1.5 rounded-2xl border border-amber-500/30">
-            <button onclick="changeMissedFasts(-1)" class="w-7 h-7 rounded-lg bg-cyan-900 hover:bg-cyan-800 text-amber-300 font-black flex items-center justify-center transition active:scale-95">-</button>
-            <span id="missed-fasts-count" class="font-mono text-lg font-black text-amber-300 px-2">2</span>
-            <button onclick="changeMissedFasts(1)" class="w-7 h-7 rounded-lg bg-cyan-900 hover:bg-cyan-800 text-amber-300 font-black flex items-center justify-center transition active:scale-95">+</button>
-          </div>
+          <span class="text-xs text-emerald-300 font-semibold flex items-center gap-1">
+            <span>متابعة القراءة</span>
+            <i class="fa-solid fa-chevron-left text-[10px]"></i>
+          </span>
         </div>
 
-        <!-- Caffeine Detox Card -->
-        <div class="bg-[#0c2436] rounded-2xl p-4 border border-cyan-700/50 shadow-md space-y-3">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-2">
-              <span class="text-xl">☕</span>
-              <h3 class="text-xs font-bold text-amber-200">مُدرّج تقليل الكافيين والمنبهات</h3>
-            </div>
-            <span class="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded-full border border-amber-500/30">للوقاية من الصداع</span>
+        <!-- Surahs Search & Filter -->
+        <div class="relative">
+          <input type="text" id="surahSearch" oninput="filterSurahs(this.value)" placeholder="ابحث عن اسم السورة أو رقمها..." class="w-full py-2.5 pr-10 pl-4 rounded-2xl bg-[#051a15] border border-emerald-500/30 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-400">
+          <i class="fa-solid fa-magnifying-glass absolute right-3.5 top-3.5 text-slate-400 text-xs"></i>
+        </div>
+
+        <!-- 114 Surahs Listing -->
+        <div class="space-y-2" id="surahsListContainer">
+          <!-- Populated by app.js -->
+        </div>
+
+      </section>
+
+      <!-- ========================================== -->
+      <!-- TAB 4: المسبحة والأذكار (Tasbeeh & Azkar)  -->
+      <!-- ========================================== -->
+      <section id="tab-tasbeeh" class="tab-content space-y-4">
+        
+        <!-- Electronic Tasbeeh Counter -->
+        <div class="emerald-card rounded-3xl p-5 text-center space-y-4">
+          <div class="flex items-center justify-between border-b border-amber-500/20 pb-2">
+            <span class="text-xs text-amber-300 font-bold block">المسبحة الإلكترونية المطورة</span>
+            <span class="text-[10px] text-slate-400" id="tasbeehDailyTotal">إجمالي اليوم: 150</span>
           </div>
           
-          <div class="flex items-center justify-between text-xs bg-cyan-950/70 p-3 rounded-xl border border-cyan-800/40">
-            <span class="text-slate-300">معدل استهلاكك الحالي:</span>
-            <div class="flex items-center gap-2">
-              <button onclick="updateCaffeine(-1)" class="w-6 h-6 rounded bg-cyan-900 text-amber-300 font-bold">-</button>
-              <span id="caffeine-cups" class="font-bold text-amber-300">1 كوب</span>
-              <button onclick="updateCaffeine(1)" class="w-6 h-6 rounded bg-cyan-900 text-amber-300 font-bold">+</button>
-            </div>
+          <div class="p-3.5 rounded-2xl bg-[#051a15] border border-amber-500/30 text-amber-200 text-sm font-bold min-h-[50px] flex items-center justify-center font-quran" id="currentZikrText">
+            سُبْحَانَ اللَّهِ وَبِحَمْدِهِ ، سُبْحَانَ اللَّهِ الْعَظِيمِ
           </div>
 
-          <div class="space-y-1.5">
-            <div class="w-full h-2.5 bg-cyan-950 rounded-full overflow-hidden border border-cyan-800">
-              <div id="caffeine-bar" class="h-full bg-gradient-to-r from-cyan-500 to-amber-400 rounded-full transition-all duration-500" style="width: 75%"></div>
-            </div>
-            <p id="caffeine-status" class="text-[11px] text-cyan-300/80 font-medium"></p>
-          </div>
-        </div>
-
-        <!-- Smart Khatmah Planner -->
-        <div class="bg-[#0c2436] rounded-2xl p-4 border border-cyan-700/50 shadow-md space-y-3">
-          <div class="flex items-center justify-between">
-            <h3 class="text-xs font-bold text-amber-200">مُصمّم الختمة القرآنية الذكي</h3>
-            <span class="text-[10px] text-cyan-400">اختر عدد الختمات</span>
-          </div>
-
-          <div class="grid grid-cols-3 gap-2">
-            <button id="btn-khatmah-1" onclick="setKhatmahGoal(1)" class="py-1.5 px-3 rounded-xl bg-amber-400 text-slate-950 font-bold text-xs transition">ختمة واحدة</button>
-            <button id="btn-khatmah-2" onclick="setKhatmahGoal(2)" class="py-1.5 px-3 rounded-xl bg-cyan-950 text-slate-300 border border-cyan-800 text-xs transition">ختمتان</button>
-            <button id="btn-khatmah-3" onclick="setKhatmahGoal(3)" class="py-1.5 px-3 rounded-xl bg-cyan-950 text-slate-300 border border-cyan-800 text-xs transition">3 ختمات</button>
-          </div>
-
-          <div class="grid grid-cols-2 gap-2 text-center text-xs pt-1">
-            <div class="bg-cyan-950/80 p-3 rounded-xl border border-cyan-800/60">
-              <span id="khatmah-pages-per-salah" class="block text-2xl font-black text-amber-300 font-mono">4</span>
-              <span class="text-[11px] text-slate-300">صفحات بعد كل صلاة مكتوبة</span>
-            </div>
-            <div class="bg-cyan-950/80 p-3 rounded-xl border border-cyan-800/60">
-              <span id="khatmah-juz-per-day" class="block text-2xl font-black text-amber-300 font-mono">1</span>
-              <span class="text-[11px] text-slate-300">جزء يُقرأ يومياً</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- ============================================== -->
-      <!-- TAB 4: الوجبات والتجهيز (MEALS & PREP)          -->
-      <!-- ============================================== -->
-      <div id="tab-meals" class="tab-content space-y-4">
-        
-        <!-- Header & Add Button -->
-        <div class="flex items-center justify-between">
-          <div>
-            <h2 class="text-base font-bold text-amber-300">مخطط وجبات السحور والإفطار</h2>
-            <p class="text-xs text-slate-300">أضف واكتب وجباتك المفضلة ونظم مكوناتها</p>
-          </div>
-          <button onclick="openAddMealModal()" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-bold text-xs shadow-lg active:scale-95 transition flex items-center gap-1">
-            <span>+</span>
-            <span>إضافة وجبة</span>
+          <!-- Circular Clickable Button with Ripple -->
+          <button onclick="incrementTasbeeh()" class="w-40 h-40 mx-auto rounded-full bg-gradient-to-tr from-[#0a3128] via-[#0f4438] to-[#185e4e] border-4 border-amber-400 shadow-[0_0_35px_rgba(212,175,55,0.35)] flex flex-col items-center justify-center active:scale-95 transition-transform focus:outline-none">
+            <span class="text-4xl font-extrabold text-amber-300 font-mono tracking-wider" id="tasbeehCount">150</span>
+            <span class="text-[10px] text-emerald-200 mt-1 font-semibold">اضغط للتسبيح</span>
           </button>
-        </div>
 
-        <!-- Meals Filter Pills -->
-        <div class="flex items-center gap-2 text-xs">
-          <button onclick="filterMeals('all')" id="meal-filter-all" class="meal-filter-btn px-3 py-1 rounded-xl bg-amber-400 text-slate-950 font-bold transition">الكل</button>
-          <button onclick="filterMeals('suhoor')" id="meal-filter-suhoor" class="meal-filter-btn px-3 py-1 rounded-xl bg-cyan-950 text-slate-300 border border-cyan-800 transition">🥣 السحور</button>
-          <button onclick="filterMeals('iftar')" id="meal-filter-iftar" class="meal-filter-btn px-3 py-1 rounded-xl bg-cyan-950 text-slate-300 border border-cyan-800 transition">🍲 الإفطار</button>
-        </div>
-
-        <!-- Dynamic User Meals Container -->
-        <div id="meals-list-container" class="space-y-3"></div>
-
-        <!-- Grocery Checklist Section -->
-        <div class="bg-[#0c2436] rounded-2xl p-4 border border-cyan-700/50 shadow-md space-y-3">
-          <div class="flex items-center justify-between">
-            <div>
-              <h3 class="text-xs font-bold text-amber-200">قائمة مهام ومشتريات البيت</h3>
-              <p class="text-[10px] text-cyan-300/70">المكونات المحولة تلقائياً من وجباتك</p>
-            </div>
-            <button onclick="addPrepTask()" class="text-xs text-amber-400 hover:text-amber-300 font-bold bg-cyan-950 px-2.5 py-1 rounded-xl border border-amber-400/30 transition">
-              + إضافة غرض
+          <div class="flex items-center justify-center gap-3 pt-1">
+            <button onclick="nextZikrPreset()" class="px-3.5 py-1.5 rounded-xl bg-[#061e19] text-amber-300 text-xs border border-amber-500/30 hover:border-amber-400 transition">
+              <i class="fa-solid fa-arrows-rotate ml-1"></i> تغيير الذكر
             </button>
-          </div>
-          <div id="prep-tasks-container" class="space-y-2"></div>
-        </div>
-
-        <!-- Zakat Calculator -->
-        <div class="bg-[#0c2436] rounded-2xl p-4 border border-cyan-700/50 shadow-md space-y-3">
-          <h3 class="text-xs font-bold text-amber-200 flex items-center gap-1.5">
-            💰 حاسبة الزكاة والصدقات السريعة
-          </h3>
-          <div class="grid grid-cols-2 gap-2 text-xs">
-            <div>
-              <label class="block text-[10px] text-slate-300 mb-1">المبلغ المدخر (حال عليه الحول):</label>
-              <input type="number" id="zakat-cash" placeholder="مثال: 100000" oninput="calculateZakat()" class="w-full bg-cyan-950 border border-cyan-800 rounded-xl p-2 text-amber-300 font-mono text-xs focus:outline-none focus:border-amber-400">
-            </div>
-            <div>
-              <label class="block text-[10px] text-slate-300 mb-1">سعر جرام الذهب عيار 21:</label>
-              <input type="number" id="gold-price" value="3500" oninput="calculateZakat()" class="w-full bg-cyan-950 border border-cyan-800 rounded-xl p-2 text-amber-300 font-mono text-xs focus:outline-none focus:border-amber-400">
-            </div>
-          </div>
-          <div class="bg-cyan-950/80 p-3 rounded-xl border border-amber-500/25 text-center">
-            <span class="block text-[11px] text-slate-300">مقدار الزكاة الواجبة (2.5%):</span>
-            <span id="zakat-result" class="text-lg font-black text-amber-300 font-mono">0 ج.م</span>
-            <p id="zakat-details" class="text-[10px] text-cyan-400/70 mt-0.5">ادخل المبلغ لحساب الزكاة تلقائياً</p>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- TAB 5: المصحف والأدعية (DHIKR & DUA)             -->
-      <!-- ============================================== -->
-      <div id="tab-dhikr" class="tab-content space-y-4">
-        
-        <div class="text-center">
-          <h2 class="text-base font-bold text-amber-300">المسبحة وحصن المسلم</h2>
-          <p class="text-xs text-slate-300">اذكر الله يذكرك ويشرح صدرك</p>
-        </div>
-
-        <div class="flex flex-col items-center justify-center py-2">
-          <div class="relative w-48 h-48 rounded-full bg-gradient-to-tr from-[#0a2030] via-[#10344b] to-amber-900/40 p-2 shadow-2xl border-2 border-amber-400/40 flex items-center justify-center glow-gold-card">
-            <button onclick="incrementTasbeeh()" class="w-full h-full rounded-full bg-[#081d2a] hover:bg-[#0b2536] active:scale-95 transition-all flex flex-col items-center justify-center group focus:outline-none">
-              <span id="tasbeeh-name" class="text-xs font-bold text-amber-200 px-4 text-center leading-relaxed">سُبْحَانَ اللَّهِ وَبِحَمْدِهِ</span>
-              <span id="tasbeeh-count" class="text-5xl font-black text-amber-300 font-mono my-1 tracking-wider group-active:scale-110 transition-transform">33</span>
-              <span id="tasbeeh-target" class="text-[10px] text-cyan-400/90 font-medium">الهدف: 33 مرة</span>
-            </button>
-          </div>
-
-          <p id="tasbeeh-merit" class="text-xs text-cyan-300/80 text-center max-w-xs mt-3 italic"></p>
-
-          <div class="flex items-center gap-3 mt-3">
-            <button onclick="resetTasbeeh()" class="px-3.5 py-1.5 rounded-xl bg-cyan-950 border border-cyan-800 text-xs text-slate-300 hover:text-amber-300 transition">
-              🔄 تصفير
-            </button>
-            <button onclick="nextDhikr()" class="px-4 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-bold text-xs shadow-md active:scale-95 transition">
-              الذكر التالي ❯
+            <button onclick="resetTasbeeh()" class="px-3.5 py-1.5 rounded-xl bg-[#061e19] text-slate-400 text-xs border border-emerald-500/30 hover:text-white transition">
+              <i class="fa-solid fa-rotate-left ml-1"></i> تصفير
             </button>
           </div>
         </div>
 
-        <div class="bg-[#0c2436] rounded-2xl p-4 border border-cyan-700/50 shadow-md space-y-3">
-          <div class="flex items-center justify-between">
-            <div>
-              <h3 class="text-xs font-bold text-amber-200">صندوق أدعيتي الخاصة</h3>
-              <p class="text-[10px] text-slate-400">أدعيتك التي ترغب في الإلحاح بها في رمضان</p>
-            </div>
-            <button onclick="addCustomDua()" class="text-xs text-amber-400 font-bold bg-cyan-950 px-2.5 py-1 rounded-xl border border-amber-400/30 hover:bg-cyan-900 transition">
-              + دعاء جديد
+        <!-- Categorized Azkar Repository -->
+        <div class="emerald-card rounded-3xl p-4 space-y-3">
+          <div class="flex items-center justify-between border-b border-amber-500/20 pb-2">
+            <h4 class="text-xs font-bold text-amber-300">مستودع الأذكار والأدعية المأثورة</h4>
+            <span class="text-[10px] text-slate-400">سنة نبوية</span>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2 text-xs text-center">
+            <button onclick="loadAzkarCategory('morning')" class="p-3 rounded-2xl bg-[#061e19] border border-amber-500/20 hover:border-amber-400 text-white font-bold transition flex flex-col items-center gap-1.5">
+              <span class="text-xl">🌅</span>
+              <span>أذكار الصباح</span>
+            </button>
+            <button onclick="loadAzkarCategory('evening')" class="p-3 rounded-2xl bg-[#061e19] border border-amber-500/20 hover:border-amber-400 text-white font-bold transition flex flex-col items-center gap-1.5">
+              <span class="text-xl">🌇</span>
+              <span>أذكار المساء</span>
+            </button>
+            <button onclick="loadAzkarCategory('after_prayer')" class="p-3 rounded-2xl bg-[#061e19] border border-amber-500/20 hover:border-amber-400 text-white font-bold transition flex flex-col items-center gap-1.5">
+              <span class="text-xl">🕌</span>
+              <span>أذكار بعد الصلاة</span>
+            </button>
+            <button onclick="loadAzkarCategory('ramadan_duas')" class="p-3 rounded-2xl bg-[#061e19] border border-amber-500/20 hover:border-amber-400 text-white font-bold transition flex flex-col items-center gap-1.5">
+              <span class="text-xl">🤲</span>
+              <span>أدعية الصيام والإفطار</span>
             </button>
           </div>
 
-          <div id="custom-duas-list" class="space-y-2"></div>
-        </div>
-
-        <div class="bg-[#0c2436] rounded-2xl p-4 border border-cyan-700/50 shadow-md space-y-2">
-          <h3 class="text-xs font-bold text-amber-200">أدعية مأثورة للاستعداد ورمضان</h3>
-          <div class="space-y-2 text-xs">
-            <div class="p-3 bg-cyan-950/70 rounded-xl border border-cyan-800/40">
-              <span class="text-amber-300 font-bold block mb-0.5">عند رؤية الهلال:</span>
-              <p class="text-slate-200 font-serif">"اللَّهُمَّ أَهِلَّهُ عَلَيْنَا بِالأَمْنِ وَالإِيمَانِ، وَالسَّلامَةِ وَالإِسْلامِ، رَبِّي وَرَبُّكَ اللَّهُ."</p>
-            </div>
-            <div class="p-3 bg-cyan-950/70 rounded-xl border border-cyan-800/40">
-              <span class="text-amber-300 font-bold block mb-0.5">عند الإفطار:</span>
-              <p class="text-slate-200 font-serif">"ذَهَبَ الظَّمَأُ، وَابْتَلَّتِ الْعُرُوقُ، وَثَبَتَ الأَجْرُ إِنْ شَاءَ اللَّهُ."</p>
-            </div>
-            <div class="p-3 bg-cyan-950/70 rounded-xl border border-cyan-800/40">
-              <span class="text-amber-300 font-bold block mb-0.5">في العشر الأواخر وليلة القدر:</span>
-              <p class="text-slate-200 font-serif">"اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي."</p>
-            </div>
+          <div id="azkarItemsList" class="space-y-2 pt-2">
+            <!-- Azkar cards rendered dynamically -->
           </div>
         </div>
 
-      </div>
+      </section>
 
-    </section>
+    </main>
 
-    <!-- Clean Elegant Bottom Navigation Bar (No obstructing mark/arch) -->
-    <nav class="fixed bottom-0 w-full max-w-[440px] h-16 bg-[#071827]/95 backdrop-blur-xl border-t border-amber-400/30 px-3 py-1 flex items-center justify-between z-50">
-      <!-- Home Button -->
-      <button onclick="switchTab('home')" id="nav-home" class="nav-btn flex-1 flex flex-col items-center gap-0.5 text-amber-400 transition active:scale-95">
-        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
-        </svg>
-        <span class="text-[10px] font-bold">الرئيسية</span>
+    <!-- Clean Bottom Sleek Navigation Bar (Clean 4 Tabs - No Obstructing Arch) -->
+    <nav class="sticky bottom-0 z-40 bg-[#041411]/95 backdrop-blur-md px-3 py-2 border-t border-amber-500/30 flex items-center justify-around shadow-2xl">
+      <button onclick="switchTab('home')" id="nav-home" class="flex flex-col items-center text-amber-300 text-xs font-bold transition">
+        <i class="fa-solid fa-house mb-0.5 text-base"></i>
+        <span>الرئيسية</span>
       </button>
 
-      <!-- Tracker Button -->
-      <button onclick="switchTab('tracker')" id="nav-tracker" class="nav-btn flex-1 flex flex-col items-center gap-0.5 text-cyan-400/60 hover:text-cyan-300 transition active:scale-95">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-        </svg>
-        <span class="text-[10px] font-medium">التتبع</span>
+      <button onclick="switchTab('prayers')" id="nav-prayers" class="flex flex-col items-center text-slate-400 hover:text-amber-300 text-xs transition">
+        <i class="fa-solid fa-mosque mb-0.5 text-base"></i>
+        <span>المواقيت</span>
       </button>
 
-      <!-- Quran Center Button -->
-      <button onclick="switchTab('quran')" id="nav-quran" class="nav-btn flex-1 flex flex-col items-center gap-0.5 text-cyan-400/60 hover:text-amber-300 transition active:scale-95">
-        <svg class="w-5 h-5 text-amber-300" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-        </svg>
-        <span class="text-[10px] font-bold text-amber-300">المصحف</span>
+      <button onclick="switchTab('quran')" id="nav-quran" class="flex flex-col items-center text-slate-400 hover:text-amber-300 text-xs transition">
+        <i class="fa-solid fa-book-quran mb-0.5 text-base"></i>
+        <span>المصحف</span>
       </button>
 
-      <!-- Schedule / Meals Button -->
-      <button onclick="switchTab('meals')" id="nav-meals" class="nav-btn flex-1 flex flex-col items-center gap-0.5 text-cyan-400/60 hover:text-cyan-300 transition active:scale-95">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-        </svg>
-        <span class="text-[10px] font-medium">المواعيد</span>
-      </button>
-
-      <!-- Settings / Dhikr Button -->
-      <button onclick="switchTab('dhikr')" id="nav-dhikr" class="nav-btn flex-1 flex flex-col items-center gap-0.5 text-cyan-400/60 hover:text-cyan-300 transition active:scale-95">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-          <circle cx="12" cy="12" r="3"></circle>
-        </svg>
-        <span class="text-[10px] font-medium">المسبحة</span>
+      <button onclick="switchTab('tasbeeh')" id="nav-tasbeeh" class="flex flex-col items-center text-slate-400 hover:text-amber-300 text-xs transition">
+        <i class="fa-solid fa-hands-praying mb-0.5 text-base"></i>
+        <span>المسبحة</span>
       </button>
     </nav>
 
-  </main>
-
-  <!-- Application Logic -->
-  <script src="app.js"></script>
-
-  <!-- Add/Edit Custom Meal Modal -->
-  <div id="meal-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-[#0a2233] border border-amber-400/40 rounded-3xl w-full max-w-sm p-5 space-y-4 text-slate-100 shadow-2xl">
-      <div class="flex items-center justify-between pb-2 border-b border-cyan-800/40">
-        <h3 id="modal-meal-title" class="text-sm font-bold text-amber-300">إضافة وجبة جديدة</h3>
-        <button onclick="closeMealModal()" class="text-slate-400 hover:text-white text-base">✕</button>
-      </div>
-
-      <input type="hidden" id="modal-meal-id" value="">
-
-      <div>
-        <label class="block text-xs text-slate-300 mb-1">اسم الوجبة:</label>
-        <input type="text" id="modal-meal-name" placeholder="مثال: فول بزيت الزيتون والليمون" class="w-full bg-cyan-950 border border-cyan-800 rounded-xl p-2.5 text-xs text-slate-100 focus:outline-none focus:border-amber-400">
-      </div>
-
-      <div>
-        <label class="block text-xs text-slate-300 mb-1">نوع الوجبة:</label>
-        <select id="modal-meal-category" class="w-full bg-cyan-950 border border-cyan-800 rounded-xl p-2.5 text-xs text-amber-300 focus:outline-none focus:border-amber-400">
-          <option value="suhoor">🥣 وجبة سحور</option>
-          <option value="iftar">🍲 وجبة إفطار</option>
-        </select>
-      </div>
-
-      <div>
-        <label class="block text-xs text-slate-300 mb-1">وصف أو نصائح للوجبة:</label>
-        <input type="text" id="modal-meal-desc" placeholder="مثال: خفيفة وغنية بالبوتاسيوم لمنع العطش" class="w-full bg-cyan-950 border border-cyan-800 rounded-xl p-2.5 text-xs text-slate-100 focus:outline-none focus:border-amber-400">
-      </div>
-
-      <div>
-        <label class="block text-xs text-slate-300 mb-1">المكونات والمقادير (مفصولة بفاصلة):</label>
-        <textarea id="modal-meal-ingredients" rows="2" placeholder="مثال: فول، زيت زيتون، ليمون، كمون، خبز بلدي" class="w-full bg-cyan-950 border border-cyan-800 rounded-xl p-2.5 text-xs text-slate-100 focus:outline-none focus:border-amber-400"></textarea>
-      </div>
-
-      <div class="flex items-center gap-2 pt-2">
-        <button onclick="saveMealFromModal()" class="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-bold text-xs shadow-md active:scale-95 transition">
-          حفظ الوجبة
+    <!-- Surah Reading Full Screen Modal -->
+    <div id="surahModal" class="fixed inset-0 z-50 bg-[#030d0b]/95 backdrop-blur-md flex flex-col hidden">
+      <!-- Modal Header -->
+      <div class="px-4 py-3 bg-[#041411] border-b border-amber-500/30 flex items-center justify-between">
+        <button onclick="closeSurahModal()" class="w-8 h-8 rounded-full bg-[#07241e] text-slate-300 hover:text-white flex items-center justify-center">
+          <i class="fa-solid fa-xmark"></i>
         </button>
-        <button onclick="closeMealModal()" class="px-4 py-2.5 rounded-xl bg-cyan-950 border border-cyan-800 text-slate-300 text-xs">
-          إلغاء
+        <div class="text-center">
+          <h3 class="text-base font-bold font-quran text-amber-300" id="modalSurahName">سورة الفاتحة</h3>
+          <span class="text-[10px] text-emerald-300" id="modalSurahDetails">7 آيات • مكية</span>
+        </div>
+        <button onclick="saveCurrentBookmark()" class="w-8 h-8 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/40 flex items-center justify-center">
+          <i class="fa-solid fa-bookmark text-xs"></i>
+        </button>
+      </div>
+
+      <!-- Ayahs Text Container -->
+      <div class="flex-1 p-5 overflow-y-auto no-scrollbar space-y-4" id="surahAyahsContainer">
+        <!-- Ayahs text injected here -->
+      </div>
+
+      <!-- Modal Footer (Next / Prev Surah) -->
+      <div class="px-4 py-2.5 bg-[#041411] border-t border-amber-500/30 flex items-center justify-between text-xs">
+        <button onclick="prevSurah()" class="px-3 py-1.5 rounded-xl bg-[#07241e] text-slate-300 hover:text-amber-300 border border-emerald-500/30">
+          السورة السابقة
+        </button>
+        <button onclick="nextSurah()" class="px-3 py-1.5 rounded-xl bg-[#07241e] text-slate-300 hover:text-amber-300 border border-emerald-500/30">
+          السورة التالية
         </button>
       </div>
     </div>
+
   </div>
 
+  <!-- Main JavaScript Logic -->
+  <script src="./app.js"></script>
 </body>
 </html>
