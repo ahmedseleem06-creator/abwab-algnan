@@ -22,7 +22,7 @@
 
   <div class="app-container bg-emerald-islamic">
 
-    <!-- Top Sticky Header (Live Hijri & Gregorian Dates + City) -->
+    <!-- Top Sticky Header (Live Hijri & Gregorian Dates + Location GPS & City) -->
     <header class="sticky top-0 z-30 bg-[#041411]/95 backdrop-blur-md px-4 py-3 border-b border-amber-500/20 flex items-center justify-between">
       <div class="flex items-center gap-2.5">
         <div class="w-9 h-9 rounded-2xl bg-gradient-to-tr from-amber-500/30 to-amber-200/20 border border-amber-400/40 flex items-center justify-center text-amber-300 text-base shadow-sm">
@@ -34,18 +34,22 @@
         </div>
       </div>
 
-      <!-- City Selector -->
-      <div class="flex items-center gap-1.5 bg-[#082a22] border border-amber-500/30 rounded-full px-2.5 py-1 text-[11px] text-amber-200 shadow-inner">
-        <i class="fa-solid fa-location-dot text-[9px] text-amber-400"></i>
-        <select id="citySelect" onchange="changeCity(this.value)" class="bg-transparent text-amber-200 focus:outline-none cursor-pointer text-[11px]">
-          <option value="Cairo" class="bg-[#041411] text-amber-200">القاهرة</option>
-          <option value="Alexandria" class="bg-[#041411] text-amber-200">الإسكندرية</option>
-          <option value="Makkah" class="bg-[#041411] text-amber-200">مكة المكرمة</option>
-          <option value="Madinah" class="bg-[#041411] text-amber-200">المدينة المنورة</option>
-          <option value="Riyadh" class="bg-[#041411] text-amber-200">الرياض</option>
-          <option value="Dubai" class="bg-[#041411] text-amber-200">دبي</option>
-          <option value="Jerusalem" class="bg-[#041411] text-amber-200">القدس الشريف</option>
-        </select>
+      <!-- GPS Location & City Selector -->
+      <div class="flex items-center gap-1.5">
+        <button onclick="detectUserLocation()" title="تحديد موقعي التلقائي بدقة" class="w-8 h-8 rounded-full bg-[#082a22] border border-amber-500/40 text-amber-300 hover:text-amber-200 flex items-center justify-center text-xs active:scale-90 transition shadow-inner">
+          <i class="fa-solid fa-crosshairs" id="gpsIcon"></i>
+        </button>
+        <div class="flex items-center gap-1 bg-[#082a22] border border-amber-500/30 rounded-full px-2.5 py-1 text-[11px] text-amber-200 shadow-inner">
+          <select id="citySelect" onchange="changeCity(this.value)" class="bg-transparent text-amber-200 focus:outline-none cursor-pointer text-[11px]">
+            <option value="Cairo" class="bg-[#041411] text-amber-200">القاهرة</option>
+            <option value="Alexandria" class="bg-[#041411] text-amber-200">الإسكندرية</option>
+            <option value="Makkah" class="bg-[#041411] text-amber-200">مكة المكرمة</option>
+            <option value="Madinah" class="bg-[#041411] text-amber-200">المدينة المنورة</option>
+            <option value="Riyadh" class="bg-[#041411] text-amber-200">الرياض</option>
+            <option value="Dubai" class="bg-[#041411] text-amber-200">دبي</option>
+            <option value="Jerusalem" class="bg-[#041411] text-amber-200">القدس الشريف</option>
+          </select>
+        </div>
       </div>
     </header>
 
@@ -57,8 +61,8 @@
       <!-- ========================================== -->
       <section id="tab-home" class="tab-content active space-y-4">
         
-        <!-- 1. The Approved Golden Crescent Hero Banner with Real Live Countdown -->
-        <div class="w-full relative rounded-3xl overflow-hidden border border-amber-500/40 shadow-2xl p-4 bg-gradient-to-r from-[#041a15] via-[#092c24] to-[#041612]">
+        <!-- 1. The Approved Golden Crescent Hero Banner (Crescent LEFT, Text RIGHT, No hours/mins) -->
+        <div class="w-full relative rounded-3xl overflow-hidden border border-amber-500/50 shadow-2xl p-4 bg-gradient-to-r from-[#041914] via-[#092f26] to-[#041612]">
           <!-- Corner 8-point stars -->
           <div class="absolute -top-3 -right-3 w-16 h-16 pointer-events-none opacity-20">
             <svg viewBox="0 0 72 72" class="w-full h-full fill-none stroke-[#d4af37] stroke-[1.2]">
@@ -67,66 +71,26 @@
             </svg>
           </div>
 
-          <div class="flex items-center justify-between gap-2 relative z-10">
+          <!-- Explicit LTR Container: Left child is Crescent, Right child is Text -->
+          <div class="flex items-center justify-between gap-2 relative z-10" dir="ltr">
             
-            <!-- Left side: Golden Crescent Art with Light Flare (Unclipped) -->
+            <!-- LEFT: 3D Luminous Crescent & Star (Pure Gold, Clean, No white halo) -->
             <div class="relative w-32 h-32 flex-shrink-0 flex items-center justify-center">
-              <div class="absolute w-28 h-28 rounded-full bg-amber-400/20 blur-xl"></div>
-              
-              <!-- Crescent SVG tilted 10deg with glitter stipples -->
-              <svg viewBox="0 0 160 160" class="w-32 h-32 crescent-glow overflow-visible" style="transform: rotate(10deg);">
-                <defs>
-                  <linearGradient id="goldGradientHero" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#fff4b8"/>
-                    <stop offset="35%" stop-color="#f5d061"/>
-                    <stop offset="70%" stop-color="#d4af37"/>
-                    <stop offset="100%" stop-color="#997316"/>
-                  </linearGradient>
-
-                  <pattern id="stardustHero" width="10" height="10" patternUnits="userSpaceOnUse">
-                    <circle cx="2" cy="2" r="0.75" fill="#ffffff" opacity="0.9"/>
-                    <circle cx="7" cy="3" r="0.6" fill="#ffe082" opacity="0.8"/>
-                    <circle cx="4" cy="7" r="0.8" fill="#ffffff" opacity="0.85"/>
-                    <circle cx="8" cy="8" r="0.5" fill="#ffd54f" opacity="0.7"/>
-                  </pattern>
-                </defs>
-
-                <!-- Outer Gold Crescent -->
-                <path d="M 125,25 A 58,58 0 1 0 120,135 A 46,46 0 1 1 125,25 Z" 
-                      fill="url(#goldGradientHero)" 
-                      stroke="#fff2b2" stroke-width="1.5" />
-                
-                <!-- Inner Stardust Infill -->
-                <path d="M 125,25 A 58,58 0 1 0 120,135 A 46,46 0 1 1 125,25 Z" 
-                      fill="url(#stardustHero)" />
-
-                <!-- Radiant Flare at lower rim -->
-                <g transform="translate(100, 110)">
-                  <circle cx="0" cy="0" r="14" fill="#ffecb3" opacity="0.45" filter="blur(2px)"/>
-                  <circle cx="0" cy="0" r="3.5" fill="#ffffff"/>
-                  <line x1="-18" y1="0" x2="18" y2="0" stroke="#ffffff" stroke-width="1.8" opacity="0.9"/>
-                  <line x1="0" y1="-18" x2="0" y2="18" stroke="#ffffff" stroke-width="1.8" opacity="0.9"/>
-                </g>
-              </svg>
+              <img src="./assets/images/crescent_star_transparent.png" 
+                   alt="الهلال المنور" 
+                   class="w-28 h-28 object-contain crescent-glow z-10">
             </div>
 
-            <!-- Right side: Real Days Countdown & Live Clock -->
-            <div class="text-right flex-1 pr-1">
-              <span class="inline-block px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-bold border border-amber-400/30 mb-1">
-                🌙 الاستعداد لرمضان 1448 هـ
+            <!-- RIGHT: Text aligned RTL without hours/minutes -->
+            <div class="text-right flex-1 pr-2" dir="rtl">
+              <span class="inline-block px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-bold border border-amber-400/30 mb-2 shadow-sm">
+                الاستعداد لرمضان
               </span>
-              <h2 class="text-sm font-bold text-white mb-1">متبقي على الشهر الفضيل</h2>
+              <h2 class="text-sm font-semibold text-slate-200 mb-1">متبقي على الشهر الفضيل</h2>
               
-              <div class="flex items-baseline justify-end gap-1 mb-2">
-                <span class="text-3xl font-extrabold gold-gradient-text" id="countdownDays">--</span>
-                <span class="text-xs font-bold text-amber-300">يوماً</span>
-              </div>
-
-              <!-- Live Hours : Mins : Secs -->
-              <div class="inline-flex items-center gap-1.5 bg-[#03110e]/90 px-2.5 py-1 rounded-xl border border-amber-500/30 text-[10px] text-emerald-200">
-                <span class="font-mono font-bold text-amber-300" id="countdownHours">00</span><span class="text-slate-500">س</span>:
-                <span class="font-mono font-bold text-amber-300" id="countdownMins">00</span><span class="text-slate-500">د</span>:
-                <span class="font-mono font-bold text-amber-300" id="countdownSecs">00</span><span class="text-slate-500">ث</span>
+              <div class="flex items-baseline justify-start gap-1.5 pt-1">
+                <span class="text-4xl font-extrabold text-amber-300 font-mono tracking-tight" id="countdownDays">--</span>
+                <span class="text-sm font-bold text-amber-300">يوماً</span>
               </div>
             </div>
 
@@ -154,7 +118,7 @@
           </div>
         </div>
 
-        <!-- 3. Smart Achievement Hub (بديل الدوائر) -->
+        <!-- 3. Smart Achievement Hub (لوحة إنجاز اليوم العملية - بديل الدوائر) -->
         <div class="emerald-card rounded-3xl p-4 space-y-3">
           <div class="flex items-center justify-between border-b border-amber-500/20 pb-2.5">
             <div class="flex items-center gap-2">
@@ -182,7 +146,7 @@
           <div class="grid grid-cols-2 gap-2.5 pt-1">
             
             <!-- Card 1: Fasting Today -->
-            <div onclick="toggleAchievement('fasting')" id="card-fasting" class="cursor-pointer p-3 rounded-2xl bg-[#07241e] border border-amber-500/40 hover:border-amber-400 transition-all flex flex-col justify-between">
+            <div onclick="toggleAchievement('fasting')" id="card-fasting" class="cursor-pointer p-3 rounded-2xl bg-[#072821] border border-amber-500/40 hover:border-amber-400 transition-all flex flex-col justify-between">
               <div class="flex items-center justify-between">
                 <span class="text-lg">🥣</span>
                 <div id="check-fasting" class="w-5 h-5 rounded-full bg-amber-400 text-emerald-950 flex items-center justify-center text-[10px] font-bold shadow-sm">
@@ -196,7 +160,7 @@
             </div>
 
             <!-- Card 2: 5 Prayers -->
-            <div onclick="switchTab('prayers')" class="cursor-pointer p-3 rounded-2xl bg-[#07241e] border border-emerald-500/40 hover:border-amber-400 transition-all flex flex-col justify-between">
+            <div onclick="switchTab('prayers')" class="cursor-pointer p-3 rounded-2xl bg-[#072821] border border-emerald-500/40 hover:border-amber-400 transition-all flex flex-col justify-between">
               <div class="flex items-center justify-between">
                 <span class="text-lg">🕌</span>
                 <div class="w-5 h-5 rounded-full bg-amber-400 text-emerald-950 flex items-center justify-center text-[10px] font-bold">
@@ -210,7 +174,7 @@
             </div>
 
             <!-- Card 3: Quran Daily Wird -->
-            <div onclick="switchTab('quran')" class="cursor-pointer p-3 rounded-2xl bg-[#07241e] border border-amber-500/40 hover:border-amber-400 transition-all flex flex-col justify-between">
+            <div onclick="switchTab('quran')" class="cursor-pointer p-3 rounded-2xl bg-[#072821] border border-amber-500/40 hover:border-amber-400 transition-all flex flex-col justify-between">
               <div class="flex items-center justify-between">
                 <span class="text-lg">📖</span>
                 <div id="check-quran" class="w-5 h-5 rounded-full bg-amber-400 text-emerald-950 flex items-center justify-center text-[10px] font-bold">
@@ -224,7 +188,7 @@
             </div>
 
             <!-- Card 4: Daily Azkar & Tasbeeh -->
-            <div onclick="switchTab('tasbeeh')" class="cursor-pointer p-3 rounded-2xl bg-[#07241e] border border-emerald-500/40 hover:border-amber-400 transition-all flex flex-col justify-between">
+            <div onclick="switchTab('tasbeeh')" class="cursor-pointer p-3 rounded-2xl bg-[#072821] border border-emerald-500/40 hover:border-amber-400 transition-all flex flex-col justify-between">
               <div class="flex items-center justify-between">
                 <span class="text-lg">📿</span>
                 <div id="check-azkar" class="w-5 h-5 rounded-full bg-slate-700 text-slate-300 flex items-center justify-center text-[10px] font-bold">
@@ -243,7 +207,7 @@
           <div class="bg-[#051a15] p-2.5 rounded-2xl border border-emerald-500/30">
             <div class="flex items-center justify-between text-[11px] mb-2 px-1">
               <span class="text-slate-300 font-semibold">تأكيد أداء صلوات اليوم:</span>
-              <span class="text-amber-300 text-[10px]">اضغط على الصلاة لتحديدها</span>
+              <span class="text-amber-300 text-[10px]">اضغط للتحديد السريع</span>
             </div>
             <div class="grid grid-cols-5 gap-1.5 text-center text-[10px]">
               <button onclick="togglePrayer(0)" id="prayer-btn-0" class="py-1.5 rounded-xl bg-amber-400 text-emerald-950 font-bold transition">فجر ✓</button>
@@ -313,8 +277,24 @@
       <section id="tab-prayers" class="tab-content space-y-4">
         
         <div class="emerald-card rounded-3xl p-4 text-center space-y-3">
-          <span class="text-xs text-amber-300 font-semibold block">مواقيت اليوم بدقة بحسب الحسابات الفلكية</span>
-          <h3 class="text-lg font-bold text-white" id="prayerCityTitle">القاهرة ومحيطها</h3>
+          <div class="flex items-center justify-between border-b border-amber-500/20 pb-2">
+            <span class="text-xs text-amber-300 font-bold block">مواقيت الصلاة الدقيقة</span>
+            <button onclick="detectUserLocation()" class="px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-bold border border-amber-400/30 flex items-center gap-1 shadow-sm">
+              <i class="fa-solid fa-location-crosshairs"></i>
+              <span>موقعي الحالي</span>
+            </button>
+          </div>
+
+          <div class="p-2.5 rounded-2xl bg-[#061e19] border border-amber-500/20 text-right flex items-center justify-between text-xs">
+            <div>
+              <span class="text-slate-400 text-[10px] block">المدينة المضبوطة:</span>
+              <b class="text-amber-300 text-sm" id="prayerCityTitle">القاهرة ومحيطها</b>
+            </div>
+            <div class="text-left">
+              <span class="text-slate-400 text-[10px] block">التوقيت المضبوط:</span>
+              <span class="text-emerald-300 text-[11px] font-mono" id="tzStatusText">تلقائي (UTC+2) الشتوي</span>
+            </div>
+          </div>
           
           <div class="space-y-2 text-right" id="prayerTimesTable">
             <!-- Dynamic Prayer Times rows rendered by app.js -->
@@ -410,65 +390,54 @@
       </section>
 
       <!-- ========================================== -->
-      <!-- TAB 4: المسبحة والأذكار (Tasbeeh & Azkar)  -->
+      <!-- TAB 4: المسبحة والأذكار العشرة الموثقة     -->
       <!-- ========================================== -->
       <section id="tab-tasbeeh" class="tab-content space-y-4">
         
-        <!-- Electronic Tasbeeh Counter -->
-        <div class="emerald-card rounded-3xl p-5 text-center space-y-4">
+        <!-- 1. Interactive Electronic Tasbeeh -->
+        <div class="emerald-card rounded-3xl p-5 text-center space-y-3">
           <div class="flex items-center justify-between border-b border-amber-500/20 pb-2">
-            <span class="text-xs text-amber-300 font-bold block">المسبحة الإلكترونية المطورة</span>
-            <span class="text-[10px] text-slate-400" id="tasbeehDailyTotal">إجمالي اليوم: 150</span>
+            <span class="text-xs text-amber-300 font-bold block">المسبحة الإلكترونية المفتوحة</span>
+            <div class="flex items-center gap-2">
+              <span class="text-[10px] text-emerald-300" id="targetCounterLabel">الهدف: مفتوح ∞</span>
+              <button onclick="openAddZikrModal()" class="px-2.5 py-1 rounded-xl bg-amber-500/20 text-amber-300 text-[10px] font-bold border border-amber-400/40 hover:bg-amber-500/30 transition">
+                + ذكر مخصص
+              </button>
+            </div>
           </div>
           
-          <div class="p-3.5 rounded-2xl bg-[#051a15] border border-amber-500/30 text-amber-200 text-sm font-bold min-h-[50px] flex items-center justify-center font-quran" id="currentZikrText">
-            سُبْحَانَ اللَّهِ وَبِحَمْدِهِ ، سُبْحَانَ اللَّهِ الْعَظِيمِ
+          <!-- Active Selected Zikr Box -->
+          <div class="p-3 rounded-2xl bg-[#051a15] border border-amber-500/30 text-amber-200 text-sm font-bold min-h-[58px] flex items-center justify-center font-quran leading-relaxed px-4 shadow-inner" id="activeZikrDisplay">
+            سُبْحَانَ اللَّهِ وَبِحَمْدِهِ
           </div>
 
-          <!-- Circular Clickable Button with Ripple -->
-          <button onclick="incrementTasbeeh()" class="w-40 h-40 mx-auto rounded-full bg-gradient-to-tr from-[#0a3128] via-[#0f4438] to-[#185e4e] border-4 border-amber-400 shadow-[0_0_35px_rgba(212,175,55,0.35)] flex flex-col items-center justify-center active:scale-95 transition-transform focus:outline-none">
+          <!-- Circular Counter Button -->
+          <button onclick="incrementTasbeeh()" class="w-36 h-36 mx-auto rounded-full bg-gradient-to-tr from-[#0a3128] via-[#0f4438] to-[#185e4e] border-4 border-amber-400 shadow-[0_0_30px_rgba(212,175,55,0.35)] flex flex-col items-center justify-center active:scale-95 transition-transform focus:outline-none">
             <span class="text-4xl font-extrabold text-amber-300 font-mono tracking-wider" id="tasbeehCount">150</span>
             <span class="text-[10px] text-emerald-200 mt-1 font-semibold">اضغط للتسبيح</span>
           </button>
 
-          <div class="flex items-center justify-center gap-3 pt-1">
-            <button onclick="nextZikrPreset()" class="px-3.5 py-1.5 rounded-xl bg-[#061e19] text-amber-300 text-xs border border-amber-500/30 hover:border-amber-400 transition">
-              <i class="fa-solid fa-arrows-rotate ml-1"></i> تغيير الذكر
-            </button>
-            <button onclick="resetTasbeeh()" class="px-3.5 py-1.5 rounded-xl bg-[#061e19] text-slate-400 text-xs border border-emerald-500/30 hover:text-white transition">
-              <i class="fa-solid fa-rotate-left ml-1"></i> تصفير
-            </button>
+          <!-- Target Quick Pills (33, 100, Free) -->
+          <div class="flex items-center justify-center gap-2 pt-1 text-[11px]">
+            <button onclick="setCounterTarget(33)" id="target-btn-33" class="px-2.5 py-1 rounded-xl bg-[#061e19] text-amber-300 border border-emerald-500/30 hover:border-amber-400 transition">33 مرة</button>
+            <button onclick="setCounterTarget(100)" id="target-btn-100" class="px-2.5 py-1 rounded-xl bg-[#061e19] text-amber-300 border border-emerald-500/30 hover:border-amber-400 transition">100 مرة</button>
+            <button onclick="setCounterTarget(0)" id="target-btn-0" class="px-2.5 py-1 rounded-xl bg-amber-400 text-emerald-950 font-bold border border-amber-400 transition">مفتوح ∞</button>
+            <button onclick="resetTasbeeh()" class="px-2.5 py-1 rounded-xl bg-[#061e19] text-slate-400 border border-emerald-500/30 hover:text-white transition">تصفير</button>
           </div>
         </div>
 
-        <!-- Categorized Azkar Repository -->
+        <!-- 2. The 10 Authentic Core Azkar (مع التشكيل الكامل) -->
         <div class="emerald-card rounded-3xl p-4 space-y-3">
           <div class="flex items-center justify-between border-b border-amber-500/20 pb-2">
-            <h4 class="text-xs font-bold text-amber-300">مستودع الأذكار والأدعية المأثورة</h4>
-            <span class="text-[10px] text-slate-400">سنة نبوية</span>
+            <div class="flex items-center gap-2">
+              <span class="text-amber-400">📿</span>
+              <h4 class="text-xs font-bold text-amber-300">الأذكار العشرة الأساسية الموثقة</h4>
+            </div>
+            <span class="text-[10px] text-emerald-300">بالتشكيل الصحيح</span>
           </div>
 
-          <div class="grid grid-cols-2 gap-2 text-xs text-center">
-            <button onclick="loadAzkarCategory('morning')" class="p-3 rounded-2xl bg-[#061e19] border border-amber-500/20 hover:border-amber-400 text-white font-bold transition flex flex-col items-center gap-1.5">
-              <span class="text-xl">🌅</span>
-              <span>أذكار الصباح</span>
-            </button>
-            <button onclick="loadAzkarCategory('evening')" class="p-3 rounded-2xl bg-[#061e19] border border-amber-500/20 hover:border-amber-400 text-white font-bold transition flex flex-col items-center gap-1.5">
-              <span class="text-xl">🌇</span>
-              <span>أذكار المساء</span>
-            </button>
-            <button onclick="loadAzkarCategory('after_prayer')" class="p-3 rounded-2xl bg-[#061e19] border border-amber-500/20 hover:border-amber-400 text-white font-bold transition flex flex-col items-center gap-1.5">
-              <span class="text-xl">🕌</span>
-              <span>أذكار بعد الصلاة</span>
-            </button>
-            <button onclick="loadAzkarCategory('ramadan_duas')" class="p-3 rounded-2xl bg-[#061e19] border border-amber-500/20 hover:border-amber-400 text-white font-bold transition flex flex-col items-center gap-1.5">
-              <span class="text-xl">🤲</span>
-              <span>أدعية الصيام والإفطار</span>
-            </button>
-          </div>
-
-          <div id="azkarItemsList" class="space-y-2 pt-2">
-            <!-- Azkar cards rendered dynamically -->
+          <div class="space-y-2 max-h-72 overflow-y-auto no-scrollbar" id="azkar10Container">
+            <!-- 10 Azkar list rendered by JS -->
           </div>
         </div>
 
@@ -498,6 +467,37 @@
         <span>المسبحة</span>
       </button>
     </nav>
+
+    <!-- Add Custom Zikr Modal -->
+    <div id="customZikrModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+      <div class="w-full max-w-sm rounded-3xl bg-[#06211a] border border-amber-500/40 p-5 space-y-4 shadow-2xl text-right">
+        <div class="flex items-center justify-between border-b border-amber-500/20 pb-2">
+          <h3 class="text-sm font-bold text-amber-300">إضافة ذكر مخصص</h3>
+          <button onclick="closeAddZikrModal()" class="text-slate-400 hover:text-white text-base">&times;</button>
+        </div>
+
+        <div class="space-y-2">
+          <label class="text-xs text-slate-300 block">نص الذكر أو الدعاء:</label>
+          <textarea id="customZikrText" rows="2" placeholder="مثال: حَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيلُ..." class="w-full p-2.5 rounded-xl bg-[#041411] border border-emerald-500/30 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-400"></textarea>
+        </div>
+
+        <div class="space-y-2">
+          <label class="text-xs text-slate-300 block">العدد المستهدف:</label>
+          <div class="grid grid-cols-4 gap-1.5 text-center text-xs">
+            <button type="button" onclick="selectModalTarget(33)" class="p-1.5 rounded-lg bg-[#041411] text-amber-300 border border-emerald-500/30 hover:border-amber-400">33</button>
+            <button type="button" onclick="selectModalTarget(100)" class="p-1.5 rounded-lg bg-[#041411] text-amber-300 border border-emerald-500/30 hover:border-amber-400">100</button>
+            <button type="button" onclick="selectModalTarget(1000)" class="p-1.5 rounded-lg bg-[#041411] text-amber-300 border border-emerald-500/30 hover:border-amber-400">1000</button>
+            <button type="button" onclick="selectModalTarget(0)" class="p-1.5 rounded-lg bg-amber-400 text-emerald-950 font-bold border border-amber-400">مفتوح ∞</button>
+          </div>
+          <input type="number" id="customZikrTargetInput" value="0" placeholder="أو اكتب عدداً مخصصاً..." class="w-full p-2 rounded-xl bg-[#041411] border border-emerald-500/30 text-xs text-white mt-1">
+        </div>
+
+        <div class="flex items-center gap-2 pt-2">
+          <button onclick="saveCustomZikr()" class="flex-1 gold-button py-2 rounded-xl text-xs">حفظ الذكر والبدء بالتسبيح</button>
+          <button onclick="closeAddZikrModal()" class="px-3 py-2 rounded-xl bg-[#041411] text-slate-400 text-xs border border-emerald-500/30">إلغاء</button>
+        </div>
+      </div>
+    </div>
 
     <!-- Surah Reading Full Screen Modal -->
     <div id="surahModal" class="fixed inset-0 z-50 bg-[#030d0b]/95 backdrop-blur-md flex flex-col hidden">
