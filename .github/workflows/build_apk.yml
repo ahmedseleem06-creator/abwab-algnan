@@ -46,23 +46,33 @@ jobs:
 
       - name: Configure Android Permissions & MinSdk
         run: |
-          MANIFEST="android/app/src/main/AndroidManifest.xml"
-          if [ -f "$MANIFEST" ]; then
-            if ! grep -q "android.permission.INTERNET" "$MANIFEST"; then
-              sed -i '/<manifest/a \    <uses-permission android:name="android.permission.INTERNET"\/>\n    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"\/>\n    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"\/>' "$MANIFEST"
-              sed -i '/<application/a \        android:usesCleartextTraffic="true"' "$MANIFEST"
-            fi
-            sed -i 's/android:label="abwab_aljinan"/android:label="أبواب الجنان"/' "$MANIFEST" 2>/dev/null || true
-          fi
+          python3 -c "
+          import glob, re, os
 
-          if [ -f "android/app/build.gradle" ]; then
-            sed -i 's/minSdkVersion flutter.minSdkVersion/minSdkVersion 21/g' android/app/build.gradle
-            sed -i 's/minSdk = flutter.minSdkVersion/minSdk = 21/g' android/app/build.gradle
-          fi
-          if [ -f "android/app/build.gradle.kts" ]; then
-            sed -i 's/minSdk = flutter.minSdkVersion/minSdk = 21/g' android/app/build.gradle.kts
-            sed -i 's/minSdkVersion = flutter.minSdkVersion/minSdkVersion = 21/g' android/app/build.gradle.kts
-          fi
+          # 1. Update AndroidManifest.xml
+          mpath = 'android/app/src/main/AndroidManifest.xml'
+          if os.path.exists(mpath):
+              with open(mpath, 'r', encoding='utf-8') as f:
+                  m = f.read()
+              perms = '''    <uses-permission android:name=\"android.permission.INTERNET\"/>\n    <uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>\n    <uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>\n'''
+              if 'android.permission.INTERNET' not in m:
+                  m = m.replace('<application', perms + '    <application')
+              if 'android:usesCleartextTraffic' not in m:
+                  m = m.replace('<application', '<application\n        android:usesCleartextTraffic=\"true\"')
+              with open(mpath, 'w', encoding='utf-8') as f:
+                  f.write(m)
+              print('AndroidManifest configured successfully.')
+
+          # 2. Update all build.gradle files to minSdk = 21
+          for gpath in glob.glob('android/app/build.gradle*'):
+              with open(gpath, 'r', encoding='utf-8') as f:
+                  g = f.read()
+              g = re.sub(r'(minSdkVersion|minSdk)\s*=?\s*.*', r'\1 = 21', g)
+              g = re.sub(r'minSdkVersion\s+.*', 'minSdkVersion 21', g)
+              with open(gpath, 'w', encoding='utf-8') as f:
+                  f.write(g)
+              print(f'{gpath} configured with minSdk 21.')
+          "
 
       - name: Setup Dependencies
         run: flutter pub get
@@ -74,16 +84,12 @@ jobs:
           fi
 
       - name: Build Universal Release APK
-        run: flutter build apk --release --no-tree-shake-icons
+        run: flutter build apk --release --no-tree-shake-icons --verbose
 
       - name: Prepare APK File for Download
         run: |
           mkdir -p release_output
-          if [ -f "build/app/outputs/flutter-apk/app-release.apk" ]; then
-            cp build/app/outputs/flutter-apk/app-release.apk release_output/Abwab-AlJinan-Release.apk
-          else
-            find build/app/outputs -name "*release*.apk" -exec cp {} release_output/Abwab-AlJinan-Release.apk \;
-          fi
+          find build/app/outputs -name "*release*.apk" -exec cp {} release_output/Abwab-AlJinan-Release.apk \;
           ls -lh release_output/
 
       - name: Upload APK Artifact
@@ -102,7 +108,7 @@ jobs:
           name: "أبواب الجنان - تطبيق أندرويد APK v1.0.0"
           body: |
             🌙 **تطبيق أبواب الجنان - النسخة الرسمية APK للهاتف**
-            - تطبيق أندرويد مستقل بالكامل (Standalone Native App) بدون فتح متصفح.
+            - تطبيق أندرويد مستقل بالكامل (Standalone Native App).
             - يشمل كافة ميزات شهر رمضان، متتبع العادات، المصحف الشريف، المسبحة، ومواقيت الصلاة.
             - حمل ملف `Abwab-AlJinan-Release.apk` أدناه وثبته مباشرة على هاتفك.
           files: release_output/Abwab-AlJinan-Release.apk

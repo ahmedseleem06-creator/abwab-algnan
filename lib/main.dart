@@ -94,13 +94,15 @@ class _RamadanWebViewScreenState extends State<RamadanWebViewScreen> {
   Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
-      onPopInvokedWithResult: (didPop, result) async {
+      onPopInvokedWithResult: (bool didPop, dynamic result) {
         if (didPop) return;
-        if (await _controller.canGoBack()) {
-          await _controller.goBack();
-        } else {
-          SystemNavigator.pop();
-        }
+        _controller.canGoBack().then((canGoBack) {
+          if (canGoBack) {
+            _controller.goBack();
+          } else {
+            SystemNavigator.pop();
+          }
+        });
       },
       child: Scaffold(
         backgroundColor: const Color(0xFF061815),
