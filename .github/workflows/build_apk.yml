@@ -10,8 +10,9 @@ permissions:
 
 jobs:
   build:
-    name: Build Android APK
+    name: Build Flutter APK
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     steps:
       - name: Checkout Repository
@@ -26,11 +27,9 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
+          flutter-version: '3.24.x'
           channel: 'stable'
           cache: true
-
-      - name: Accept Android Licenses
-        run: yes | flutter doctor --android-licenses || true
 
       - name: Ensure Android platform scaffolding
         run: |
@@ -45,26 +44,46 @@ jobs:
             if [ -d "/tmp/app_backup/assets" ]; then cp -r /tmp/app_backup/assets .; fi
           fi
 
-      - name: Configure Android Permissions, MinSdk & App Settings
+      - name: Configure Android Permissions & MinSdk
         run: |
-          python3 .github/scripts/configure_android.py
+          MANIFEST="android/app/src/main/AndroidManifest.xml"
+          if [ -f "$MANIFEST" ]; then
+            if ! grep -q "android.permission.INTERNET" "$MANIFEST"; then
+              sed -i '/<manifest/a \    <uses-permission android:name="android.permission.INTERNET"\/>\n    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"\/>\n    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"\/>' "$MANIFEST"
+              sed -i '/<application/a \        android:usesCleartextTraffic="true"' "$MANIFEST"
+            fi
+            sed -i 's/android:label="abwab_aljinan"/android:label="أبواب الجنان"/' "$MANIFEST" 2>/dev/null || true
+          fi
 
-      - name: Setup Dependencies and App Icon
+          if [ -f "android/app/build.gradle" ]; then
+            sed -i 's/minSdkVersion flutter.minSdkVersion/minSdkVersion 21/g' android/app/build.gradle
+            sed -i 's/minSdk = flutter.minSdkVersion/minSdk = 21/g' android/app/build.gradle
+          fi
+          if [ -f "android/app/build.gradle.kts" ]; then
+            sed -i 's/minSdk = flutter.minSdkVersion/minSdk = 21/g' android/app/build.gradle.kts
+            sed -i 's/minSdkVersion = flutter.minSdkVersion/minSdkVersion = 21/g' android/app/build.gradle.kts
+          fi
+
+      - name: Setup Dependencies
+        run: flutter pub get
+
+      - name: Generate App Launcher Icons
         run: |
-          flutter pub get
           if [ -f "assets/icons/icon-512.png" ]; then
-            dart run flutter_launcher_icons || flutter pub run flutter_launcher_icons || true
+            flutter pub run flutter_launcher_icons || true
           fi
 
       - name: Build Universal Release APK
-        run: |
-          rm -f android/local.properties 2>/dev/null || true
-          flutter build apk --release --no-tree-shake-icons
+        run: flutter build apk --release --no-tree-shake-icons
 
       - name: Prepare APK File for Download
         run: |
           mkdir -p release_output
-          find build/app/outputs -name "*release*.apk" -exec cp {} release_output/Abwab-AlJinan-Release.apk \;
+          if [ -f "build/app/outputs/flutter-apk/app-release.apk" ]; then
+            cp build/app/outputs/flutter-apk/app-release.apk release_output/Abwab-AlJinan-Release.apk
+          else
+            find build/app/outputs -name "*release*.apk" -exec cp {} release_output/Abwab-AlJinan-Release.apk \;
+          fi
           ls -lh release_output/
 
       - name: Upload APK Artifact

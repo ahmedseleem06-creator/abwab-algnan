@@ -94,7 +94,7 @@ class _RamadanWebViewScreenState extends State<RamadanWebViewScreen> {
   Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
-      onPopInvokedWithResult: (bool didPop, dynamic result) async {
+      onPopInvokedWithResult: (didPop, result) async {
         if (didPop) return;
         if (await _controller.canGoBack()) {
           await _controller.goBack();
