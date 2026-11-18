@@ -26,9 +26,11 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.24.x'
           channel: 'stable'
           cache: true
+
+      - name: Accept Android Licenses
+        run: yes | flutter doctor --android-licenses || true
 
       - name: Ensure Android platform scaffolding
         run: |
@@ -43,22 +45,15 @@ jobs:
             if [ -d "/tmp/app_backup/assets" ]; then cp -r /tmp/app_backup/assets .; fi
           fi
 
-      - name: Configure Android Permissions & App Name
+      - name: Configure Android Permissions, MinSdk & App Settings
         run: |
-          MANIFEST="android/app/src/main/AndroidManifest.xml"
-          if [ -f "$MANIFEST" ]; then
-            if ! grep -q "android.permission.INTERNET" "$MANIFEST"; then
-              sed -i '/<manifest/a \    <uses-permission android:name="android.permission.INTERNET"\/>\n    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"\/>' "$MANIFEST"
-              sed -i '/<application/a \        android:usesCleartextTraffic="true"' "$MANIFEST"
-            fi
-            sed -i 's/android:label="abwab_aljinan"/android:label="أبواب الجنان"/' "$MANIFEST"
-          fi
+          python3 .github/scripts/configure_android.py
 
       - name: Setup Dependencies and App Icon
         run: |
           flutter pub get
           if [ -f "assets/icons/icon-512.png" ]; then
-            flutter pub run flutter_launcher_icons || true
+            dart run flutter_launcher_icons || flutter pub run flutter_launcher_icons || true
           fi
 
       - name: Build Universal Release APK
@@ -69,7 +64,8 @@ jobs:
       - name: Prepare APK File for Download
         run: |
           mkdir -p release_output
-          cp build/app/outputs/flutter-apk/app-release.apk release_output/Abwab-AlJinan-Release.apk
+          find build/app/outputs -name "*release*.apk" -exec cp {} release_output/Abwab-AlJinan-Release.apk \;
+          ls -lh release_output/
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
