@@ -60,7 +60,7 @@ Write-Host "جاري فحص التعديلات وتجهيز الملفات..." -
 
 Write-Host ""
 Write-Host "جاري رفع التحديثات إلى GitHub (Push)..." -ForegroundColor Yellow
-& $gitExe push -u origin main
+& $gitExe push -u origin main --force
 
 if ($LASTEXITCODE -eq 0) {
     Write-Host ""
