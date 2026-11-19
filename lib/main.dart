@@ -115,7 +115,7 @@ class _RamadanWebViewScreenState extends State<RamadanWebViewScreen> {
                   color: const Color(0xFF061815),
                   child: Center(
                     child: Column(
-                      mainAxisAlignment: MainContentAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset(
                           'assets/icons/icon-192.png',
