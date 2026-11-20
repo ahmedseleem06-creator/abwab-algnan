@@ -96,7 +96,7 @@ body {
 }
 
 .crescent-glow {
-  filter: drop-shadow(0 0 16px rgba(245, 208, 97, 0.85));
+  filter: drop-shadow(0 0 10px rgba(245, 208, 97, 0.85)) drop-shadow(0 0 3px rgba(255, 244, 184, 0.9));
   animation: floatCrescent 4s ease-in-out infinite;
 }
 

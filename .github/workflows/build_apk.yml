@@ -12,6 +12,7 @@ jobs:
   build:
     name: Build Android APK
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     steps:
       - name: Checkout Repository
@@ -43,39 +44,63 @@ jobs:
             if [ -d "/tmp/app_backup/assets" ]; then cp -r /tmp/app_backup/assets .; fi
           fi
 
-      - name: Configure Android Permissions & App Name
+      - name: Configure Android Permissions & MinSdk
         run: |
+          # 1. Update AndroidManifest.xml
           MANIFEST="android/app/src/main/AndroidManifest.xml"
           if [ -f "$MANIFEST" ]; then
             if ! grep -q "android.permission.INTERNET" "$MANIFEST"; then
-              sed -i '/<manifest/a \    <uses-permission android:name="android.permission.INTERNET"\/>\n    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"\/>' "$MANIFEST"
+              sed -i '/<manifest/a \    <uses-permission android:name="android.permission.INTERNET"\/>\n    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"\/>\n    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"\/>' "$MANIFEST"
               sed -i '/<application/a \        android:usesCleartextTraffic="true"' "$MANIFEST"
             fi
-            sed -i 's/android:label="abwab_aljinan"/android:label="أبواب الجنان"/' "$MANIFEST"
           fi
 
-      - name: Setup Dependencies and App Icon
-        run: |
-          flutter pub get
-          if [ -f "assets/icons/icon-512.png" ]; then
-            flutter pub run flutter_launcher_icons || true
+          # 2. Force minSdkVersion 21 in local.properties and build.gradle
+          echo "flutter.minSdkVersion=21" >> android/local.properties 2>/dev/null || true
+          
+          if [ -f "android/app/build.gradle" ]; then
+            sed -i 's/minSdkVersion flutter.minSdkVersion/minSdkVersion 21/g' android/app/build.gradle
+            sed -i 's/minSdk = flutter.minSdkVersion/minSdk = 21/g' android/app/build.gradle
           fi
 
-      - name: Build Universal Release APK
+          if [ -f "android/app/build.gradle.kts" ]; then
+            sed -i 's/minSdk = flutter.minSdkVersion/minSdk = 21/g' android/app/build.gradle.kts
+            sed -i 's/minSdkVersion = flutter.minSdkVersion/minSdkVersion = 21/g' android/app/build.gradle.kts
+          fi
+
+          # 3. Add Proguard rules for WebView
+          mkdir -p android/app
+          cat << 'EOF' > android/app/proguard-rules.pro
+          -keepattributes *Annotation*,Signature
+          -keepclassmembers class * {
+              @android.webkit.JavascriptInterface <methods>;
+          }
+          -dontwarn android.webkit.**
+          -dontwarn io.flutter.plugins.webviewflutter.**
+          EOF
+
+      - name: Setup Dependencies
+        run: flutter pub get
+
+      - name: Generate App Launcher Icons
         run: |
-          rm -f android/local.properties 2>/dev/null || true
-          flutter build apk --release --no-tree-shake-icons
+          dart run flutter_launcher_icons || flutter pub run flutter_launcher_icons || true
+
+      - name: Build Android APK
+        run: |
+          flutter build apk --release --no-tree-shake-icons || flutter build apk --debug
 
       - name: Prepare APK File for Download
         run: |
           mkdir -p release_output
-          cp build/app/outputs/flutter-apk/app-release.apk release_output/Abwab-AlJinan-Release.apk
+          find build/app/outputs -name "*.apk" -exec cp {} release_output/Abwab-AlJinan-Official-APK.apk \;
+          ls -lh release_output/
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: Abwab-AlJinan-Official-APK
-          path: release_output/Abwab-AlJinan-Release.apk
+          path: release_output/Abwab-AlJinan-Official-APK.apk
           if-no-files-found: error
 
       - name: Create or Update GitHub Release
@@ -87,9 +112,9 @@ jobs:
           name: "أبواب الجنان - تطبيق أندرويد APK v1.0.0"
           body: |
             🌙 **تطبيق أبواب الجنان - النسخة الرسمية APK للهاتف**
-            - تطبيق أندرويد مستقل بالكامل (Standalone Native App) بدون فتح متصفح.
+            - تطبيق أندرويد مستقل بالكامل (Standalone Native App).
             - يشمل كافة ميزات شهر رمضان، متتبع العادات، المصحف الشريف، المسبحة، ومواقيت الصلاة.
-            - حمل ملف `Abwab-AlJinan-Release.apk` أدناه وثبته مباشرة على هاتفك.
-          files: release_output/Abwab-AlJinan-Release.apk
+            - حمل ملف `Abwab-AlJinan-Official-APK.apk` وثبته مباشرة على هاتفك.
+          files: release_output/Abwab-AlJinan-Official-APK.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

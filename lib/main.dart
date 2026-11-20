@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:webview_flutter_android/webview_flutter_android.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: Color(0xFF061815),
+    statusBarColor: Color(0xFF041411),
     statusBarIconBrightness: Brightness.light,
-    systemNavigationBarColor: Color(0xFF061815),
+    systemNavigationBarColor: Color(0xFF041411),
     systemNavigationBarIconBrightness: Brightness.light,
   ));
   runApp(const AbwabAlJinanApp());
@@ -22,11 +23,11 @@ class AbwabAlJinanApp extends StatelessWidget {
       title: 'أبواب الجنان',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        scaffoldBackgroundColor: const Color(0xFF061815),
+        scaffoldBackgroundColor: const Color(0xFF041411),
         primaryColor: const Color(0xFFF5D061),
         colorScheme: ColorScheme.fromSeed(
           seedColor: const Color(0xFFF5D061),
-          surface: const Color(0xFF061815),
+          surface: const Color(0xFF041411),
         ),
         useMaterial3: true,
       ),
@@ -56,9 +57,20 @@ class _RamadanWebViewScreenState extends State<RamadanWebViewScreen> {
   @override
   void initState() {
     super.initState();
-    _controller = WebViewController()
+
+    late final PlatformWebViewControllerCreationParams params;
+    if (WebViewPlatform.instance is AndroidWebViewPlatform) {
+      params = AndroidWebViewControllerCreationParams();
+    } else {
+      params = const PlatformWebViewControllerCreationParams();
+    }
+
+    final WebViewController controller =
+        WebViewController.fromPlatformCreationParams(params);
+
+    controller
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..setBackgroundColor(const Color(0xFF061815))
+      ..setBackgroundColor(const Color(0xFF041411))
       ..setNavigationDelegate(
         NavigationDelegate(
           onProgress: (int progress) {
@@ -86,39 +98,54 @@ class _RamadanWebViewScreenState extends State<RamadanWebViewScreen> {
             debugPrint('WebResourceError: ${error.description}');
           },
         ),
-      )
-      ..loadRequest(Uri.parse('https://ahmedseleem06-creator.github.io/abwab-algnan/'));
+      );
+
+    // Auto-grant Geolocation in Android WebView so HTML5 navigator.geolocation works natively without browser dialogs
+    if (controller.platform is AndroidWebViewController) {
+      final androidController = controller.platform as AndroidWebViewController;
+      androidController.setGeolocationPermissionsPromptCallbacks(
+        onShowPrompt: (request) async => const GeolocationPermissionsResponse(
+          allow: true,
+          retain: true,
+        ),
+      );
+    }
+
+    controller.loadRequest(Uri.parse('https://ahmedseleem06-creator.github.io/abwab-algnan/'));
+    _controller = controller;
   }
 
   @override
   Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
-      onPopInvokedWithResult: (bool didPop, dynamic result) async {
+      onPopInvokedWithResult: (bool didPop, dynamic result) {
         if (didPop) return;
-        if (await _controller.canGoBack()) {
-          await _controller.goBack();
-        } else {
-          SystemNavigator.pop();
-        }
+        _controller.canGoBack().then((canGoBack) {
+          if (canGoBack) {
+            _controller.goBack();
+          } else {
+            SystemNavigator.pop();
+          }
+        });
       },
       child: Scaffold(
-        backgroundColor: const Color(0xFF061815),
+        backgroundColor: const Color(0xFF041411),
         body: SafeArea(
           child: Stack(
             children: [
               WebViewWidget(controller: _controller),
               if (_isLoading)
                 Container(
-                  color: const Color(0xFF061815),
+                  color: const Color(0xFF041411),
                   child: Center(
                     child: Column(
-                      mainAxisAlignment: MainContentAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset(
                           'assets/icons/icon-192.png',
-                          width: 100,
-                          height: 100,
+                          width: 110,
+                          height: 110,
                           errorBuilder: (context, error, stackTrace) => const Icon(
                             Icons.nightlight_round,
                             size: 80,
@@ -130,25 +157,30 @@ class _RamadanWebViewScreenState extends State<RamadanWebViewScreen> {
                           'أبواب الجنان',
                           style: TextStyle(
                             color: Color(0xFFF5D061),
-                            fontSize: 26,
+                            fontSize: 28,
                             fontWeight: FontWeight.bold,
+                            letterSpacing: 0.5,
                           ),
                         ),
                         const SizedBox(height: 8),
                         const Text(
-                          'رفيق الاستعداد لرمضان المبارك',
+                          'رفيق الاستعداد لرمضان المبارك 🌙',
                           style: TextStyle(
                             color: Colors.white70,
                             fontSize: 14,
                           ),
                         ),
-                        const SizedBox(height: 30),
+                        const SizedBox(height: 32),
                         SizedBox(
-                          width: 150,
-                          child: LinearProgressIndicator(
-                            value: _progress > 0 ? _progress : null,
-                            color: const Color(0xFFF5D061),
-                            backgroundColor: const Color(0xFF13342E),
+                          width: 160,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: LinearProgressIndicator(
+                              value: _progress > 0 ? _progress : null,
+                              color: const Color(0xFFF5D061),
+                              backgroundColor: const Color(0xFF0c3b31),
+                              minHeight: 5,
+                            ),
                           ),
                         ),
                       ],

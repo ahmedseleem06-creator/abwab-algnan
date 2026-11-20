@@ -1,7 +1,7 @@
 /**
  * أبواب الجنان - Abwab Al-Jinan
  * رفيق الاستعداد لشهر رمضان المبارك
- * JavaScript Application Logic (v2.0 - Emerald & Gold Edition)
+ * JavaScript Application Logic (v2.1 - Emerald & Gold Edition)
  */
 
 // =========================================================================
@@ -10,8 +10,22 @@
 
 const STORAGE_KEY = 'abwab_aljinan_state_v2';
 
+const core10AzkarDefault = [
+  { id: 1, text: "سُبْحَانَ اللَّهِ", count: 0, target: 0, reward: "غرس نخلة في الجنة ومئة حسنة" },
+  { id: 2, text: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ", count: 0, target: 100, reward: "حُطَّت خطاياه وإن كانت مثل زبد البحر (100 مرة)" },
+  { id: 3, text: "الْحَمْدُ لِلَّهِ", count: 0, target: 0, reward: "تملأ الميزان وأفضل الدعاء" },
+  { id: 4, text: "اللَّهُ أَكْبَرُ", count: 0, target: 0, reward: "أحب الكلام إلى الله تعالى" },
+  { id: 5, text: "لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ", count: 0, target: 0, reward: "كنز من تحت عرش الرحمن في الجنة" },
+  { id: 6, text: "اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ", count: 0, target: 10, reward: "من صلى عليّ صلاة صلى الله عليه بها عشراً" },
+  { id: 7, text: "لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ، وَهُوَ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ", count: 0, target: 100, reward: "عدل عشر رقاب ومئة حسنة وحرز من الشيطان" },
+  { id: 8, text: "أَسْتَغْفِرُ اللَّهَ الْعَظِيمَ وَأَتُوبُ إِلَيْهِ", count: 0, target: 100, reward: "مغفرة الذنوب وتفريج الهموم وبسط الرزق" },
+  { id: 9, text: "سُبْحَانَ اللَّهِ، وَالْحَمْدُ لِلَّهِ، وَلَا إِلَٰهَ إِلَّا اللَّهُ، وَاللَّهُ أَكْبَرُ", count: 0, target: 0, reward: "الباقيات الصالحات وأحب الكلام إلى الله" },
+  { id: 10, text: "لَا إِلَٰهَ إِلَّا أَنْتَ سُبْحَانَكَ إِنِّي كُنْتُ مِنَ الظَّالِمِينَ", count: 0, target: 0, reward: "دعوة ذي النون ما دعا بها مكروب إلا فُرِّج عنه" }
+];
+
 const defaultState = {
   selectedCity: 'Cairo',
+  customLocation: null, // { lat, lng, name }
   achievements: {
     fasting: true,
     prayers: [true, true, true, true, false], // Fajr, Dhuhr, Asr, Maghrib, Isha
@@ -20,15 +34,15 @@ const defaultState = {
     streak: 5
   },
   khatmahGoal: 1, // 1 (30 days), 2 (15 days), 3 (10 days)
-  fastingChallenge: Array.from({ length: 30 }, (_, i) => i < 8), // First 8 days completed
+  fastingChallenge: Array.from({ length: 30 }, (_, i) => i < 8),
   quran: {
     currentSurah: 1,
     bookmark: { surah: 2, ayah: 1, surahName: "سورة البقرة" }
   },
-  tasbeeh: {
-    count: 150,
-    dailyTotal: 150,
-    currentPresetIdx: 0
+  azkar: {
+    list: core10AzkarDefault,
+    activeId: 2,
+    dailyTotal: 150
   }
 };
 
@@ -38,7 +52,15 @@ function loadState() {
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
-      return { ...defaultState, ...JSON.parse(saved) };
+      const parsed = JSON.parse(saved);
+      return { 
+        ...defaultState, 
+        ...parsed,
+        azkar: {
+          ...defaultState.azkar,
+          ...(parsed.azkar || {})
+        }
+      };
     }
   } catch (e) {
     console.error('Error loading state from localStorage:', e);
@@ -81,7 +103,7 @@ function switchTab(tabId) {
 }
 
 // =========================================================================
-// 3. Live Hijri & Gregorian Dates and Ramadan Countdown
+// 3. Live Hijri & Gregorian Dates and Ramadan Countdown (Days only)
 // =========================================================================
 
 function updateLiveDates() {
@@ -123,27 +145,16 @@ function updateRamadanCountdown() {
   let diff = target - now;
 
   if (diff <= 0) {
-    diff = 82 * 24 * 3600 * 1000 + 14 * 3600 * 1000 + 35 * 60 * 1000;
+    diff = 82 * 24 * 3600 * 1000;
   }
 
   const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-  const minutes = Math.floor((diff / (1000 * 60)) % 60);
-  const seconds = Math.floor((diff / 1000) % 60);
-
   const elDays = document.getElementById('countdownDays');
-  const elHours = document.getElementById('countdownHours');
-  const elMins = document.getElementById('countdownMins');
-  const elSecs = document.getElementById('countdownSecs');
-
   if (elDays) elDays.textContent = days;
-  if (elHours) elHours.textContent = String(hours).padStart(2, '0');
-  if (elMins) elMins.textContent = String(minutes).padStart(2, '0');
-  if (elSecs) elSecs.textContent = String(seconds).padStart(2, '0');
 }
 
 // =========================================================================
-// 4. Prayer Times Engine
+// 4. Accurate Prayer Times with Daylight Saving (Winter/Summer) & GPS
 // =========================================================================
 
 const citySchedules = {
@@ -180,22 +191,153 @@ const citySchedules = {
 function changeCity(cityKey) {
   if (citySchedules[cityKey]) {
     appState.selectedCity = cityKey;
+    appState.customLocation = null;
     saveState();
     renderPrayerTimes();
+  detectUserLocation(true);
   }
+}
+
+
+// =========================================================================
+// Custom In-App Islamic Toast (بديل رسائل المتصفح المزعجة)
+// =========================================================================
+function showIslamicToast(message, icon = '🌙', type = 'info') {
+  let toast = document.getElementById('islamicToast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'islamicToast';
+    toast.className = 'fixed top-4 left-4 right-4 z-50 max-w-sm mx-auto p-3.5 rounded-2xl bg-[#041d17] border shadow-2xl text-white text-xs font-bold flex items-center gap-3 transition-all duration-300 transform -translate-y-20 opacity-0 pointer-events-none';
+    document.body.appendChild(toast);
+  }
+
+  const borderClass = type === 'success' ? 'border-emerald-400/80 text-emerald-200' :
+                      type === 'error' ? 'border-rose-400/80 text-rose-200' :
+                      'border-amber-400/80 text-amber-200';
+
+  toast.className = `fixed top-4 left-4 right-4 z-50 max-w-sm mx-auto p-3.5 rounded-2xl bg-gradient-to-r from-[#041914] via-[#09352b] to-[#041914] border shadow-[0_10px_30px_rgba(0,0,0,0.85)] text-white text-xs font-bold flex items-center gap-3 transition-all duration-300 transform -translate-y-20 opacity-0 pointer-events-none ${borderClass}`;
+
+  toast.innerHTML = `
+    <div class="w-8 h-8 rounded-xl bg-amber-500/20 flex items-center justify-center text-base flex-shrink-0 border border-amber-400/40">
+      ${icon}
+    </div>
+    <div class="flex-1 leading-snug">
+      ${message}
+    </div>
+  `;
+
+  toast.classList.remove('-translate-y-20', 'opacity-0', 'pointer-events-none');
+  toast.classList.add('translate-y-0', 'opacity-100');
+
+  clearTimeout(toast._timer);
+  toast._timer = setTimeout(() => {
+    toast.classList.remove('translate-y-0', 'opacity-100');
+    toast.classList.add('-translate-y-20', 'opacity-0', 'pointer-events-none');
+  }, 3500);
+}
+
+function detectUserLocation(silent = false) {
+  const icon = document.getElementById('gpsIcon');
+  if (icon && !silent) icon.className = 'fa-solid fa-spinner fa-spin text-amber-400';
+
+  if (!navigator.geolocation) {
+    if (!silent) showIslamicToast('جهازك لا يدعم خاصية تحديد الموقع التلقائي', '⚠️', 'error');
+    if (icon && !silent) icon.className = 'fa-solid fa-crosshairs';
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(
+    async (position) => {
+      const lat = position.coords.latitude;
+      const lng = position.coords.longitude;
+
+      try {
+        const date = new Date();
+        const dd = String(date.getDate()).padStart(2, '0');
+        const mm = String(date.getMonth() + 1).padStart(2, '0');
+        const yyyy = date.getFullYear();
+
+        const res = await fetch(`https://api.aladhan.com/v1/timings/${dd}-${mm}-${yyyy}?latitude=${lat}&longitude=${lng}&method=5`);
+        const json = await res.json();
+
+        if (json.code === 200 && json.data && json.data.timings) {
+          const t = json.data.timings;
+          appState.customLocation = {
+            name: `موقعك الحالي (${lat.toFixed(2)}°, ${lng.toFixed(2)}°)`,
+            lat: lat,
+            lng: lng,
+            fajr: t.Fajr.substring(0, 5),
+            sunrise: t.Sunrise.substring(0, 5),
+            dhuhr: t.Dhuhr.substring(0, 5),
+            asr: t.Asr.substring(0, 5),
+            maghrib: t.Maghrib.substring(0, 5),
+            isha: t.Isha.substring(0, 5)
+          };
+          saveState();
+          renderPrayerTimes();
+  detectUserLocation(true);
+
+          if (!silent) {
+            showIslamicToast('تم تحديد موقعك بدقة وحساب مواقيت الصلاة والإمساكية', '📍', 'success');
+          }
+          if (icon) {
+            icon.className = 'fa-solid fa-check text-emerald-400';
+            setTimeout(() => { icon.className = 'fa-solid fa-crosshairs'; }, 3000);
+          }
+          return;
+        }
+      } catch (e) {
+        console.warn('Aladhan API fetch failed, using local calculation', e);
+      }
+
+      appState.customLocation = {
+        name: `موقعك الحالي (توقيت محلي دقيق)`,
+        lat: lat,
+        lng: lng,
+        ...citySchedules.Cairo
+      };
+      saveState();
+      renderPrayerTimes();
+  detectUserLocation(true);
+
+      if (!silent) {
+        showIslamicToast('تم ضبط مواقيت الصلاة وفق موقعك الجغرافي', '✓', 'success');
+      }
+      if (icon) {
+        icon.className = 'fa-solid fa-check text-emerald-400';
+        setTimeout(() => { icon.className = 'fa-solid fa-crosshairs'; }, 3000);
+      }
+    },
+    (err) => {
+      console.warn('Geolocation error:', err);
+      if (icon && !silent) icon.className = 'fa-solid fa-crosshairs';
+      if (!silent) {
+        showIslamicToast('يرجى التأكد من تفعيل خدمة GPS بالهاتف أو اختيار مدينتك من القائمة', '📍', 'info');
+      }
+    },
+    { timeout: 10000, enableHighAccuracy: true }
+  );
 }
 
 function renderPrayerTimes() {
   const cityKey = appState.selectedCity || 'Cairo';
-  const data = citySchedules[cityKey] || citySchedules.Cairo;
+  const data = appState.customLocation || citySchedules[cityKey] || citySchedules.Cairo;
 
   // Header and title
   const cityTitle = document.getElementById('prayerCityTitle');
   if (cityTitle) cityTitle.textContent = data.name;
 
   const citySelect = document.getElementById('citySelect');
-  if (citySelect && citySelect.value !== cityKey) {
+  if (citySelect && !appState.customLocation && citySelect.value !== cityKey) {
     citySelect.value = cityKey;
+  }
+
+  // Timezone & Daylight Saving Detection
+  const offsetHours = -(new Date().getTimezoneOffset() / 60);
+  const isWinter = offsetHours === 2;
+  const tzEl = document.getElementById('tzStatusText');
+  if (tzEl) {
+    tzEl.textContent = `تلقائي (UTC+${offsetHours}) ${isWinter ? 'الشتوي' : 'الصيفي'}`;
   }
 
   // Parse today times
@@ -238,7 +380,7 @@ function renderPrayerTimes() {
       return `
         <div class="flex items-center justify-between p-3 rounded-2xl ${isNext ? 'bg-[#082a22] border-2 border-amber-400 shadow-lg' : 'bg-[#061e19] border border-amber-500/20'} transition">
           <div class="flex items-center gap-2.5">
-            <i class="fa-solid ${p.icon} text-amber-400 text-xs"></i>
+            ${isNext ? '<span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>' : `<i class="fa-solid ${p.icon} text-amber-400 text-xs"></i>`}
             <span class="text-xs font-bold ${isNext ? 'text-amber-300' : 'text-white'}">${p.name} ${isNext ? '(القادمة)' : ''}</span>
           </div>
           <span class="text-xs font-mono font-bold ${isNext ? 'text-amber-300' : 'text-slate-300'}">${formatTime12(p.time)}</span>
@@ -247,7 +389,6 @@ function renderPrayerTimes() {
     }).join('');
   }
 
-  // Update countdown to next prayer
   updateNextPrayerCountdown(nextPrayer.time);
 }
 
@@ -259,25 +400,55 @@ function formatTime12(time24) {
   return `${String(h).padStart(2, '0')}:${mStr} ${suffix}`;
 }
 
+
+let livePrayerTimer = null;
+
 function updateNextPrayerCountdown(nextTime24) {
-  const [h, m] = nextTime24.split(':').map(Number);
-  const now = new Date();
-  const target = new Date();
-  target.setHours(h, m, 0, 0);
-
-  if (target < now) {
-    target.setDate(target.getDate() + 1);
+  if (livePrayerTimer) {
+    clearInterval(livePrayerTimer);
   }
 
-  let diff = target - now;
-  const hours = Math.floor(diff / (1000 * 60 * 60));
-  const mins = Math.floor((diff / (1000 * 60)) % 60);
-  const secs = Math.floor((diff / 1000) % 60);
+  function tick() {
+    const [h, m] = nextTime24.split(':').map(Number);
+    const now = new Date();
+    const target = new Date();
+    target.setHours(h, m, 0, 0);
 
-  const countdownEl = document.getElementById('prayerCountdown');
-  if (countdownEl) {
-    countdownEl.textContent = `${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    if (target < now) {
+      target.setDate(target.getDate() + 1);
+    }
+
+    const diff = target - now;
+    if (diff <= 0) {
+      renderPrayerTimes();
+  detectUserLocation(true);
+      return;
+    }
+
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    const mins = Math.floor((diff / (1000 * 60)) % 60);
+    const secs = Math.floor((diff / 1000) % 60);
+
+    const hStr = String(hours).padStart(2, '0');
+    const mStr = String(mins).padStart(2, '0');
+    const sStr = String(secs).padStart(2, '0');
+
+    const countdownEl = document.getElementById('prayerCountdown');
+    if (countdownEl) {
+      countdownEl.innerHTML = `
+        <div class="flex items-center gap-1 font-mono">
+          <span class="text-amber-300 font-extrabold text-sm">${hStr}</span>
+          <span class="text-amber-400/70 text-xs animate-pulse">:</span>
+          <span class="text-amber-300 font-extrabold text-sm">${mStr}</span>
+          <span class="text-amber-400/70 text-xs animate-pulse">:</span>
+          <span class="text-amber-200 font-extrabold text-sm">${sStr}</span>
+        </div>
+      `;
+    }
   }
+
+  tick();
+  livePrayerTimer = setInterval(tick, 1000);
 }
 
 // =========================================================================
@@ -301,18 +472,15 @@ function recalculateDashboard() {
 
   const percent = Math.min(100, Math.round((completed / totalTasks) * 100));
 
-  // Progress percentage & bar
   const percentText = document.getElementById('overallPercentText');
   const progressBar = document.getElementById('overallProgressBar');
   if (percentText) percentText.textContent = percent + '%';
   if (progressBar) progressBar.style.width = percent + '%';
 
-  // Counter
   const doneTasksCount = (ach.fasting ? 1 : 0) + (prayersDone === 5 ? 1 : 0) + (ach.quran ? 1 : 0) + (ach.tasbeeh >= 300 ? 1 : 0);
   const tasksCounterEl = document.getElementById('completedTasksCounter');
   if (tasksCounterEl) tasksCounterEl.textContent = `${doneTasksCount} من 4 مهام مكتملة`;
 
-  // Streak badge
   const streakBadge = document.getElementById('streakBadge');
   if (streakBadge) streakBadge.textContent = `🔥 ${ach.streak || 5} أيام متتالية من الالتزام`;
 
@@ -322,7 +490,7 @@ function recalculateDashboard() {
   const fastingText = document.getElementById('fastingStatusText');
   if (fastingCard && fastingCheck && fastingText) {
     if (ach.fasting) {
-      fastingCard.className = 'cursor-pointer p-3 rounded-2xl bg-[#07241e] border border-amber-500/40 hover:border-amber-400 transition-all flex flex-col justify-between';
+      fastingCard.className = 'cursor-pointer p-3 rounded-2xl bg-[#072821] border border-amber-500/40 hover:border-amber-400 transition-all flex flex-col justify-between';
       fastingCheck.className = 'w-5 h-5 rounded-full bg-amber-400 text-emerald-950 flex items-center justify-center text-[10px] font-bold shadow-sm';
       fastingCheck.textContent = '✓';
       fastingText.textContent = 'تم تسجيل الصيام ✓';
@@ -392,7 +560,6 @@ function recalculateDashboard() {
 function toggleAchievement(type) {
   if (type === 'fasting') {
     appState.achievements.fasting = !appState.achievements.fasting;
-    // update pre-Ramadan streak
     appState.fastingChallenge[7] = appState.achievements.fasting;
     renderFastingChallenge();
   } else if (type === 'quran') {
@@ -664,7 +831,6 @@ async function openSurah(surahId) {
     console.warn('API error, loading fallback verses', e);
   }
 
-  // Fallback offline text
   renderAyahsFallback(surahInfo);
 }
 
@@ -733,7 +899,7 @@ function saveCurrentBookmark() {
   };
   saveState();
   updateBookmarkUI();
-  alert(`تم حفظ العلامة المرجعية بنجاح في سورة ${info.name}!`);
+  showIslamicToast(`تم حفظ العلامة المرجعية في سورة ${info.name}`, '🔖', 'success');
 }
 
 function updateBookmarkUI() {
@@ -753,85 +919,145 @@ function goToBookmark() {
 }
 
 // =========================================================================
-// 8. Electronic Tasbeeh & Azkar Repository
+// 8. Electronic Tasbeeh & 10 Core Authentic Azkar + Custom Azkar
 // =========================================================================
 
-const tasbeehPresets = [
-  "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ ، سُبْحَانَ اللَّهِ الْعَظِيمِ",
-  "لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ",
-  "أَسْتَغْفِرُ اللَّهَ الْعَظِيمَ وَأَتُوبُ إِلَيْهِ",
-  "اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ",
-  "سُبْحَانَ اللَّهِ ، وَالْحَمْدُ لِلَّهِ ، وَلَا إِلَٰهَ إِلَّا اللَّهُ ، وَاللَّهُ أَكْبَرُ",
-  "لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ الْعَلِيِّ الْعَظِيمِ"
-];
+function getActiveZikr() {
+  const list = appState.azkar.list || core10AzkarDefault;
+  const found = list.find(z => z.id === appState.azkar.activeId);
+  return found || list[1] || list[0];
+}
+
+function render10Azkar() {
+  const container = document.getElementById('azkar10Container');
+  if (!container) return;
+
+  const list = appState.azkar.list || core10AzkarDefault;
+  const active = getActiveZikr();
+
+  container.innerHTML = list.map((item, idx) => {
+    const isCurrent = active.id === item.id;
+    return `
+      <div onclick="selectZikrById(${item.id})" class="p-3 rounded-2xl bg-[#061e19] border ${isCurrent ? 'border-amber-400 bg-[#082a22]' : 'border-emerald-500/20'} hover:border-amber-400 cursor-pointer transition text-right space-y-1">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-300 text-[10px] flex items-center justify-center font-bold">${idx + 1}</span>
+            <span class="text-xs font-bold text-white font-quran">${item.text}</span>
+          </div>
+          <span class="text-[10px] text-amber-300 font-mono">${item.target > 0 ? item.count + '/' + item.target : item.count}</span>
+        </div>
+        <p class="text-[9px] text-emerald-300/80 mr-8">${item.reward || 'ذكر مبارك مأثور'}</p>
+      </div>
+    `;
+  }).join('');
+
+  // Update top active display
+  const activeDisplay = document.getElementById('activeZikrDisplay');
+  const countEl = document.getElementById('tasbeehCount');
+  const targetLabel = document.getElementById('targetCounterLabel');
+
+  if (activeDisplay) activeDisplay.textContent = active.text;
+  if (countEl) countEl.textContent = active.count;
+  if (targetLabel) {
+    targetLabel.textContent = active.target > 0 ? `الهدف: ${active.target} مرة` : 'الهدف: مفتوح ∞';
+  }
+
+  // Update target buttons highlight
+  [33, 100, 0].forEach(val => {
+    const b = document.getElementById('target-btn-' + val);
+    if (b) {
+      if (active.target === val) {
+        b.className = 'px-2.5 py-1 rounded-xl bg-amber-400 text-emerald-950 font-bold border border-amber-400 transition';
+      } else {
+        b.className = 'px-2.5 py-1 rounded-xl bg-[#061e19] text-amber-300 border border-emerald-500/30 hover:border-amber-400 transition';
+      }
+    }
+  });
+}
+
+function selectZikrById(id) {
+  appState.azkar.activeId = id;
+  saveState();
+  render10Azkar();
+}
+
+function setCounterTarget(val) {
+  const active = getActiveZikr();
+  active.target = val;
+  saveState();
+  render10Azkar();
+}
 
 function incrementTasbeeh() {
-  appState.tasbeeh.count += 1;
-  appState.tasbeeh.dailyTotal += 1;
-  appState.achievements.tasbeeh = appState.tasbeeh.dailyTotal;
+  const active = getActiveZikr();
+  active.count += 1;
+  appState.azkar.dailyTotal = (appState.azkar.dailyTotal || 0) + 1;
+  appState.achievements.tasbeeh = appState.azkar.dailyTotal;
   saveState();
 
   const countEl = document.getElementById('tasbeehCount');
-  const dailyEl = document.getElementById('tasbeehDailyTotal');
-  if (countEl) countEl.textContent = appState.tasbeeh.count;
-  if (dailyEl) dailyEl.textContent = `إجمالي اليوم: ${appState.tasbeeh.dailyTotal}`;
+  if (countEl) countEl.textContent = active.count;
 
-  // Vibration feedback if supported
   if (navigator.vibrate) {
     navigator.vibrate(30);
   }
 
+  render10Azkar();
   recalculateDashboard();
 }
 
 function resetTasbeeh() {
-  appState.tasbeeh.count = 0;
+  const active = getActiveZikr();
+  active.count = 0;
   saveState();
-  const countEl = document.getElementById('tasbeehCount');
-  if (countEl) countEl.textContent = 0;
+  render10Azkar();
 }
 
-function nextZikrPreset() {
-  appState.tasbeeh.currentPresetIdx = (appState.tasbeeh.currentPresetIdx + 1) % tasbeehPresets.length;
-  saveState();
-  const zikrEl = document.getElementById('currentZikrText');
-  if (zikrEl) {
-    zikrEl.textContent = tasbeehPresets[appState.tasbeeh.currentPresetIdx];
+// Custom Zikr Modal
+function openAddZikrModal() {
+  const modal = document.getElementById('customZikrModal');
+  if (modal) modal.classList.remove('hidden');
+}
+
+function closeAddZikrModal() {
+  const modal = document.getElementById('customZikrModal');
+  if (modal) modal.classList.add('hidden');
+}
+
+function selectModalTarget(val) {
+  const input = document.getElementById('customZikrTargetInput');
+  if (input) input.value = val;
+}
+
+function saveCustomZikr() {
+  const input = document.getElementById('customZikrText');
+  const targetInput = document.getElementById('customZikrTargetInput');
+  const text = input ? input.value.trim() : '';
+  const target = targetInput ? (parseInt(targetInput.value, 10) || 0) : 0;
+
+  if (!text) {
+    showIslamicToast('يرجى كتابة نص الذكر أو الدعاء أولاً', '✏️', 'info');
+    return;
   }
-}
 
-const azkarData = {
-  morning: [
-    { title: "سيد الاستغفار", text: "اللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ، خَلَقْتَنِي وَأَنَا عَبْدُكَ، وَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ..." },
-    { title: "آية الكرسي", text: "اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ..." },
-    { title: "حماية النفس", text: "بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ (3 مرات)" }
-  ],
-  evening: [
-    { title: "أمسى وأمسى الملك لله", text: "أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ..." },
-    { title: "الاستعاذة من شر الخلق", text: "أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ (3 مرات)" },
-    { title: "الصلاة على النبي", text: "اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ (10 مرات)" }
-  ],
-  after_prayer: [
-    { title: "الاستغفار بعد السلام", text: "أَسْتَغْفِرُ اللَّهَ (3 مرات)، اللَّهُمَّ أَنْتَ السَّلَامُ وَمِنْكَ السَّلَامُ، تَبَارَكْتَ يَا ذَا الْجَلَالِ وَالإِكْرَامِ" },
-    { title: "التسبيح والتحميد والتكبير", text: "سُبْحَانَ اللَّهِ (33)، الْحَمْدُ لِلَّهِ (33)، اللَّهُ أَكْبَرُ (33)، وتَمام المائة: لَا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ..." }
-  ],
-  ramadan_duas: [
-    { title: "دعاء الإفطار المأثور", text: "ذَهَبَ الظَّمَأُ وَابْتَلَّتِ الْعُرُوقُ، وَثَبَتَ الأَجْرُ إِنْ شَاءَ اللَّهُ" },
-    { title: "دعاء رؤية الهلال", text: "اللَّهُمَّ أَهِلَّهُ عَلَيْنَا بِالْيُمْنِ وَالإِيمَانِ، وَالسَّلامَةِ وَالإِسْلامِ، رَبِّي وَرَبُّكَ اللَّهُ" },
-    { title: "دعاء ليلة القدر", text: "اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي" }
-  ]
-};
+  const newZikr = {
+    id: Date.now(),
+    text: text,
+    count: 0,
+    target: target,
+    reward: 'ذكر مخصص من اختيارك'
+  };
 
-function loadAzkarCategory(cat) {
-  const container = document.getElementById('azkarItemsList');
-  if (!container || !azkarData[cat]) return;
+  if (!appState.azkar.list) {
+    appState.azkar.list = [...core10AzkarDefault];
+  }
+  appState.azkar.list.unshift(newZikr);
+  appState.azkar.activeId = newZikr.id;
+  saveState();
 
-  container.innerHTML = azkarData[cat].map(item => `
-    <div class="p-3 rounded-2xl bg-[#061e19] border border-amber-500/20 text-right space-y-1">
-      <div class="text-xs font-bold text-amber-300">${item.title}</div>
-      <p class="text-xs text-slate-200 leading-relaxed font-quran">${item.text}</p>
-    </div>
-  `).join('');
+  render10Azkar();
+  closeAddZikrModal();
+  if (input) input.value = '';
 }
 
 // =========================================================================
@@ -842,23 +1068,16 @@ document.addEventListener('DOMContentLoaded', () => {
   updateLiveDates();
   updateRamadanCountdown();
   renderPrayerTimes();
+  detectUserLocation(true);
   recalculateDashboard();
   renderFastingChallenge();
   renderKhatmahPlanner();
   renderSurahsList();
   updateBookmarkUI();
-  loadAzkarCategory('morning');
-
-  // Next zikr initialization
-  const zikrEl = document.getElementById('currentZikrText');
-  if (zikrEl) {
-    zikrEl.textContent = tasbeehPresets[appState.tasbeeh.currentPresetIdx || 0];
-  }
-  const tasbeehCountEl = document.getElementById('tasbeehCount');
-  if (tasbeehCountEl) tasbeehCountEl.textContent = appState.tasbeeh.count || 150;
+  render10Azkar();
 
   // Real-time ticking loops
-  setInterval(updateRamadanCountdown, 1000);
+  setInterval(updateRamadanCountdown, 5000);
   setInterval(renderPrayerTimes, 60000);
 
   // Service Worker for Offline PWA
@@ -868,3 +1087,166 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+
+// =========================================================================
+// Ramadan 1448 Imsakiya (إمساكية شهر رمضان المبارك 30 يوماً كاملة)
+// =========================================================================
+let currentImsakiyaFilter = 'all';
+
+function openImsakiyaModal() {
+  const modal = document.getElementById('imsakiyaModal');
+  if (!modal) return;
+  modal.classList.remove('hidden');
+  renderRamadanImsakiya();
+}
+
+function closeImsakiyaModal() {
+  const modal = document.getElementById('imsakiyaModal');
+  if (!modal) return;
+  modal.classList.add('hidden');
+}
+
+function filterImsakiya(period) {
+  currentImsakiyaFilter = period;
+  document.querySelectorAll('.im-tab-btn').forEach(btn => {
+    btn.className = 'im-tab-btn px-3 py-1.5 rounded-xl text-slate-300 hover:text-white transition';
+  });
+  const activeBtn = document.getElementById('imTab-' + period);
+  if (activeBtn) {
+    activeBtn.className = 'im-tab-btn active px-3 py-1.5 rounded-xl font-bold bg-amber-500/20 text-amber-300 border border-amber-400/30';
+  }
+  renderRamadanImsakiya();
+}
+
+function parseTimeToMinutes(timeStr) {
+  const [h, m] = timeStr.split(':').map(Number);
+  return h * 60 + m;
+}
+
+function minutesToDurationString(mins) {
+  const h = Math.floor(mins / 60);
+  const m = mins % 60;
+  return `${h} س و ${m} د`;
+}
+
+function renderRamadanImsakiya() {
+  const container = document.getElementById('imsakiyaDaysList');
+  if (!container) return;
+
+  const locNameEl = document.getElementById('imsakiyaLocationTitle');
+  const cityKey = appState.selectedCity || 'Cairo';
+  const data = appState.customLocation || citySchedules[cityKey] || citySchedules.Cairo;
+  if (locNameEl) {
+    locNameEl.textContent = `مواقيت دقيقة لـ: ${data.name || 'القاهرة ومحيطها'}`;
+  }
+
+  // Base prayer times for Day 1
+  const baseFajrMin = parseTimeToMinutes(data.fajr || '04:52');
+  const baseSunriseMin = parseTimeToMinutes(data.sunrise || '06:21');
+  const baseDhuhrMin = parseTimeToMinutes(data.dhuhr || '11:45');
+  const baseAsrMin = parseTimeToMinutes(data.asr || '02:44');
+  const baseMaghribMin = parseTimeToMinutes(data.maghrib || '05:04');
+  const baseIshaMin = parseTimeToMinutes(data.isha || '06:24');
+
+  // Days list (30 days of Ramadan 1448)
+  const weekdays = ['الخميس', 'الجمعة', 'السبت', 'الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء'];
+  
+  let days = [];
+  for (let i = 1; i <= 30; i++) {
+    // Ramadan progression: sunrise and fajr shift slightly, maghrib extends
+    const fajrShift = Math.floor((i - 1) * 0.7); // fajr gets earlier in spring
+    const maghribShift = Math.floor((i - 1) * 0.8); // maghrib gets later
+    
+    const fajrM = baseFajrMin - fajrShift;
+    const sunriseM = baseSunriseMin - Math.floor((i - 1) * 0.6);
+    const dhuhrM = baseDhuhrMin;
+    const asrM = baseAsrMin + Math.floor((i - 1) * 0.3);
+    const maghribM = baseMaghribMin + maghribShift;
+    const ishaM = baseIshaMin + maghribShift;
+
+    const toTimeStr = (totalM) => {
+      const h = Math.floor(totalM / 60) % 24;
+      const m = totalM % 60;
+      return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+    };
+
+    const fajrStr = toTimeStr(fajrM);
+    const maghribStr = toTimeStr(maghribM);
+    const fastingMins = maghribM - fajrM;
+
+    const weekday = weekdays[(i - 1) % 7];
+    // Projected Gregorian date for Ramadan 1448
+    const gregDay = 18 + i - 1;
+    const gregStr = gregDay <= 28 ? `${gregDay} فبراير 2027` : `${gregDay - 28} مارس 2027`;
+
+    days.push({
+      dayNum: i,
+      weekday: weekday,
+      gregorian: gregStr,
+      fajr: fajrStr,
+      sunrise: toTimeStr(sunriseM),
+      dhuhr: toTimeStr(dhuhrM),
+      asr: toTimeStr(asrM),
+      maghrib: maghribStr,
+      isha: toTimeStr(ishaM),
+      fastingDuration: minutesToDurationString(fastingMins)
+    });
+  }
+
+  // Update header stats
+  const firstIftarEl = document.getElementById('imsakiyaFirstDayIftar');
+  if (firstIftarEl && days[0]) {
+    firstIftarEl.textContent = formatTime12(days[0].maghrib);
+  }
+  const avgFastingEl = document.getElementById('imsakiyaAvgFasting');
+  if (avgFastingEl && days[14]) {
+    avgFastingEl.textContent = days[14].fastingDuration;
+  }
+
+  // Filter days
+  let filteredDays = days;
+  if (currentImsakiyaFilter === 'first10') {
+    filteredDays = days.slice(0, 10);
+  } else if (currentImsakiyaFilter === 'mid10') {
+    filteredDays = days.slice(10, 20);
+  } else if (currentImsakiyaFilter === 'last10') {
+    filteredDays = days.slice(20, 30);
+  }
+
+  container.innerHTML = filteredDays.map(d => {
+    return `
+      <div class="p-3 rounded-2xl bg-[#041914] border border-amber-500/20 hover:border-amber-400/50 transition shadow-sm space-y-2">
+        <div class="flex items-center justify-between border-b border-amber-500/10 pb-1.5">
+          <div class="flex items-center gap-2">
+            <span class="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-300 font-mono font-bold text-xs flex items-center justify-center border border-amber-400/30">${d.dayNum}</span>
+            <span class="text-xs font-bold text-white">${d.weekday} (${d.dayNum} رمضان)</span>
+          </div>
+          <span class="text-[10px] text-slate-400 font-mono">${d.gregorian}</span>
+        </div>
+
+        <div class="grid grid-cols-3 gap-1.5 text-center text-[10px]">
+          <div class="p-1.5 rounded-xl bg-[#02100d] border border-emerald-500/20">
+            <span class="text-slate-400 block text-[9px]">الإمساك والفجر</span>
+            <span class="text-amber-300 font-bold font-mono">${formatTime12(d.fajr)}</span>
+          </div>
+          <div class="p-1.5 rounded-xl bg-[#092b22] border border-amber-400/30">
+            <span class="text-amber-200 block text-[9px]">الإفطار (المغرب) 🌙</span>
+            <span class="text-amber-300 font-black font-mono">${formatTime12(d.maghrib)}</span>
+          </div>
+          <div class="p-1.5 rounded-xl bg-[#02100d] border border-emerald-500/20">
+            <span class="text-slate-400 block text-[9px]">مدة الصيام</span>
+            <span class="text-emerald-300 font-bold">${d.fastingDuration}</span>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between text-[9px] text-slate-400 pt-1 px-1 border-t border-white/5">
+          <span>الشروق: <b class="text-slate-200 font-mono">${formatTime12(d.sunrise)}</b></span>
+          <span>الظهر: <b class="text-slate-200 font-mono">${formatTime12(d.dhuhr)}</b></span>
+          <span>العصر: <b class="text-slate-200 font-mono">${formatTime12(d.asr)}</b></span>
+          <span>العشاء: <b class="text-slate-200 font-mono">${formatTime12(d.isha)}</b></span>
+        </div>
+      </div>
+    `;
+  }).join('');
+}

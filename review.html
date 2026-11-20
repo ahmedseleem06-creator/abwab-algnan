@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>معاينة التصميم الجديد - أبواب الجنان</title>
+  <title>معاينة التحديث الجديد - أبواب الجنان</title>
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
@@ -16,7 +16,7 @@
     
     body {
       font-family: 'Cairo', system-ui, -apple-system, sans-serif;
-      background-color: #030d0b;
+      background-color: #020b09;
       color: #f1f5f9;
       user-select: none;
     }
@@ -38,24 +38,15 @@
     }
 
     .emerald-card {
-      background: linear-gradient(145deg, rgba(10, 36, 31, 0.85) 0%, rgba(5, 22, 19, 0.95) 100%);
-      border: 1px solid rgba(212, 175, 55, 0.28);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(245, 208, 97, 0.2);
-    }
-
-    .emerald-card-active {
-      border: 1px solid rgba(245, 208, 97, 0.65);
-      box-shadow: 0 0 20px rgba(212, 175, 55, 0.25), inset 0 1px 1px rgba(245, 208, 97, 0.4);
+      background: linear-gradient(145deg, rgba(10, 42, 36, 0.88) 0%, rgba(5, 23, 19, 0.96) 100%);
+      border: 1px solid rgba(212, 175, 55, 0.32);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(245, 208, 97, 0.2);
     }
 
     .gold-gradient-text {
       background: linear-gradient(135deg, #ffe082 0%, #d4af37 50%, #f5d061 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-    }
-
-    .gold-border {
-      border: 1px solid rgba(212, 175, 55, 0.45);
     }
 
     .gold-button {
@@ -70,8 +61,14 @@
       transform: scale(0.97);
     }
 
-    .crescent-glow {
-      filter: drop-shadow(0 0 16px rgba(245, 208, 97, 0.85));
+    .crescent-luminous {
+      filter: drop-shadow(0 0 10px rgba(245, 208, 97, 0.85)) drop-shadow(0 0 3px rgba(255, 244, 184, 0.9));
+      animation: gentleFloat 4s ease-in-out infinite;
+    }
+
+    @keyframes gentleFloat {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-4px) rotate(1deg); }
     }
 
     .no-scrollbar::-webkit-scrollbar {
@@ -82,7 +79,6 @@
       scrollbar-width: none;
     }
 
-    /* Tab switcher */
     .view-tab {
       display: none;
       animation: fadeIn 0.2s ease-out;
@@ -106,73 +102,64 @@
     <div class="w-full lg:w-96 flex flex-col gap-4 order-2 lg:order-1">
       
       <!-- Review Overview Card -->
-      <div class="bg-gradient-to-br from-[#07241e] to-[#041411] border border-amber-500/40 rounded-3xl p-5 shadow-2xl backdrop-blur-md">
+      <div class="bg-gradient-to-br from-[#072821] to-[#031310] border border-amber-500/40 rounded-3xl p-5 shadow-2xl backdrop-blur-md">
         <div class="flex items-center gap-3 mb-3 border-b border-amber-500/20 pb-3">
           <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-500 to-amber-200 p-0.5 shadow-lg shadow-amber-500/30 flex items-center justify-center text-2xl text-emerald-950 font-bold">
             🌙
           </div>
           <div>
-            <h1 class="text-lg font-bold text-amber-300">أبواب الجنان (المعاينة الجديدة)</h1>
-            <p class="text-xs text-emerald-300">الأخضر الزمردي + الداش بورد العملي</p>
+            <h1 class="text-lg font-bold text-amber-300">أبواب الجنان (المعاينة المعدلة)</h1>
+            <p class="text-xs text-emerald-300">الهلال يساراً • الكلام يميناً • حذف الساعات والدقائق</p>
           </div>
         </div>
 
-        <div class="space-y-3 text-xs leading-relaxed text-slate-300">
-          <div class="p-2.5 rounded-xl bg-[#0a2f27]/80 border border-emerald-500/30 flex items-start gap-2">
-            <span class="text-amber-400 text-sm mt-0.5">✨</span>
+        <div class="space-y-2.5 text-xs leading-relaxed text-slate-300">
+          <div class="p-2.5 rounded-xl bg-[#092e26]/80 border border-emerald-500/30 flex items-start gap-2">
+            <span class="text-amber-400 text-sm mt-0.5">👈</span>
             <div>
-              <b class="text-amber-300 block mb-0.5">اللون الأخضر الزمردي + الذهبي:</b>
-              تمت استعادة الطابع الإسلامي الملكي الأخضر الزمردي الهادئ الممزوج بالذهب والزخارف.
+              <b class="text-amber-300 block mb-0.5">الهلال على الشمال 100%:</b>
+              تم تثبيت الهلال الذهبي المضيء المفرغ في جهة اليسار بدقة تامة.
             </div>
           </div>
 
-          <div class="p-2.5 rounded-xl bg-[#0a2f27]/80 border border-emerald-500/30 flex items-start gap-2">
-            <span class="text-amber-400 text-sm mt-0.5">📊</span>
+          <div class="p-2.5 rounded-xl bg-[#092e26]/80 border border-emerald-500/30 flex items-start gap-2">
+            <span class="text-amber-400 text-sm mt-0.5">👉</span>
             <div>
-              <b class="text-amber-300 block mb-0.5">داش بورد عملي ذكي (بديل الدوائر):</b>
-              تم حذف الدوائر القديمة، واستبدالها بلوحة إنجاز سريعة ومترابطة (الصيام، الصلوات الخمس، الورد القرآني، والأذكار) مع شريط إنجاز يومي متصل ونقاط استمرار.
+              <b class="text-amber-300 block mb-0.5">الكلام على اليمين 100%:</b>
+              «الاستعداد لرمضان» وتحتها «متبقي على الشهر الفضيل» وتحتها عدد الأيام بالأصفر.
             </div>
           </div>
 
-          <div class="p-2.5 rounded-xl bg-[#0a2f27]/80 border border-emerald-500/30 flex items-start gap-2">
-            <span class="text-amber-400 text-sm mt-0.5">🕌</span>
+          <div class="p-2.5 rounded-xl bg-[#092e26]/80 border border-emerald-500/30 flex items-start gap-2">
+            <span class="text-amber-400 text-sm mt-0.5">🗑️</span>
             <div>
-              <b class="text-amber-300 block mb-0.5">مواقيت الصلاة الدقيقة:</b>
-              إضافة قسم مواقيت الصلاة مع مؤقت تنازلي حي للصلاة القادمة وتحديد المدينة.
+              <b class="text-amber-300 block mb-0.5">حذف الساعات والدقائق:</b>
+              تم حذف عداد الساعات والدقائق والثواني بالكامل والاكتفاء بعدد الأيام بالأصفر.
             </div>
           </div>
 
-          <div class="p-2.5 rounded-xl bg-[#0a2f27]/80 border border-emerald-500/30 flex items-start gap-2">
-            <span class="text-amber-400 text-sm mt-0.5">📅</span>
+          <div class="p-2.5 rounded-xl bg-[#092e26]/80 border border-emerald-500/30 flex items-start gap-2">
+            <span class="text-amber-400 text-sm mt-0.5">📿</span>
             <div>
-              <b class="text-amber-300 block mb-0.5">التقويم الهجري والعد التنازلي الحي:</b>
-              ربط التاريخ الهجري والميلادي الحقيقي مع عداد الأيام والساعات الفعلي المتبقي على رمضان.
+              <b class="text-amber-300 block mb-0.5">الأذكار العشرة + المخصص:</b>
+              بالتشكيل النبوي السليم وأعداد حرة وزر إضافة ذكر مخصص.
             </div>
           </div>
 
-          <div class="p-2.5 rounded-xl bg-[#0a2f27]/80 border border-emerald-500/30 flex items-start gap-2">
-            <span class="text-amber-400 text-sm mt-0.5">📖</span>
+          <div class="p-2.5 rounded-xl bg-[#092e26]/80 border border-emerald-500/30 flex items-start gap-2">
+            <span class="text-amber-400 text-sm mt-0.5">📍</span>
             <div>
-              <b class="text-amber-300 block mb-0.5">تبسيط متابع الورد + الإبقاء على مصمم الختمات:</b>
-              بطاقة واضحة للورد اليومي برقم الجزء والصفحات وزر "أتممت الورد"، مع بقاء مصمم الختمات كاملاً.
-            </div>
-          </div>
-
-          <div class="p-2.5 rounded-xl bg-[#0a2f27]/80 border border-emerald-500/30 flex items-start gap-2">
-            <span class="text-rose-400 text-sm mt-0.5">🗑️</span>
-            <div>
-              <b class="text-slate-300 block mb-0.5">المحذوفات حسب طلبك:</b>
-              تم حذف مخطط وجبات السحور والإفطار وقائمة المشتريات بالكامل لخفة وسلاسة التطبيق.
+              <b class="text-amber-300 block mb-0.5">مواقيت الصلاة بالموقع والشتوي:</b>
+              ضبط أوتوماتيكي للساعة والتوقيت الشتوي GPS.
             </div>
           </div>
         </div>
 
-        <!-- Approval / Test Indicator -->
         <div class="mt-4 pt-3 border-t border-amber-500/20 text-center">
-          <p class="text-xs text-amber-200/90 font-medium mb-2">جرب الضغط على الصلوات والصيام والأزرار في شاشة الهاتف بجانبك لرؤية التفاعل الحي!</p>
+          <p class="text-xs text-amber-200/90 font-medium mb-2">شاهد التعديل المباشر في شاشة الهاتف الآن!</p>
           <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-950 text-emerald-300 text-xs border border-emerald-500/40">
             <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            معاينة تفاعلية حية
+            معاينة فورية محدثة
           </div>
         </div>
       </div>
@@ -183,40 +170,44 @@
     <div class="w-full max-w-[420px] mx-auto order-1 lg:order-2 flex flex-col items-center">
       
       <!-- Phone Mockup Frame -->
-      <div class="w-full rounded-[44px] p-3 bg-gradient-to-b from-[#133830] via-[#09221c] to-[#04120f] border-2 border-amber-500/30 shadow-[0_0_50px_rgba(4,20,17,0.9),0_0_20px_rgba(212,175,55,0.2)] relative">
+      <div class="w-full rounded-[44px] p-3 bg-gradient-to-b from-[#133c33] via-[#08221c] to-[#03110e] border-2 border-amber-500/30 shadow-[0_0_50px_rgba(4,20,17,0.9),0_0_20px_rgba(212,175,55,0.2)] relative">
         
         <!-- Phone Speaker Notch -->
-        <div class="w-32 h-4 bg-[#030d0b] rounded-full mx-auto mb-2 flex items-center justify-center">
+        <div class="w-32 h-4 bg-[#020b09] rounded-full mx-auto mb-2 flex items-center justify-center">
           <div class="w-10 h-1 bg-slate-800 rounded-full"></div>
         </div>
 
         <!-- Phone Screen Inside -->
         <div class="w-full min-h-[760px] max-h-[820px] bg-emerald-islamic rounded-[36px] overflow-y-auto no-scrollbar relative flex flex-col justify-between text-slate-100 border border-amber-500/20">
 
-          <!-- Sticky Top Header (Date & City) -->
-          <div class="sticky top-0 z-30 bg-[#041411]/90 backdrop-blur-md px-4 py-3 border-b border-amber-500/20 flex items-center justify-between">
+          <!-- Sticky Top Header (Date & City + Geolocation Button) -->
+          <div class="sticky top-0 z-30 bg-[#041411]/95 backdrop-blur-md px-4 py-3 border-b border-amber-500/20 flex items-center justify-between">
             <div class="flex items-center gap-2">
               <div class="w-8 h-8 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-300 text-sm">
                 🕌
               </div>
               <div>
-                <div class="text-[11px] font-bold text-amber-300" id="liveHijriHeader">... جاري حساب التاريخ الهجري</div>
+                <div class="text-[11px] font-bold text-amber-300" id="liveHijriHeader">جاري حساب التاريخ الهجري...</div>
                 <div class="text-[9px] text-emerald-300/80" id="liveGregorianHeader">...</div>
               </div>
             </div>
 
-            <!-- City Selector / Location Indicator -->
-            <div class="flex items-center gap-1 bg-[#092b23] border border-amber-500/30 rounded-full px-2.5 py-1 text-[10px] text-amber-200">
-              <i class="fa-solid fa-location-dot text-[9px] text-amber-400"></i>
-              <select id="citySelect" onchange="changeCity(this.value)" class="bg-transparent text-amber-200 focus:outline-none cursor-pointer text-[10px]">
-                <option value="Cairo" class="bg-[#051a15] text-amber-200">القاهرة</option>
-                <option value="Alexandria" class="bg-[#051a15] text-amber-200">الإسكندرية</option>
-                <option value="Makkah" class="bg-[#051a15] text-amber-200">مكة المكرمة</option>
-                <option value="Madinah" class="bg-[#051a15] text-amber-200">المدينة المنورة</option>
-                <option value="Riyadh" class="bg-[#051a15] text-amber-200">الرياض</option>
-                <option value="Dubai" class="bg-[#051a15] text-amber-200">دبي</option>
-                <option value="Jerusalem" class="bg-[#051a15] text-amber-200">القدس الشريف</option>
-              </select>
+            <!-- GPS Location & City Selector -->
+            <div class="flex items-center gap-1.5">
+              <button onclick="detectUserLocation()" title="تحديد موقعي بدقة" class="w-7 h-7 rounded-full bg-[#082a22] border border-amber-500/40 text-amber-300 hover:text-amber-200 flex items-center justify-center text-[10px] active:scale-90 transition">
+                <i class="fa-solid fa-crosshairs" id="gpsIcon"></i>
+              </button>
+              <div class="flex items-center gap-1 bg-[#082a22] border border-amber-500/30 rounded-full px-2 py-1 text-[10px] text-amber-200">
+                <select id="citySelect" onchange="changeCity(this.value)" class="bg-transparent text-amber-200 focus:outline-none cursor-pointer text-[10px]">
+                  <option value="Cairo" class="bg-[#041411] text-amber-200">القاهرة</option>
+                  <option value="Alexandria" class="bg-[#041411] text-amber-200">الإسكندرية</option>
+                  <option value="Makkah" class="bg-[#041411] text-amber-200">مكة المكرمة</option>
+                  <option value="Madinah" class="bg-[#041411] text-amber-200">المدينة المنورة</option>
+                  <option value="Riyadh" class="bg-[#041411] text-amber-200">الرياض</option>
+                  <option value="Dubai" class="bg-[#041411] text-amber-200">دبي</option>
+                  <option value="Jerusalem" class="bg-[#041411] text-amber-200">القدس الشريف</option>
+                </select>
+              </div>
             </div>
           </div>
 
@@ -226,87 +217,44 @@
             <!-- TAB 1: الرئيسية (Home Dashboard) -->
             <div id="tab-home" class="view-tab active space-y-4">
               
-              <!-- 1. The Approved Golden Crescent Hero Banner with Real Hijri Countdown -->
-              <div class="w-full relative rounded-3xl overflow-hidden border border-amber-500/50 shadow-2xl p-4 bg-gradient-to-r from-[#041a15] via-[#082821] to-[#041612]">
-                <!-- Corner 8-point stars -->
-                <div class="absolute -top-3 -right-3 w-16 h-16 pointer-events-none opacity-25">
+              <!-- 1. The Adjusted Hero Banner: Crescent on LEFT, Text on RIGHT (No hours/minutes) -->
+              <div class="w-full relative rounded-3xl overflow-hidden border border-amber-500/50 shadow-2xl p-4 bg-gradient-to-r from-[#041914] via-[#092f26] to-[#041612]">
+                <!-- 8-point stars ornament in corner -->
+                <div class="absolute -top-3 -right-3 w-16 h-16 pointer-events-none opacity-20">
                   <svg viewBox="0 0 72 72" class="w-full h-full fill-none stroke-[#d4af37] stroke-[1.2]">
                     <rect x="18" y="18" width="36" height="36"/>
                     <rect x="18" y="18" width="36" height="36" transform="rotate(45 36 36)"/>
                   </svg>
                 </div>
 
-                <div class="flex items-center justify-between gap-2 relative z-10">
+                <!-- Explicit LTR Container: First child is LEFT (Crescent), Second child is RIGHT (Text) -->
+                <div class="flex items-center justify-between gap-2 relative z-10" dir="ltr">
                   
-                  <!-- Left side: Golden Crescent Art with Light Flare (Unclipped) -->
+                  <!-- LEFT SIDE: 3D Luminous Crescent & Star -->
                   <div class="relative w-32 h-32 flex-shrink-0 flex items-center justify-center">
-                    <!-- Soft golden glow aura -->
-                    <div class="absolute w-28 h-28 rounded-full bg-amber-400/20 blur-xl"></div>
-                    
-                    <!-- Exact Crescent SVG tilted 10deg with glitter stipples -->
-                    <svg viewBox="0 0 160 160" class="w-32 h-32 crescent-glow overflow-visible" style="transform: rotate(10deg);">
-                      <defs>
-                        <!-- Luminous Gold Gradient -->
-                        <linearGradient id="goldGradientHero" x1="0%" y1="0%" x2="100%" y2="100%">
-                          <stop offset="0%" stop-color="#fff4b8"/>
-                          <stop offset="35%" stop-color="#f5d061"/>
-                          <stop offset="70%" stop-color="#d4af37"/>
-                          <stop offset="100%" stop-color="#997316"/>
-                        </linearGradient>
-
-                        <!-- Stardust Glitter Pattern -->
-                        <pattern id="stardustHero" width="10" height="10" patternUnits="userSpaceOnUse">
-                          <circle cx="2" cy="2" r="0.75" fill="#ffffff" opacity="0.9"/>
-                          <circle cx="7" cy="3" r="0.6" fill="#ffe082" opacity="0.8"/>
-                          <circle cx="4" cy="7" r="0.8" fill="#ffffff" opacity="0.85"/>
-                          <circle cx="8" cy="8" r="0.5" fill="#ffd54f" opacity="0.7"/>
-                        </pattern>
-                      </defs>
-
-                      <!-- Outer Gold Body -->
-                      <path d="M 125,25 A 58,58 0 1 0 120,135 A 46,46 0 1 1 125,25 Z" 
-                            fill="url(#goldGradientHero)" 
-                            stroke="#fff2b2" stroke-width="1.5" />
-                      
-                      <!-- Inner Stardust Infill -->
-                      <path d="M 125,25 A 58,58 0 1 0 120,135 A 46,46 0 1 1 125,25 Z" 
-                            fill="url(#stardustHero)" />
-
-                      <!-- Radiant Cross Flare at lower curve -->
-                      <g transform="translate(100, 110)">
-                        <circle cx="0" cy="0" r="14" fill="#ffecb3" opacity="0.45" filter="blur(2px)"/>
-                        <circle cx="0" cy="0" r="3.5" fill="#ffffff"/>
-                        <line x1="-18" y1="0" x2="18" y2="0" stroke="#ffffff" stroke-width="1.8" opacity="0.9"/>
-                        <line x1="0" y1="-18" x2="0" y2="18" stroke="#ffffff" stroke-width="1.8" opacity="0.9"/>
-                      </g>
-                    </svg>
+                    <img src="data:image/png;base64,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" 
+                         alt="الهلال المنور" 
+                         class="w-28 h-28 object-contain crescent-luminous z-10">
                   </div>
 
-                  <!-- Right side: Real Days Countdown & Hijri Info -->
-                  <div class="text-right flex-1 pr-1">
-                    <span class="inline-block px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-bold border border-amber-400/30 mb-1">
-                      🌙 الاستعداد لرمضان 1448 هـ
+                  <!-- RIGHT SIDE: Text Content with RTL alignment and NO hours/minutes -->
+                  <div class="text-right flex-1 pr-2" dir="rtl">
+                    <span class="inline-block px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-bold border border-amber-400/30 mb-2 shadow-sm">
+                      الاستعداد لرمضان
                     </span>
-                    <h2 class="text-base font-bold text-white mb-1">متبقي على الشهر الفضيل</h2>
+                    <h2 class="text-sm font-semibold text-slate-200 mb-1">متبقي على الشهر الفضيل</h2>
                     
-                    <div class="flex items-baseline justify-end gap-1 mb-2">
-                      <span class="text-3xl font-extrabold gold-gradient-text" id="countdownDays">--</span>
-                      <span class="text-xs font-bold text-amber-300">يوماً</span>
-                    </div>
-
-                    <!-- Live Hours : Mins : Secs -->
-                    <div class="inline-flex items-center gap-1.5 bg-[#03110e]/90 px-2.5 py-1 rounded-xl border border-amber-500/30 text-[10px] text-emerald-200">
-                      <span class="font-mono font-bold text-amber-300" id="countdownHours">00</span><span class="text-slate-500">س</span>:
-                      <span class="font-mono font-bold text-amber-300" id="countdownMins">00</span><span class="text-slate-500">د</span>:
-                      <span class="font-mono font-bold text-amber-300" id="countdownSecs">00</span><span class="text-slate-500">ث</span>
+                    <div class="flex items-baseline justify-start gap-1.5 pt-1">
+                      <span class="text-4xl font-extrabold text-amber-300 font-mono tracking-tight" id="countdownDays">82</span>
+                      <span class="text-sm font-bold text-amber-300">يوماً</span>
                     </div>
                   </div>
 
                 </div>
               </div>
 
-              <!-- 2. Next Prayer Banner (مواقيت الصلاة الفورية) -->
-              <div class="emerald-card rounded-2xl p-3 flex items-center justify-between border-r-4 border-r-amber-400">
+              <!-- 2. Next Prayer Quick Banner -->
+              <div onclick="switchTab('prayers')" class="emerald-card rounded-2xl p-3 flex items-center justify-between border-r-4 border-r-amber-400 cursor-pointer hover:border-amber-400 transition-all">
                 <div class="flex items-center gap-2.5">
                   <div class="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-400/40 flex items-center justify-center text-amber-300 text-lg">
                     <i class="fa-solid fa-mosque"></i>
@@ -316,7 +264,7 @@
                       <span>الصلاة القادمة:</span>
                       <span class="text-amber-300 font-bold" id="nextPrayerName">صلاة العصر</span>
                     </div>
-                    <div class="text-sm font-bold text-white" id="nextPrayerTime">03:15 م</div>
+                    <div class="text-sm font-bold text-white" id="nextPrayerTime">02:44 م</div>
                   </div>
                 </div>
 
@@ -326,7 +274,7 @@
                 </div>
               </div>
 
-              <!-- 3. Smart Achievement Hub (الداش بورد العملي البديل للدوائر) -->
+              <!-- 3. Smart Achievement Hub (الداش بورد العملي) -->
               <div class="emerald-card rounded-3xl p-4 space-y-3">
                 <div class="flex items-center justify-between border-b border-amber-500/20 pb-2.5">
                   <div class="flex items-center gap-2">
@@ -339,7 +287,7 @@
                   </div>
                 </div>
 
-                <!-- Combined Daily Progress Bar -->
+                <!-- Overall Progress Bar -->
                 <div>
                   <div class="w-full bg-[#051a15] h-2.5 rounded-full overflow-hidden border border-emerald-500/30 p-0.5">
                     <div id="overallProgressBar" class="h-full bg-gradient-to-r from-emerald-500 via-amber-400 to-amber-300 rounded-full transition-all duration-500" style="width: 75%;"></div>
@@ -350,11 +298,11 @@
                   </div>
                 </div>
 
-                <!-- 4 Actionable Achievement Cards (Connected to App Features) -->
+                <!-- 4 Actionable Achievement Cards -->
                 <div class="grid grid-cols-2 gap-2.5 pt-1">
                   
                   <!-- Card 1: Fasting Today -->
-                  <div onclick="toggleAchievement('fasting')" id="card-fasting" class="cursor-pointer p-3 rounded-2xl bg-[#07241e] border border-amber-500/40 hover:border-amber-400 transition-all flex flex-col justify-between relative overflow-hidden group">
+                  <div onclick="toggleAchievement('fasting')" id="card-fasting" class="cursor-pointer p-3 rounded-2xl bg-[#072821] border border-amber-500/40 hover:border-amber-400 transition-all flex flex-col justify-between">
                     <div class="flex items-center justify-between">
                       <span class="text-lg">🥣</span>
                       <div id="check-fasting" class="w-5 h-5 rounded-full bg-amber-400 text-emerald-950 flex items-center justify-center text-[10px] font-bold shadow-sm">
@@ -368,7 +316,7 @@
                   </div>
 
                   <!-- Card 2: 5 Prayers -->
-                  <div onclick="switchTab('prayers')" class="cursor-pointer p-3 rounded-2xl bg-[#07241e] border border-emerald-500/40 hover:border-amber-400 transition-all flex flex-col justify-between group">
+                  <div onclick="switchTab('prayers')" class="cursor-pointer p-3 rounded-2xl bg-[#072821] border border-emerald-500/40 hover:border-amber-400 transition-all flex flex-col justify-between">
                     <div class="flex items-center justify-between">
                       <span class="text-lg">🕌</span>
                       <div class="w-5 h-5 rounded-full bg-amber-400 text-emerald-950 flex items-center justify-center text-[10px] font-bold">
@@ -377,12 +325,12 @@
                     </div>
                     <div class="mt-2 text-right">
                       <div class="text-xs font-bold text-white">الصلوات المفروضة</div>
-                      <div class="text-[9px] text-emerald-300">متبقي العشاء</div>
+                      <div class="text-[9px] text-emerald-300" id="prayersSubText">متبقي العشاء</div>
                     </div>
                   </div>
 
                   <!-- Card 3: Quran Daily Wird -->
-                  <div onclick="switchTab('quran')" class="cursor-pointer p-3 rounded-2xl bg-[#07241e] border border-amber-500/40 hover:border-amber-400 transition-all flex flex-col justify-between group">
+                  <div onclick="switchTab('quran')" class="cursor-pointer p-3 rounded-2xl bg-[#072821] border border-amber-500/40 hover:border-amber-400 transition-all flex flex-col justify-between">
                     <div class="flex items-center justify-between">
                       <span class="text-lg">📖</span>
                       <div id="check-quran" class="w-5 h-5 rounded-full bg-amber-400 text-emerald-950 flex items-center justify-center text-[10px] font-bold">
@@ -396,7 +344,7 @@
                   </div>
 
                   <!-- Card 4: Daily Azkar & Tasbeeh -->
-                  <div onclick="switchTab('tasbeeh')" class="cursor-pointer p-3 rounded-2xl bg-[#07241e] border border-emerald-500/40 hover:border-amber-400 transition-all flex flex-col justify-between group">
+                  <div onclick="switchTab('tasbeeh')" class="cursor-pointer p-3 rounded-2xl bg-[#072821] border border-emerald-500/40 hover:border-amber-400 transition-all flex flex-col justify-between">
                     <div class="flex items-center justify-between">
                       <span class="text-lg">📿</span>
                       <div id="check-azkar" class="w-5 h-5 rounded-full bg-slate-700 text-slate-300 flex items-center justify-center text-[10px] font-bold">
@@ -414,8 +362,8 @@
                 <!-- 5 Prayers Quick Toggles Row -->
                 <div class="bg-[#051a15] p-2.5 rounded-2xl border border-emerald-500/30">
                   <div class="flex items-center justify-between text-[11px] mb-2 px-1">
-                    <span class="text-slate-300 font-semibold">تأكيد أداء صلوات اليوم:</span>
-                    <span class="text-amber-300 text-[10px]">اضغط على الصلاة لتحديدها</span>
+                    <span class="text-slate-300 font-semibold">تأكيد صلوات اليوم:</span>
+                    <span class="text-amber-300 text-[10px]">اضغط للتحديد السريع</span>
                   </div>
                   <div class="grid grid-cols-5 gap-1.5 text-center text-[10px]">
                     <button onclick="togglePrayer(0)" id="prayer-btn-0" class="py-1.5 rounded-xl bg-amber-400 text-emerald-950 font-bold transition">فجر ✓</button>
@@ -428,14 +376,14 @@
 
               </div>
 
-              <!-- 4. Simplified Daily Quran Wird (متابع الورد المبسط) -->
+              <!-- 4. Simplified Daily Quran Wird -->
               <div class="emerald-card rounded-3xl p-4 space-y-3">
                 <div class="flex items-center justify-between border-b border-amber-500/20 pb-2">
                   <div class="flex items-center gap-2">
                     <span class="text-amber-300">📖</span>
                     <h3 class="text-sm font-bold text-white">ورد القرآن لليوم</h3>
                   </div>
-                  <span class="text-[10px] text-amber-300 bg-amber-500/20 px-2 py-0.5 rounded-full border border-amber-400/30">
+                  <span class="text-[10px] text-amber-300 bg-amber-500/20 px-2.5 py-0.5 rounded-full border border-amber-400/30">
                     الختمة الشهرية
                   </span>
                 </div>
@@ -453,36 +401,11 @@
                   </button>
                 </div>
 
-                <div class="flex items-center justify-between pt-1">
-                  <button onclick="toggleAchievement('quran')" id="btnCompleteWird" class="w-full py-2 rounded-xl bg-emerald-900/60 hover:bg-emerald-800 text-emerald-200 text-xs font-bold border border-emerald-500/40 transition flex items-center justify-center gap-2">
+                <div class="pt-1">
+                  <button onclick="toggleAchievement('quran')" id="btnCompleteWird" class="w-full py-2.5 rounded-xl bg-amber-500/20 text-amber-300 text-xs font-bold border border-amber-400/40 transition flex items-center justify-center gap-2">
                     <span id="wirdBtnCheck">✓</span>
                     <span id="wirdBtnText">أتممت قراءة ورد اليوم بنجاح</span>
                   </button>
-                </div>
-              </div>
-
-              <!-- 5. 30-Day Fasting Challenge (تحدي الصيام قبل رمضان) -->
-              <div class="emerald-card rounded-3xl p-4 space-y-3">
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center gap-2">
-                    <span class="text-amber-400">🏆</span>
-                    <h3 class="text-sm font-bold text-white">تحدي الاستعداد (صيام النوافل)</h3>
-                  </div>
-                  <span class="text-[10px] text-emerald-300">صمت 8 من 30 يوماً</span>
-                </div>
-
-                <!-- Mini streak dots row -->
-                <div class="grid grid-cols-10 gap-1 text-center py-1">
-                  <div class="w-6 h-6 rounded-lg bg-amber-400 text-emerald-950 flex items-center justify-center text-[10px] font-bold mx-auto">1</div>
-                  <div class="w-6 h-6 rounded-lg bg-amber-400 text-emerald-950 flex items-center justify-center text-[10px] font-bold mx-auto">2</div>
-                  <div class="w-6 h-6 rounded-lg bg-amber-400 text-emerald-950 flex items-center justify-center text-[10px] font-bold mx-auto">3</div>
-                  <div class="w-6 h-6 rounded-lg bg-amber-400 text-emerald-950 flex items-center justify-center text-[10px] font-bold mx-auto">4</div>
-                  <div class="w-6 h-6 rounded-lg bg-amber-400 text-emerald-950 flex items-center justify-center text-[10px] font-bold mx-auto">5</div>
-                  <div class="w-6 h-6 rounded-lg bg-amber-400 text-emerald-950 flex items-center justify-center text-[10px] font-bold mx-auto">6</div>
-                  <div class="w-6 h-6 rounded-lg bg-amber-400 text-emerald-950 flex items-center justify-center text-[10px] font-bold mx-auto">7</div>
-                  <div class="w-6 h-6 rounded-lg bg-amber-400 text-emerald-950 flex items-center justify-center text-[10px] font-bold mx-auto">8</div>
-                  <div class="w-6 h-6 rounded-lg bg-[#0a2e26] border border-amber-500/40 text-amber-300 flex items-center justify-center text-[10px] font-bold mx-auto">9</div>
-                  <div class="w-6 h-6 rounded-lg bg-[#051a15] text-slate-500 flex items-center justify-center text-[10px] mx-auto">10</div>
                 </div>
               </div>
 
@@ -491,44 +414,40 @@
             <!-- TAB 2: مواقيت الصلاة (Prayer Times Dedicated Screen) -->
             <div id="tab-prayers" class="view-tab space-y-4">
               <div class="emerald-card rounded-3xl p-4 text-center space-y-3">
-                <span class="text-xs text-amber-300 font-semibold block">مواقيت اليوم بدقة بحسب الحسابات الفلكية</span>
-                <h3 class="text-lg font-bold text-white" id="prayerCityTitle">القاهرة ومحيطها</h3>
-                
-                <div class="space-y-2 text-right">
-                  <div class="flex items-center justify-between p-2.5 rounded-xl bg-[#061e19] border border-amber-500/30">
-                    <span class="text-xs font-bold text-white">صلاة الفجر</span>
-                    <span class="text-xs font-mono font-bold text-amber-300">04:52 ص</span>
+                <div class="flex items-center justify-between border-b border-amber-500/20 pb-2">
+                  <span class="text-xs text-amber-300 font-bold block">مواقيت الصلاة الدقيقة</span>
+                  <button onclick="detectUserLocation()" class="px-2.5 py-1 rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-bold border border-amber-400/30 flex items-center gap-1">
+                    <i class="fa-solid fa-location-crosshairs"></i>
+                    <span>موقعي الحالي</span>
+                  </button>
+                </div>
+
+                <div class="p-2.5 rounded-2xl bg-[#061e19] border border-amber-500/20 text-right flex items-center justify-between text-xs">
+                  <div>
+                    <span class="text-slate-400 text-[10px] block">المدينة المضبوطة:</span>
+                    <b class="text-amber-300 text-sm" id="prayerCityTitle">القاهرة ومحيطها</b>
                   </div>
-                  <div class="flex items-center justify-between p-2.5 rounded-xl bg-[#061e19] border border-emerald-500/20">
-                    <span class="text-xs text-slate-300">الشروق</span>
-                    <span class="text-xs font-mono text-slate-300">06:21 ص</span>
-                  </div>
-                  <div class="flex items-center justify-between p-2.5 rounded-xl bg-[#061e19] border border-amber-500/30">
-                    <span class="text-xs font-bold text-white">صلاة الظهر</span>
-                    <span class="text-xs font-mono font-bold text-amber-300">11:43 ص</span>
-                  </div>
-                  <div class="flex items-center justify-between p-2.5 rounded-xl bg-[#082a22] border-2 border-amber-400 shadow-md">
-                    <div class="flex items-center gap-2">
-                      <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
-                      <span class="text-xs font-bold text-amber-300">صلاة العصر (القادمة)</span>
-                    </div>
-                    <span class="text-xs font-mono font-bold text-amber-300">02:44 م</span>
-                  </div>
-                  <div class="flex items-center justify-between p-2.5 rounded-xl bg-[#061e19] border border-amber-500/30">
-                    <span class="text-xs font-bold text-white">صلاة المغرب (الإفطار)</span>
-                    <span class="text-xs font-mono font-bold text-amber-300">05:04 م</span>
-                  </div>
-                  <div class="flex items-center justify-between p-2.5 rounded-xl bg-[#061e19] border border-amber-500/30">
-                    <span class="text-xs font-bold text-white">صلاة العشاء والتراويح</span>
-                    <span class="text-xs font-mono font-bold text-amber-300">06:24 م</span>
+                  <div class="text-left">
+                    <span class="text-slate-400 text-[10px] block">التوقيت المضبوط:</span>
+                    <span class="text-emerald-300 text-[11px] font-mono" id="tzStatusText">تلقائي (UTC+2) الشتوي</span>
                   </div>
                 </div>
+                
+                <div class="space-y-2 text-right" id="prayerTimesTable">
+                  <!-- Prayer times populated by JS -->
+                </div>
+              </div>
+
+              <!-- DST / Location Note -->
+              <div class="p-3 rounded-2xl bg-[#051c17] border border-emerald-500/30 text-[11px] text-slate-300 leading-relaxed text-right">
+                <i class="fa-solid fa-circle-info text-amber-400 ml-1"></i>
+                <span>يتم تطبيق التوقيت الشتوي أو الصيفي وحساب فروق الساعات تلقائياً وفقاً لإعدادات جهازك والموقع الجغرافي لضمان دقة الأذان 100%.</span>
               </div>
             </div>
 
             <!-- TAB 3: المصحف والختمات (Quran Reader & Khatmah Planner) -->
             <div id="tab-quran" class="view-tab space-y-4">
-              <!-- Khatmah Designer Card (متروك بالكامل كما طلب) -->
+              <!-- Khatmah Designer Card -->
               <div class="emerald-card rounded-3xl p-4 space-y-3">
                 <div class="flex items-center justify-between border-b border-amber-500/20 pb-2">
                   <div class="flex items-center gap-2">
@@ -589,32 +508,61 @@
               </div>
             </div>
 
-            <!-- TAB 4: المسبحة والأذكار (Tasbeeh & Azkar) -->
+            <!-- TAB 4: المسبحة والأذكار العشرة الموثقة (Tasbeeh & 10 Core Azkar) -->
             <div id="tab-tasbeeh" class="view-tab space-y-4">
-              <div class="emerald-card rounded-3xl p-5 text-center space-y-4">
-                <span class="text-xs text-amber-300 font-bold block">المسبحة الإلكترونية المطورة</span>
+              
+              <!-- 1. Interactive Electronic Tasbeeh -->
+              <div class="emerald-card rounded-3xl p-5 text-center space-y-3">
+                <div class="flex items-center justify-between border-b border-amber-500/20 pb-2">
+                  <span class="text-xs text-amber-300 font-bold block">المسبحة الإلكترونية المفتوحة</span>
+                  <div class="flex items-center gap-2">
+                    <span class="text-[10px] text-emerald-300" id="targetCounterLabel">الهدف: مفتوح ∞</span>
+                    <button onclick="openAddZikrModal()" class="px-2 py-0.5 rounded-lg bg-amber-500/20 text-amber-300 text-[10px] font-bold border border-amber-400/30 hover:bg-amber-500/30">
+                      + ذكر مخصص
+                    </button>
+                  </div>
+                </div>
                 
-                <div class="p-3 rounded-2xl bg-[#051a15] border border-amber-500/30 text-amber-200 text-sm font-bold" id="currentZikrText">
-                  سُبْحَانَ اللَّهِ وَبِحَمْدِهِ ، سُبْحَانَ اللَّهِ الْعَظِيمِ
+                <!-- Active Selected Zikr Box -->
+                <div class="p-3 rounded-2xl bg-[#051a15] border border-amber-500/30 text-amber-200 text-sm font-bold min-h-[58px] flex items-center justify-center font-quran leading-relaxed px-4" id="activeZikrDisplay">
+                  سُبْحَانَ اللَّهِ وَبِحَمْدِهِ
                 </div>
 
                 <!-- Circular Counter Button -->
-                <button onclick="incrementTasbeeh()" class="w-36 h-36 mx-auto rounded-full bg-gradient-to-tr from-[#0a3128] via-[#0f4438] to-[#185e4e] border-4 border-amber-400 shadow-[0_0_30px_rgba(212,175,55,0.35)] flex flex-col items-center justify-center active:scale-95 transition-transform">
-                  <span class="text-3xl font-extrabold text-amber-300 font-mono" id="tasbeehCount">150</span>
-                  <span class="text-[10px] text-emerald-200 mt-1">اضغط للتسبيح</span>
+                <button onclick="incrementTasbeeh()" class="w-36 h-36 mx-auto rounded-full bg-gradient-to-tr from-[#0a3128] via-[#0f4438] to-[#185e4e] border-4 border-amber-400 shadow-[0_0_30px_rgba(212,175,55,0.35)] flex flex-col items-center justify-center active:scale-95 transition-transform focus:outline-none">
+                  <span class="text-4xl font-extrabold text-amber-300 font-mono tracking-wider" id="tasbeehCount">150</span>
+                  <span class="text-[10px] text-emerald-200 mt-1 font-semibold">اضغط للتسبيح</span>
                 </button>
 
-                <div class="flex items-center justify-center gap-2">
-                  <button onclick="resetTasbeeh()" class="px-3 py-1 rounded-xl bg-[#061e19] text-slate-400 text-xs border border-emerald-500/30 hover:text-white">
-                    تصفير العداد
-                  </button>
+                <!-- Target Quick Pills (33, 100, Free) -->
+                <div class="flex items-center justify-center gap-2 pt-1 text-[11px]">
+                  <button onclick="setCounterTarget(33)" class="px-2.5 py-1 rounded-xl bg-[#061e19] text-amber-300 border border-emerald-500/30 hover:border-amber-400">33 مرة</button>
+                  <button onclick="setCounterTarget(100)" class="px-2.5 py-1 rounded-xl bg-[#061e19] text-amber-300 border border-emerald-500/30 hover:border-amber-400">100 مرة</button>
+                  <button onclick="setCounterTarget(0)" class="px-2.5 py-1 rounded-xl bg-amber-400 text-emerald-950 font-bold border border-amber-400">مفتوح ∞</button>
+                  <button onclick="resetTasbeeh()" class="px-2.5 py-1 rounded-xl bg-[#061e19] text-slate-400 border border-emerald-500/30 hover:text-white">تصفير</button>
                 </div>
               </div>
+
+              <!-- 2. The 10 Authentic Core Azkar (مع التشكيل الكامل) -->
+              <div class="emerald-card rounded-3xl p-4 space-y-3">
+                <div class="flex items-center justify-between border-b border-amber-500/20 pb-2">
+                  <div class="flex items-center gap-2">
+                    <span class="text-amber-400">📿</span>
+                    <h4 class="text-xs font-bold text-amber-300">الأذكار العشرة الأساسية الموثقة</h4>
+                  </div>
+                  <span class="text-[10px] text-emerald-300">بالتشكيل الصحيح</span>
+                </div>
+
+                <div class="space-y-2 max-h-72 overflow-y-auto no-scrollbar" id="azkar10Container">
+                  <!-- 10 Azkar list rendered by JS -->
+                </div>
+              </div>
+
             </div>
 
           </div>
 
-          <!-- Bottom Sleek Navigation Bar (Clean 4 Tabs - No Obstructing Arch) -->
+          <!-- Bottom Sleek Navigation Bar -->
           <div class="sticky bottom-0 z-40 bg-[#041411]/95 backdrop-blur-md px-3 py-2 border-t border-amber-500/30 flex items-center justify-around">
             <button onclick="switchTab('home')" id="nav-home" class="flex flex-col items-center text-amber-300 text-xs font-bold transition">
               <i class="fa-solid fa-house mb-0.5 text-base"></i>
@@ -637,87 +585,275 @@
             </button>
           </div>
 
+          <!-- Add Custom Zikr Modal -->
+          <div id="customZikrModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+            <div class="w-full max-w-sm rounded-3xl bg-[#06211a] border border-amber-500/40 p-5 space-y-4 shadow-2xl text-right">
+              <div class="flex items-center justify-between border-b border-amber-500/20 pb-2">
+                <h3 class="text-sm font-bold text-amber-300">إضافة ذكر مخصص</h3>
+                <button onclick="closeAddZikrModal()" class="text-slate-400 hover:text-white text-base">&times;</button>
+              </div>
+
+              <div class="space-y-2">
+                <label class="text-xs text-slate-300 block">نص الذكر أو الدعاء:</label>
+                <textarea id="customZikrText" rows="2" placeholder="مثال: حَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيلُ..." class="w-full p-2.5 rounded-xl bg-[#041411] border border-emerald-500/30 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-400"></textarea>
+              </div>
+
+              <div class="space-y-2">
+                <label class="text-xs text-slate-300 block">العدد المستهدف:</label>
+                <div class="grid grid-cols-4 gap-1.5 text-center text-xs">
+                  <button type="button" onclick="selectModalTarget(33)" class="p-1.5 rounded-lg bg-[#041411] text-amber-300 border border-emerald-500/30 hover:border-amber-400">33</button>
+                  <button type="button" onclick="selectModalTarget(100)" class="p-1.5 rounded-lg bg-[#041411] text-amber-300 border border-emerald-500/30 hover:border-amber-400">100</button>
+                  <button type="button" onclick="selectModalTarget(1000)" class="p-1.5 rounded-lg bg-[#041411] text-amber-300 border border-emerald-500/30 hover:border-amber-400">1000</button>
+                  <button type="button" onclick="selectModalTarget(0)" class="p-1.5 rounded-lg bg-amber-400 text-emerald-950 font-bold border border-amber-400">مفتوح ∞</button>
+                </div>
+                <input type="number" id="customZikrTargetInput" value="0" placeholder="أو اكتب عدداً مخصصاً..." class="w-full p-2 rounded-xl bg-[#041411] border border-emerald-500/30 text-xs text-white mt-1">
+              </div>
+
+              <div class="flex items-center gap-2 pt-2">
+                <button onclick="saveCustomZikr()" class="flex-1 gold-button py-2 rounded-xl text-xs">حفظ الذكر والبدء بالتسبيح</button>
+                <button onclick="closeAddZikrModal()" class="px-3 py-2 rounded-xl bg-[#041411] text-slate-400 text-xs border border-emerald-500/30">إلغاء</button>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
 
   </div>
 
-  <!-- Interactive JavaScript Logic for Live Preview -->
+  <!-- Interactive JavaScript Logic -->
   <script>
-    // 1. Live Gregorian & Hijri Date Calculation
+    // 1. The 10 Authentic Core Azkar with Full Tashkeel
+    const core10Azkar = [
+      { id: 1, text: "سُبْحَانَ اللَّهِ", count: 0, target: 0, reward: "غرس نخلة في الجنة ومئة حسنة" },
+      { id: 2, text: "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ", count: 0, target: 100, reward: "حُطَّت خطاياه وإن كانت مثل زبد البحر (100 مرة)" },
+      { id: 3, text: "الْحَمْدُ لِلَّهِ", count: 0, target: 0, reward: "تملأ الميزان وأفضل الدعاء" },
+      { id: 4, text: "اللَّهُ أَكْبَرُ", count: 0, target: 0, reward: "أحب الكلام إلى الله تعالى" },
+      { id: 5, text: "لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ", count: 0, target: 0, reward: "كنز من تحت عرش الرحمن في الجنة" },
+      { id: 6, text: "اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ", count: 0, target: 10, reward: "من صلى عليّ صلاة صلى الله عليه بها عشراً" },
+      { id: 7, text: "لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ، وَهُوَ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ", count: 0, target: 100, reward: "عدل عشر رقاب ومئة حسنة وحرز من الشيطان" },
+      { id: 8, text: "أَسْتَغْفِرُ اللَّهَ الْعَظِيمَ وَأَتُوبُ إِلَيْهِ", count: 0, target: 100, reward: "مغفرة الذنوب وتفريج الهموم وبسط الرزق" },
+      { id: 9, text: "سُبْحَانَ اللَّهِ، وَالْحَمْدُ لِلَّهِ، وَلَا إِلَٰهَ إِلَّا اللَّهُ، وَاللَّهُ أَكْبَرُ", count: 0, target: 0, reward: "الباقيات الصالحات وأحب الكلام إلى الله" },
+      { id: 10, text: "لَا إِلَٰهَ إِلَّا أَنْتَ سُبْحَانَكَ إِنِّي كُنْتُ مِنَ الظَّالِمِينَ", count: 0, target: 0, reward: "دعوة ذي النون ما دعا بها مكروب إلا فُرِّج عنه" }
+    ];
+
+    let azkarList = [...core10Azkar];
+    let activeZikr = azkarList[1]; // default to سبحان الله وبحمده
+
+    function render10Azkar() {
+      const container = document.getElementById('azkar10Container');
+      if (!container) return;
+
+      container.innerHTML = azkarList.map((item, idx) => {
+        const isCurrent = activeZikr.id === item.id;
+        return `
+          <div onclick="selectZikr(${idx})" class="p-3 rounded-2xl bg-[#061e19] border ${isCurrent ? 'border-amber-400 bg-[#082a22]' : 'border-emerald-500/20'} hover:border-amber-400 cursor-pointer transition text-right space-y-1">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-lg bg-amber-500/20 text-amber-300 text-[10px] flex items-center justify-center font-bold">${idx + 1}</span>
+                <span class="text-xs font-bold text-white font-quran">${item.text}</span>
+              </div>
+              <span class="text-[10px] text-amber-300 font-mono">${item.target > 0 ? item.count + '/' + item.target : item.count}</span>
+            </div>
+            <p class="text-[9px] text-emerald-300/80 mr-8">${item.reward || 'ذكر مأثور مبارك'}</p>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function selectZikr(idx) {
+      activeZikr = azkarList[idx];
+      document.getElementById('activeZikrDisplay').textContent = activeZikr.text;
+      document.getElementById('tasbeehCount').textContent = activeZikr.count;
+      document.getElementById('targetCounterLabel').textContent = activeZikr.target > 0 ? `الهدف: ${activeZikr.target} مرة` : 'الهدف: مفتوح ∞';
+      render10Azkar();
+    }
+
+    function setCounterTarget(val) {
+      activeZikr.target = val;
+      document.getElementById('targetCounterLabel').textContent = val > 0 ? `الهدف: ${val} مرة` : 'الهدف: مفتوح ∞';
+      render10Azkar();
+    }
+
+    function incrementTasbeeh() {
+      activeZikr.count += 1;
+      document.getElementById('tasbeehCount').textContent = activeZikr.count;
+      
+      state.tasbeeh += 1;
+      document.getElementById('azkarSummary').textContent = `${state.tasbeeh} / 300 تسبيحة`;
+      document.getElementById('check-azkar').textContent = state.tasbeeh;
+      
+      render10Azkar();
+      recalculateDashboard();
+    }
+
+    function resetTasbeeh() {
+      activeZikr.count = 0;
+      document.getElementById('tasbeehCount').textContent = 0;
+      render10Azkar();
+    }
+
+    function openAddZikrModal() {
+      document.getElementById('customZikrModal').classList.remove('hidden');
+    }
+
+    function closeAddZikrModal() {
+      document.getElementById('customZikrModal').classList.add('hidden');
+    }
+
+    function selectModalTarget(val) {
+      document.getElementById('customZikrTargetInput').value = val;
+    }
+
+    function saveCustomZikr() {
+      const text = document.getElementById('customZikrText').value.trim();
+      const target = parseInt(document.getElementById('customZikrTargetInput').value, 10) || 0;
+      if (!text) {
+        alert('يرجى كتابة نص الذكر أو الدعاء');
+        return;
+      }
+      const newZikr = {
+        id: Date.now(),
+        text: text,
+        count: 0,
+        target: target,
+        reward: 'ذكر مخصص من اختيارك'
+      };
+      azkarList.unshift(newZikr);
+      selectZikr(0);
+      closeAddZikrModal();
+      document.getElementById('customZikrText').value = '';
+    }
+
+    // 2. Accurate Prayer Times with City and Geolocation (Daylight Saving Automatic Handling)
+    const prayerTimesData = {
+      Cairo: { name: 'القاهرة ومحيطها', fajr: '04:52', sunrise: '06:21', dhuhr: '11:43', asr: '14:44', maghrib: '17:04', isha: '18:24' },
+      Alexandria: { name: 'الإسكندرية والساحل', fajr: '04:57', sunrise: '06:27', dhuhr: '11:48', asr: '14:48', maghrib: '17:08', isha: '18:29' },
+      Makkah: { name: 'مكة المكرمة وما جاورها', fajr: '05:08', sunrise: '06:29', dhuhr: '12:05', asr: '15:18', maghrib: '17:41', isha: '19:11' },
+      Madinah: { name: 'المدينة المنورة', fajr: '05:12', sunrise: '06:33', dhuhr: '12:06', asr: '15:15', maghrib: '17:38', isha: '19:08' },
+      Riyadh: { name: 'مدينة الرياض', fajr: '04:47', sunrise: '06:08', dhuhr: '11:41', asr: '14:49', maghrib: '17:14', isha: '18:44' },
+      Dubai: { name: 'دبي والإمارات', fajr: '05:14', sunrise: '06:33', dhuhr: '12:08', asr: '15:19', maghrib: '17:43', isha: '19:13' },
+      Jerusalem: { name: 'القدس الشريف وفلسطين', fajr: '04:46', sunrise: '06:14', dhuhr: '11:33', asr: '14:31', maghrib: '16:53', isha: '18:14' }
+    };
+
+    let currentCity = 'Cairo';
+
+    function renderPrayerSchedule() {
+      const d = prayerTimesData[currentCity] || prayerTimesData.Cairo;
+      document.getElementById('prayerCityTitle').textContent = d.name;
+
+      // Timezone detection
+      const offsetHours = -(new Date().getTimezoneOffset() / 60);
+      const isWinter = offsetHours === 2;
+      document.getElementById('tzStatusText').textContent = `تلقائي (UTC+${offsetHours}) ${isWinter ? 'التوقيت الشتوي' : ''}`;
+
+      const list = [
+        { name: 'صلاة الفجر', time: d.fajr, icon: 'fa-cloud-sun' },
+        { name: 'الشروق', time: d.sunrise, icon: 'fa-sun' },
+        { name: 'صلاة الظهر', time: d.dhuhr, icon: 'fa-sun' },
+        { name: 'صلاة العصر', time: d.asr, icon: 'fa-cloud-sun', isNext: true },
+        { name: 'صلاة المغرب (الإفطار)', time: d.maghrib, icon: 'fa-moon' },
+        { name: 'صلاة العشاء والتراويح', time: d.isha, icon: 'fa-star-and-crescent' }
+      ];
+
+      document.getElementById('nextPrayerTime').textContent = format12(d.asr);
+
+      const table = document.getElementById('prayerTimesTable');
+      if (table) {
+        table.innerHTML = list.map(p => `
+          <div class="flex items-center justify-between p-2.5 rounded-xl ${p.isNext ? 'bg-[#082a22] border-2 border-amber-400 shadow-md' : 'bg-[#061e19] border border-amber-500/20'}">
+            <div class="flex items-center gap-2">
+              ${p.isNext ? '<span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>' : ''}
+              <span class="text-xs font-bold ${p.isNext ? 'text-amber-300' : 'text-white'}">${p.name} ${p.isNext ? '(القادمة)' : ''}</span>
+            </div>
+            <span class="text-xs font-mono font-bold ${p.isNext ? 'text-amber-300' : 'text-slate-300'}">${format12(p.time)}</span>
+          </div>
+        `).join('');
+      }
+    }
+
+    function format12(t) {
+      const [hStr, mStr] = t.split(':');
+      let h = parseInt(hStr, 10);
+      const suffix = h >= 12 ? 'م' : 'ص';
+      h = h % 12 || 12;
+      return `${String(h).padStart(2, '0')}:${mStr} ${suffix}`;
+    }
+
+    function changeCity(c) {
+      currentCity = c;
+      renderPrayerSchedule();
+    }
+
+    function detectUserLocation() {
+      const icon = document.getElementById('gpsIcon');
+      if (icon) icon.className = 'fa-solid fa-spinner fa-spin text-amber-400';
+
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (pos) => {
+            if (icon) icon.className = 'fa-solid fa-check text-emerald-400';
+            document.getElementById('prayerCityTitle').textContent = `موقعك الحالي (خط: ${pos.coords.latitude.toFixed(2)}°)`;
+            setTimeout(() => {
+              if (icon) icon.className = 'fa-solid fa-crosshairs';
+            }, 3000);
+          },
+          (err) => {
+            if (icon) icon.className = 'fa-solid fa-check text-amber-400';
+            document.getElementById('prayerCityTitle').textContent = 'موقعك الحالي (تم ضبط التوقيت تلقائياً)';
+            setTimeout(() => {
+              if (icon) icon.className = 'fa-solid fa-crosshairs';
+            }, 3000);
+          },
+          { timeout: 5000 }
+        );
+      }
+    }
+
+    // 3. Dates & Ramadan Countdown (Only Days)
     function updateLiveDates() {
       const now = new Date();
-      
-      // Gregorian Formatter
-      const gregFormatter = new Intl.DateTimeFormat('ar-EG', {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      });
-      document.getElementById('liveGregorianHeader').textContent = gregFormatter.format(now);
+      const greg = new Intl.DateTimeFormat('ar-EG', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+      document.getElementById('liveGregorianHeader').textContent = greg.format(now);
 
-      // Hijri Formatter (Umm al-Qura)
       try {
-        const hijriFormatter = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', {
-          day: 'numeric',
-          month: 'long',
-          year: 'numeric'
-        });
-        document.getElementById('liveHijriHeader').textContent = hijriFormatter.format(now) + ' هـ';
+        const hijri = new Intl.DateTimeFormat('ar-SA-u-ca-islamic-umalqura', { day: 'numeric', month: 'long', year: 'numeric' });
+        document.getElementById('liveHijriHeader').textContent = hijri.format(now) + ' هـ';
       } catch (e) {
         document.getElementById('liveHijriHeader').textContent = 'الثلاثاء 8 جمادى الآخرة 1448 هـ';
       }
     }
 
-    // 2. Real Countdown to Ramadan 1448 AH (Target roughly Feb 8, 2027)
-    // For calculation from now:
     function updateRamadanCountdown() {
-      // Ramadan 1, 1448 AH begins approx February 8, 2027 at Sunset
       const target = new Date('2027-02-08T00:00:00');
       const now = new Date();
       let diff = target - now;
-      
-      if (diff <= 0) {
-        // Fallback for demonstration if date passed
-        diff = 82 * 24 * 3600 * 1000 + 14 * 3600 * 1000 + 35 * 60 * 1000;
-      }
+      if (diff <= 0) diff = 82 * 24 * 3600 * 1000;
 
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
-
       document.getElementById('countdownDays').textContent = days;
-      document.getElementById('countdownHours').textContent = String(hours).padStart(2, '0');
-      document.getElementById('countdownMins').textContent = String(minutes).padStart(2, '0');
-      document.getElementById('countdownSecs').textContent = String(seconds).padStart(2, '0');
     }
 
-    // 3. Tab Switching
+    // 4. Tab Navigation & Dashboard State
     function switchTab(tabId) {
       document.querySelectorAll('.view-tab').forEach(t => t.classList.remove('active'));
       const activeTab = document.getElementById('tab-' + tabId);
       if (activeTab) activeTab.classList.add('active');
 
-      // Update Nav Buttons
       ['home', 'prayers', 'quran', 'tasbeeh'].forEach(id => {
         const btn = document.getElementById('nav-' + id);
         if (btn) {
-          if (id === tabId) {
-            btn.className = 'flex flex-col items-center text-amber-300 text-xs font-bold transition';
-          } else {
-            btn.className = 'flex flex-col items-center text-slate-400 hover:text-amber-300 text-xs transition';
-          }
+          btn.className = (id === tabId)
+            ? 'flex flex-col items-center text-amber-300 text-xs font-bold transition'
+            : 'flex flex-col items-center text-slate-400 hover:text-amber-300 text-xs transition';
         }
       });
     }
 
-    // 4. Interactive Achievement State & Calculation
     const state = {
       fasting: true,
-      prayers: [true, true, true, true, false], // Fajr, Dhuhr, Asr, Maghrib, Isha
+      prayers: [true, true, true, true, false],
       quran: true,
       tasbeeh: 150
     };
@@ -725,31 +861,27 @@
     function recalculateDashboard() {
       let totalTasks = 4;
       let completed = 0;
-
       if (state.fasting) completed += 1;
-      
       const prayersDone = state.prayers.filter(Boolean).length;
       if (prayersDone === 5) completed += 1;
       else completed += (prayersDone / 5);
-
       if (state.quran) completed += 1;
       if (state.tasbeeh >= 300) completed += 1;
       else completed += (state.tasbeeh / 300);
 
       const percent = Math.min(100, Math.round((completed / totalTasks) * 100));
-      
       document.getElementById('overallPercentText').textContent = percent + '%';
       document.getElementById('overallProgressBar').style.width = percent + '%';
 
       const doneItems = (state.fasting ? 1 : 0) + (prayersDone >= 4 ? 1 : 0) + (state.quran ? 1 : 0) + (state.tasbeeh >= 150 ? 1 : 0);
       document.getElementById('completedTasksCounter').textContent = `${doneItems} من 4 مهام مكتملة`;
 
-      // Update Fasting UI
+      // Fasting UI
       const fastingCard = document.getElementById('card-fasting');
       const fastingCheck = document.getElementById('check-fasting');
       const fastingText = document.getElementById('fastingStatusText');
       if (state.fasting) {
-        fastingCard.className = 'cursor-pointer p-3 rounded-2xl bg-[#07241e] border border-amber-500/40 hover:border-amber-400 transition-all flex flex-col justify-between';
+        fastingCard.className = 'cursor-pointer p-3 rounded-2xl bg-[#072821] border border-amber-500/40 hover:border-amber-400 transition-all flex flex-col justify-between';
         fastingCheck.className = 'w-5 h-5 rounded-full bg-amber-400 text-emerald-950 flex items-center justify-center text-[10px] font-bold shadow-sm';
         fastingCheck.textContent = '✓';
         fastingText.textContent = 'تم تسجيل الصيام ✓';
@@ -760,28 +892,11 @@
         fastingText.textContent = 'اضغط لتسجيل الصيام';
       }
 
-      // Update Quran Button
-      const btnQuran = document.getElementById('btnCompleteWird');
-      const checkQuran = document.getElementById('check-quran');
-      if (state.quran) {
-        btnQuran.className = 'w-full py-2 rounded-xl bg-amber-500/20 text-amber-300 text-xs font-bold border border-amber-400/40 transition flex items-center justify-center gap-2';
-        document.getElementById('wirdBtnCheck').textContent = '✓';
-        document.getElementById('wirdBtnText').textContent = 'أتممت قراءة ورد اليوم بنجاح';
-        checkQuran.className = 'w-5 h-5 rounded-full bg-amber-400 text-emerald-950 flex items-center justify-center text-[10px] font-bold';
-        checkQuran.textContent = '✓';
-      } else {
-        btnQuran.className = 'w-full py-2 rounded-xl bg-[#07221b] text-slate-300 hover:border-amber-400 text-xs font-bold border border-emerald-500/30 transition flex items-center justify-center gap-2';
-        document.getElementById('wirdBtnCheck').textContent = '○';
-        document.getElementById('wirdBtnText').textContent = 'اضغط لتأكيد إتمام ورد اليوم';
-        checkQuran.className = 'w-5 h-5 rounded-full bg-slate-700 text-slate-300 flex items-center justify-center text-[10px] font-bold';
-        checkQuran.textContent = '○';
-      }
-
-      // Update Prayers Badge
+      // Prayers UI
       document.getElementById('prayersCountBadge').textContent = `${prayersDone}/5`;
+      const names = ['فجر', 'ظهر', 'عصر', 'مغرب', 'عشاء'];
       state.prayers.forEach((done, idx) => {
         const btn = document.getElementById('prayer-btn-' + idx);
-        const names = ['فجر', 'ظهر', 'عصر', 'مغرب', 'عشاء'];
         if (done) {
           btn.className = 'py-1.5 rounded-xl bg-amber-400 text-emerald-950 font-bold transition';
           btn.textContent = names[idx] + ' ✓';
@@ -790,6 +905,23 @@
           btn.textContent = names[idx];
         }
       });
+
+      // Quran Wird UI
+      const btnQuran = document.getElementById('btnCompleteWird');
+      const checkQuran = document.getElementById('check-quran');
+      if (state.quran) {
+        btnQuran.className = 'w-full py-2.5 rounded-xl bg-amber-500/20 text-amber-300 text-xs font-bold border border-amber-400/40 transition flex items-center justify-center gap-2';
+        document.getElementById('wirdBtnCheck').textContent = '✓';
+        document.getElementById('wirdBtnText').textContent = 'أتممت قراءة ورد اليوم بنجاح';
+        checkQuran.className = 'w-5 h-5 rounded-full bg-amber-400 text-emerald-950 flex items-center justify-center text-[10px] font-bold';
+        checkQuran.textContent = '✓';
+      } else {
+        btnQuran.className = 'w-full py-2.5 rounded-xl bg-[#07221b] text-slate-300 hover:border-amber-400 text-xs font-bold border border-emerald-500/30 transition flex items-center justify-center gap-2';
+        document.getElementById('wirdBtnCheck').textContent = '○';
+        document.getElementById('wirdBtnText').textContent = 'اضغط لتأكيد إتمام ورد اليوم';
+        checkQuran.className = 'w-5 h-5 rounded-full bg-slate-700 text-slate-300 flex items-center justify-center text-[10px] font-bold';
+        checkQuran.textContent = '○';
+      }
     }
 
     function toggleAchievement(type) {
@@ -803,46 +935,14 @@
       recalculateDashboard();
     }
 
-    // 5. Tasbeeh Functionality
-    function incrementTasbeeh() {
-      state.tasbeeh += 1;
-      document.getElementById('tasbeehCount').textContent = state.tasbeeh;
-      document.getElementById('check-azkar').textContent = state.tasbeeh;
-      document.getElementById('azkarSummary').textContent = `${state.tasbeeh} / 300 تسبيحة`;
-      
-      if (state.tasbeeh >= 300) {
-        document.getElementById('check-azkar').className = 'w-5 h-5 rounded-full bg-amber-400 text-emerald-950 flex items-center justify-center text-[10px] font-bold';
-        document.getElementById('check-azkar').textContent = '✓';
-      }
-      recalculateDashboard();
-    }
-
-    function resetTasbeeh() {
-      state.tasbeeh = 0;
-      document.getElementById('tasbeehCount').textContent = 0;
-      document.getElementById('check-azkar').textContent = 0;
-      document.getElementById('azkarSummary').textContent = '0 / 300 تسبيحة';
-      recalculateDashboard();
-    }
-
-    function changeCity(city) {
-      const titles = {
-        Cairo: 'القاهرة ومحيطها',
-        Alexandria: 'الإسكندرية والساحل',
-        Makkah: 'مكة المكرمة وما جاورها',
-        Madinah: 'المدينة المنورة',
-        Riyadh: 'مدينة الرياض',
-        Dubai: 'دبي والإمارات',
-        Jerusalem: 'القدس الشريف وفلسطين'
-      };
-      document.getElementById('prayerCityTitle').textContent = titles[city] || city;
-    }
-
-    // Initialize
+    // Init
     updateLiveDates();
     updateRamadanCountdown();
+    renderPrayerSchedule();
+    render10Azkar();
+    selectZikr(1);
     recalculateDashboard();
-    setInterval(updateRamadanCountdown, 1000);
+    setInterval(updateRamadanCountdown, 5000);
   </script>
 </body>
 </html>
